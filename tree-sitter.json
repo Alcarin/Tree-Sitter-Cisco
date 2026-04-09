@@ -1,0 +1,37 @@
+{
+  "reference": "master",
+  "metadata": {
+    "version": "1.0.0",
+    "license": "ISC",
+    "description": "Cisco configuration parser",
+    "authors": [
+      {
+        "name": "Alcarin"
+      }
+    ]
+  },
+  "grammars": [
+    {
+      "name": "cisco",
+      "camelcase": "Cisco",
+      "scope": "source.cisco",
+      "path": ".",
+      "file-types": [
+        "cfg",
+        "conf",
+        "ios",
+        "nxos",
+        "xr",
+        "asa"
+      ]
+    }
+  ],
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}

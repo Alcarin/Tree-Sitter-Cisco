@@ -1,0 +1,12 @@
+# Tree-sitter build artifacts
+/build/
+/src/
+/binding.gyp
+/Makefile
+/package-lock.json
+
+# Node modules
+/node_modules/
+
+# Local research and external sources
+/.src/

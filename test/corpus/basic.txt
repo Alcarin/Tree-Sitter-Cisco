@@ -1,0 +1,27 @@
+==============================
+Basic Configuration
+==============================
+! comment
+hostname myrouter
+!
+interface GigabitEthernet0/0
+ description LAN
+ ip address 10.0.0.1 255.255.255.0
+!
+router ospf 1
+ network 10.0.0.0 0.0.0.255 area 0
+!
+
+---
+
+(source_file
+  (comment)
+  (command)
+  (comment)
+  (command)
+  (command)
+  (command)
+  (comment)
+  (command)
+  (command)
+  (comment))
