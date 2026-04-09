@@ -1,0 +1,36 @@
+==============================
+Advanced Diagnostic Outputs
+==============================
+show interfaces GigabitEthernet0/1
+GigabitEthernet0/1 is up, line protocol is up
+  Hardware is Gigabit Ethernet, address is aaaa.bbbb.cccc (bia aaaa.bbbb.cccc)
+  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec,
+  Full-duplex, 1000Mb/s, media type is 10/100/1000BaseTX
+  input rate 1000 bits/sec, 2 packets/sec
+  output rate 2000 bits/sec, 4 packets/sec
+!
+show ip ospf neighbor
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+1.1.1.1           1   FULL/DR         00:00:35    192.168.1.1     GigabitEthernet0/1
+!
+show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+Switch           Gig 0/1           150              S I   WS-C2960  Gig 0/1
+!
+
+---
+
+(source_file
+  (show_command
+    (show_interfaces_content
+      (interface_status_entry (interface) (status) (protocol) (mac) (mtu) (bandwidth) (duplex) (speed))))
+  (comment)
+  (show_command
+    (show_ip_ospf_neighbor_content
+      (ospf_neighbor_entry (neighbor_id) (priority) (state) (dead_time) (address) (interface))))
+  (comment)
+  (show_command
+    (show_cdp_neighbors_content
+      (cdp_neighbor_entry (device_id) (local_interface) (holdtime) (capability) (platform) (remote_interface))))
+  (comment))

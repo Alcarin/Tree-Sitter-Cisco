@@ -1,0 +1,27 @@
+==============================
+Advanced Primitives
+==============================
+interface GigabitEthernet0/1
+ ipv6 address 2001:db8::1/64
+ mac-address aaaa.bbbb.cccc
+ switchport trunk allowed vlan 10,20,30-40
+!
+interface Vlan100
+ ip address 192.168.1.1 255.255.255.0
+
+---
+
+(source_file
+  (block
+    (command (word) (interface_name))
+    (indented_command
+      (command (word) (word) (ipv6_address)))
+    (indented_command
+      (command (word) (mac_address)))
+    (indented_command
+      (command (word) (word) (word) (word) (vlan_range))))
+  (comment)
+  (block
+    (command (word) (interface_name))
+    (indented_command
+      (command (word) (word) (ipv4_address) (ipv4_address)))))

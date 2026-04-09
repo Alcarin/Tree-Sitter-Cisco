@@ -16,12 +16,17 @@ router ospf 1
 
 (source_file
   (comment)
-  (command)
+  (command (word) (word))
   (comment)
-  (command)
-  (command)
-  (command)
+  (block
+    (command (word) (interface_name))
+    (indented_command
+      (command (word) (word)))
+    (indented_command
+      (command (word) (word) (ipv4_address) (ipv4_address))))
   (comment)
-  (command)
-  (command)
+  (block
+    (command (word) (word) (number))
+    (indented_command
+      (command (word) (ipv4_address) (ipv4_address) (word) (number))))
   (comment))

@@ -1,0 +1,43 @@
+==============================
+BGP and OSPF Routing
+==============================
+router bgp 65000
+ neighbor 1.1.1.1 remote-as 65001
+ neighbor 1.1.1.1 update-source Loopback0
+ !
+ address-family ipv4 unicast
+  network 10.0.0.0 mask 255.255.255.0
+  neighbor 1.1.1.1 activate
+ !
+!
+router ospf 1
+ network 192.168.1.0 0.0.0.255 area 0
+ area 0 authentication message-digest
+!
+
+---
+
+(source_file
+  (block
+    (command (word) (word) (number))
+    (indented_command
+      (bgp_neighbor (address) (remote_as)))
+    (indented_command
+      (bgp_neighbor (address) (interface)))
+    (comment)
+    (indented_command
+      (block
+        (address_family (afi) (safi))
+        (indented_command
+          (bgp_network (address) (mask)))
+        (indented_command
+          (bgp_neighbor (address)))
+        (comment))))
+  (comment)
+  (block
+    (command (word) (word) (number))
+    (indented_command
+      (ospf_network (address) (wildcard) (area)))
+    (indented_command
+      (ospf_area (area))))
+  (comment))

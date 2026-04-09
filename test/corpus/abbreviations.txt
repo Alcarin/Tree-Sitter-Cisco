@@ -1,0 +1,29 @@
+==============================
+Command Abbreviations
+==============================
+interface GigabitEthernet0/1
+ ip addr 192.168.1.1 255.255.255.0 sec
+ ipv6 addr 2001:db8::1/64
+!
+ip access-list extended MY_ACL
+ perm tcp any any established
+ den ip 10.0.0.0 0.255.255.255 any
+!
+
+---
+
+(source_file
+  (block
+    (command (word) (interface_name))
+    (indented_command
+      (ip_address_assignment (address) (mask) (secondary)))
+    (indented_command
+      (ipv6_address_assignment (address))))
+  (comment)
+  (block
+    (command (word) (word) (word) (word))
+    (indented_command
+      (acl_rule (word) (word) (word) (word)))
+    (indented_command
+      (acl_rule (word) (ipv4_address) (ipv4_address) (word))))
+  (comment))

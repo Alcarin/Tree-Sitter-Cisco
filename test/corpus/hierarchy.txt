@@ -1,0 +1,42 @@
+==============================
+Multi-level Nesting (XR-style)
+==============================
+router ospf 1
+ area 0
+  interface GigabitEthernet0/0/0/0
+   network point-to-point
+  !
+ !
+!
+
+---
+
+(source_file
+  (block
+    (command (word) (word) (number))
+    (indented_command
+      (block
+        (command (word) (number))
+        (indented_command
+          (block
+            (command (interface_name))
+            (indented_command
+              (command (word) (word))))
+          (comment))
+        (comment)))
+  (comment))
+
+==============================
+Banner with delimiters
+==============================
+banner motd ^C
+ This is a multi-line
+ banner content
+^C
+!
+
+---
+
+(source_file
+  (banner (delimiter))
+  (comment))

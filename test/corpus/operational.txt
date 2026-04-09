@@ -1,0 +1,41 @@
+==============================
+Operational and Extra Resources
+==============================
+snmp-server community public RO
+snmp-server host 192.168.1.10 version 2c public
+vlan 10
+vrf definition MGMT
+!
+show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+Gateway of last resort is not set
+C 192.168.1.0/24 [0/0] via GigabitEthernet0/1
+S 0.0.0.0/0 [1/0] via 192.168.1.254
+!
+show mac address-table
+          Mac Address Table
+-------------------------------------------
+Vlan    Mac Address       Type        Ports
+----    -----------       ----        -----
+ 10    aaaa.bbbb.cccc    DYNAMIC     Gi0/1
+ All   0100.0ccc.cccc    STATIC      CPU
+!
+
+---
+
+(source_file
+  (snmp_config (name))
+  (snmp_config (address) (community))
+  (vlan_definition (id))
+  (vrf_definition (name))
+  (comment)
+  (show_command
+    (show_ip_route_content
+      (routing_entry (protocol) (prefix) (mask_length) (distance) (metric) (interface))
+      (routing_entry (protocol) (prefix) (mask_length) (distance) (metric) (next_hop))))
+  (comment)
+  (show_command
+    (show_mac_address_table_content
+      (mac_entry (vlan) (mac) (ports))
+      (mac_entry (vlan) (mac) (ports))))
+  (comment))

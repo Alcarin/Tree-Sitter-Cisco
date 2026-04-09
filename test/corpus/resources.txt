@@ -1,0 +1,32 @@
+==============================
+L3 Interfaces and ACLs
+==============================
+interface GigabitEthernet0/1
+ ip address 192.168.1.1 255.255.255.0
+ ip address 10.0.0.1 255.255.255.0 secondary
+ ipv6 address 2001:db8::1/64
+!
+ip access-list extended MY_ACL
+ permit tcp any any established
+ deny ip 10.0.0.0 0.255.255.255 any
+!
+
+---
+
+(source_file
+  (block
+    (command (word) (interface_name))
+    (indented_command
+      (ip_address_assignment (address) (mask)))
+    (indented_command
+      (ip_address_assignment (address) (mask) (secondary)))
+    (indented_command
+      (ipv6_address_assignment (address))))
+  (comment)
+  (block
+    (command (word) (word) (word) (word))
+    (indented_command
+      (acl_rule (word) (word) (word) (word)))
+    (indented_command
+      (acl_rule (word) (ipv4_address) (ipv4_address) (word))))
+  (comment))

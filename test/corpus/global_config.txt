@@ -1,0 +1,23 @@
+==============================
+Static Routes and Global Config
+==============================
+ip route 10.1.1.0 255.255.255.0 192.168.1.254
+ip route vrf TRUST 0.0.0.0 0.0.0.0 GigabitEthernet0/0 10 tag 100 name DEFAULT
+ntp server 1.1.1.1
+ntp source Loopback0
+logging host 10.2.2.2
+logging trap debugging
+!
+
+---
+
+(source_file
+  (static_route
+    (destination) (mask) (next_hop))
+  (static_route
+    (vrf) (destination) (mask) (next_hop) (distance) (tag) (name))
+  (ntp_config (address))
+  (ntp_config (interface))
+  (logging_config (host))
+  (logging_config (severity))
+  (comment))
