@@ -15,27 +15,43 @@ S 0.0.0.0/0 [1/0] via 192.168.1.254
 show mac address-table
           Mac Address Table
 -------------------------------------------
-Vlan    Mac Address       Type        Ports
-----    -----------       ----        -----
- 10    aaaa.bbbb.cccc    DYNAMIC     Gi0/1
- All   0100.0ccc.cccc    STATIC      CPU
-!
-
----
 
 (source_file
-  (snmp_config (name))
-  (snmp_config (address) (community))
-  (vlan_definition (id))
-  (vrf_definition (name))
+  (snmp_config
+    (name))
+  (snmp_config
+    (address)
+    (community))
+  (vlan_definition
+    (id))
+  (vrf_definition
+    (name))
   (comment)
   (show_command
     (show_ip_route_content
-      (routing_entry (protocol) (prefix) (mask_length) (distance) (metric) (interface))
-      (routing_entry (protocol) (prefix) (mask_length) (distance) (metric) (next_hop))))
+      (routing_entry
+        (protocol)
+        (prefix)
+        (mask_length)
+        (distance)
+        (metric)
+        (interface))
+      (routing_entry
+        (protocol)
+        (prefix)
+        (mask_length)
+        (distance)
+        (metric)
+        (next_hop))))
   (comment)
   (show_command
     (show_mac_address_table_content
-      (mac_entry (vlan) (mac) (ports))
-      (mac_entry (vlan) (mac) (ports))))
+      (mac_entry
+        (vlan)
+        (mac)
+        (ports))
+      (mac_entry
+        (vlan)
+        (mac)
+        (ports))))
   (comment))

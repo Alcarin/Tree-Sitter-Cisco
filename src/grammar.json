@@ -238,10 +238,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "static_route"
-        },
-        {
-          "type": "SYMBOL",
           "name": "command"
         },
         {
@@ -522,7 +518,7 @@
         "value": -1,
         "content": {
           "type": "PATTERN",
-          "value": "[a-zA-Z0-9._\\/!@#$%\\-:,/()]+"
+          "value": "[a-zA-Z0-9._\\/!@#$%\\-:,/()+]+"
         }
       }
     },
@@ -599,8 +595,9 @@
         "type": "PREC",
         "value": 10,
         "content": {
-          "type": "STRING",
-          "value": "interface"
+          "type": "PATTERN",
+          "value": "interface|int",
+          "flags": "i"
         }
       }
     },
@@ -610,8 +607,9 @@
         "type": "PREC",
         "value": 10,
         "content": {
-          "type": "STRING",
-          "value": "router"
+          "type": "PATTERN",
+          "value": "router",
+          "flags": "i"
         }
       }
     },
@@ -621,8 +619,9 @@
         "type": "PREC",
         "value": 10,
         "content": {
-          "type": "STRING",
-          "value": "bgp"
+          "type": "PATTERN",
+          "value": "bgp",
+          "flags": "i"
         }
       }
     },
@@ -632,8 +631,9 @@
         "type": "PREC",
         "value": 10,
         "content": {
-          "type": "STRING",
-          "value": "ospf"
+          "type": "PATTERN",
+          "value": "ospf",
+          "flags": "i"
         }
       }
     },
@@ -643,8 +643,9 @@
         "type": "PREC",
         "value": 10,
         "content": {
-          "type": "STRING",
-          "value": "vlan"
+          "type": "PATTERN",
+          "value": "vlan",
+          "flags": "i"
         }
       }
     },
@@ -654,8 +655,9 @@
         "type": "PREC",
         "value": 10,
         "content": {
-          "type": "STRING",
-          "value": "line"
+          "type": "PATTERN",
+          "value": "line",
+          "flags": "i"
         }
       }
     },
@@ -665,162 +667,9 @@
         "type": "PREC",
         "value": 10,
         "content": {
-          "type": "STRING",
-          "value": "ip"
-        }
-      }
-    },
-    "_kw_hostname": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "hostname"
-        }
-      }
-    },
-    "_kw_username": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "username"
-        }
-      }
-    },
-    "_kw_description": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "description"
-        }
-      }
-    },
-    "_kw_address": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "address"
-        }
-      }
-    },
-    "_kw_switchport": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "switchport"
-        }
-      }
-    },
-    "_kw_spanning_tree": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "spanning-tree"
-        }
-      }
-    },
-    "_kw_neighbor": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "neighbor"
-        }
-      }
-    },
-    "_kw_network": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "network"
-        }
-      }
-    },
-    "_kw_ntp": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "ntp"
-        }
-      }
-    },
-    "_kw_logging": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "logging"
-        }
-      }
-    },
-    "_kw_snmp": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "snmp-server"
-        }
-      }
-    },
-    "_kw_aaa": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "aaa"
-        }
-      }
-    },
-    "_kw_boot": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "boot"
-        }
-      }
-    },
-    "_kw_crypto": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 10,
-        "content": {
-          "type": "STRING",
-          "value": "crypto"
+          "type": "PATTERN",
+          "value": "ip",
+          "flags": "i"
         }
       }
     },
@@ -830,8 +679,213 @@
         "type": "PREC",
         "value": 10,
         "content": {
-          "type": "STRING",
-          "value": "ipv6"
+          "type": "PATTERN",
+          "value": "ipv6",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_hostname": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "hostname|host",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_username": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "username|user",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_description": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "description|desc",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_address": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "address|addr",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_switchport": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "switchport|sw",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_spanning_tree": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "spanning-tree|span",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_neighbor": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "neighbor|neigh",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_network": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "network|net",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_ntp": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "ntp",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_logging": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "logging|log",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_snmp": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "snmp-server",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_aaa": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "aaa",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_boot": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "boot",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_crypto": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "crypto",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_port_security": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "port-security|port-sec",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_secondary": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "secondary|sec",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_shutdown": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "shutdown|shut",
+          "flags": "i"
         }
       }
     },
@@ -863,6 +917,48 @@
           "content": {
             "type": "SYMBOL",
             "name": "_interface_statement"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_dedent"
+        }
+      ]
+    },
+    "vrf_definition_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "vrf",
+          "flags": "i"
+        },
+        {
+          "type": "PATTERN",
+          "value": "definition",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_indent"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_vrf_statement"
           }
         },
         {
@@ -937,8 +1033,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "vrf"
+                  "type": "PATTERN",
+                  "value": "vrf",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -1026,16 +1123,19 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "STRING",
-                "value": "vty"
+                "type": "PATTERN",
+                "value": "vty",
+                "flags": "i"
               },
               {
-                "type": "STRING",
-                "value": "con"
+                "type": "PATTERN",
+                "value": "con",
+                "flags": "i"
               },
               {
-                "type": "STRING",
-                "value": "aux"
+                "type": "PATTERN",
+                "value": "aux",
+                "flags": "i"
               }
             ]
           }
@@ -1078,8 +1178,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "class-map"
+                  "type": "PATTERN",
+                  "value": "class-map",
+                  "flags": "i"
                 },
                 {
                   "type": "CHOICE",
@@ -1088,12 +1189,14 @@
                       "type": "CHOICE",
                       "members": [
                         {
-                          "type": "STRING",
-                          "value": "match-all"
+                          "type": "PATTERN",
+                          "value": "match-all",
+                          "flags": "i"
                         },
                         {
-                          "type": "STRING",
-                          "value": "match-any"
+                          "type": "PATTERN",
+                          "value": "match-any",
+                          "flags": "i"
                         }
                       ]
                     },
@@ -1116,8 +1219,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "policy-map"
+                  "type": "PATTERN",
+                  "value": "policy-map",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -1160,19 +1264,22 @@
           "name": "_kw_ip"
         },
         {
-          "type": "STRING",
-          "value": "access-list"
+          "type": "PATTERN",
+          "value": "access-list",
+          "flags": "i"
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "standard"
+              "type": "PATTERN",
+              "value": "standard",
+              "flags": "i"
             },
             {
-              "type": "STRING",
-              "value": "extended"
+              "type": "PATTERN",
+              "value": "extended",
+              "flags": "i"
             }
           ]
         },
@@ -1233,8 +1340,9 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "service"
+              "type": "PATTERN",
+              "value": "service",
+              "flags": "i"
             },
             {
               "type": "SYMBOL",
@@ -1250,12 +1358,14 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "enable"
+              "type": "PATTERN",
+              "value": "enable",
+              "flags": "i"
             },
             {
-              "type": "STRING",
-              "value": "secret"
+              "type": "PATTERN",
+              "value": "secret",
+              "flags": "i"
             },
             {
               "type": "SYMBOL",
@@ -1283,8 +1393,9 @@
               "name": "_kw_ip"
             },
             {
-              "type": "STRING",
-              "value": "domain-name"
+              "type": "PATTERN",
+              "value": "domain-name",
+              "flags": "i"
             },
             {
               "type": "FIELD",
@@ -1327,6 +1438,18 @@
         {
           "type": "SYMBOL",
           "name": "crypto_config"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "prefix_list"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "static_route"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "vrf_definition_block"
         }
       ]
     },
@@ -1347,12 +1470,14 @@
                   "type": "CHOICE",
                   "members": [
                     {
-                      "type": "STRING",
-                      "value": "server"
+                      "type": "PATTERN",
+                      "value": "server",
+                      "flags": "i"
                     },
                     {
-                      "type": "STRING",
-                      "value": "peer"
+                      "type": "PATTERN",
+                      "value": "peer",
+                      "flags": "i"
                     }
                   ]
                 },
@@ -1379,8 +1504,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "source"
+                  "type": "PATTERN",
+                  "value": "source",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -1414,8 +1540,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "host"
+                  "type": "PATTERN",
+                  "value": "host",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -1431,8 +1558,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "source-interface"
+                  "type": "PATTERN",
+                  "value": "source-interface",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -1448,8 +1576,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "trap"
+                  "type": "PATTERN",
+                  "value": "trap",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -1492,8 +1621,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "community"
+                  "type": "PATTERN",
+                  "value": "community",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -1510,12 +1640,14 @@
                       "type": "CHOICE",
                       "members": [
                         {
-                          "type": "STRING",
-                          "value": "RO"
+                          "type": "PATTERN",
+                          "value": "RO",
+                          "flags": "i"
                         },
                         {
-                          "type": "STRING",
-                          "value": "RW"
+                          "type": "PATTERN",
+                          "value": "RW",
+                          "flags": "i"
                         }
                       ]
                     },
@@ -1530,8 +1662,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "host"
+                  "type": "PATTERN",
+                  "value": "host",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -1570,29 +1703,90 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "new-model"
+              "type": "PATTERN",
+              "value": "new-model",
+              "flags": "i"
             },
             {
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "authentication"
+                  "type": "PATTERN",
+                  "value": "authentication",
+                  "flags": "i"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "word"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "login",
+                      "flags": "i"
+                    },
+                    {
+                      "type": "PATTERN",
+                      "value": "enable",
+                      "flags": "i"
+                    }
+                  ]
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "word"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "default",
+                      "flags": "i"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "list_name",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "word"
+                      }
+                    }
+                  ]
                 },
                 {
-                  "type": "REPEAT",
+                  "type": "REPEAT1",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "word"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "PATTERN",
+                        "value": "local",
+                        "flags": "i"
+                      },
+                      {
+                        "type": "PATTERN",
+                        "value": "enable",
+                        "flags": "i"
+                      },
+                      {
+                        "type": "PATTERN",
+                        "value": "line",
+                        "flags": "i"
+                      },
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "PATTERN",
+                            "value": "group",
+                            "flags": "i"
+                          },
+                          {
+                            "type": "FIELD",
+                            "name": "group_name",
+                            "content": {
+                              "type": "SYMBOL",
+                              "name": "word"
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   }
                 }
               ]
@@ -1613,23 +1807,27 @@
           "name": "_kw_boot"
         },
         {
-          "type": "STRING",
-          "value": "system"
+          "type": "PATTERN",
+          "value": "system",
+          "flags": "i"
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "flash"
+              "type": "PATTERN",
+              "value": "flash",
+              "flags": "i"
             },
             {
-              "type": "STRING",
-              "value": "tftp"
+              "type": "PATTERN",
+              "value": "tftp",
+              "flags": "i"
             },
             {
-              "type": "STRING",
-              "value": "ftp"
+              "type": "PATTERN",
+              "value": "ftp",
+              "flags": "i"
             }
           ]
         },
@@ -1655,23 +1853,27 @@
           "name": "_kw_crypto"
         },
         {
-          "type": "STRING",
-          "value": "key"
+          "type": "PATTERN",
+          "value": "key",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "generate"
+          "type": "PATTERN",
+          "value": "generate",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "rsa"
+          "type": "PATTERN",
+          "value": "rsa",
+          "flags": "i"
         },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "general-keys"
+              "type": "PATTERN",
+              "value": "general-keys",
+              "flags": "i"
             },
             {
               "type": "BLANK"
@@ -1685,8 +1887,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "modulus"
+                  "type": "PATTERN",
+                  "value": "modulus",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -1731,12 +1934,17 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "privilege"
+                  "type": "PATTERN",
+                  "value": "privilege",
+                  "flags": "i"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "number"
+                  "type": "FIELD",
+                  "name": "level",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
                 }
               ]
             },
@@ -1749,15 +1957,42 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "CHOICE",
+              "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "password"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "password",
+                      "flags": "i"
+                    },
+                    {
+                      "type": "PATTERN",
+                      "value": "secret",
+                      "flags": "i"
+                    }
+                  ]
                 },
                 {
-                  "type": "STRING",
-                  "value": "secret"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "number"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "FIELD",
+                  "name": "password",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "word"
+                  }
                 }
               ]
             },
@@ -1770,21 +2005,26 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "number"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_description"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "description",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "word"
+                  }
+                }
+              ]
             },
             {
               "type": "BLANK"
             }
           ]
-        },
-        {
-          "type": "FIELD",
-          "name": "password",
-          "content": {
-            "type": "SYMBOL",
-            "name": "word"
-          }
         },
         {
           "type": "SYMBOL",
@@ -1799,8 +2039,9 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "vrf"
+              "type": "PATTERN",
+              "value": "vrf",
+              "flags": "i"
             },
             {
               "type": "SEQ",
@@ -1810,8 +2051,9 @@
                   "name": "_kw_ip"
                 },
                 {
-                  "type": "STRING",
-                  "value": "vrf"
+                  "type": "PATTERN",
+                  "value": "vrf",
+                  "flags": "i"
                 }
               ]
             }
@@ -1821,12 +2063,14 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "definition"
+              "type": "PATTERN",
+              "value": "definition",
+              "flags": "i"
             },
             {
-              "type": "STRING",
-              "value": "forwarding"
+              "type": "PATTERN",
+              "value": "forwarding",
+              "flags": "i"
             }
           ]
         },
@@ -1852,8 +2096,9 @@
           "name": "_kw_ip"
         },
         {
-          "type": "STRING",
-          "value": "route"
+          "type": "PATTERN",
+          "value": "route",
+          "flags": "i"
         },
         {
           "type": "CHOICE",
@@ -1862,8 +2107,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "vrf"
+                  "type": "PATTERN",
+                  "value": "vrf",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -1914,6 +2160,154 @@
           }
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "distance",
+              "content": {
+                "type": "SYMBOL",
+                "name": "number"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "prefix_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_ip"
+        },
+        {
+          "type": "PATTERN",
+          "value": "prefix-list",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "seq",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "sequence",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "action",
+          "content": {
+            "type": "SYMBOL",
+            "name": "acl_action"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "prefix",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "/"
+        },
+        {
+          "type": "FIELD",
+          "name": "length",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "ge",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "ge",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "le",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "le",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "_newline"
         }
@@ -1962,19 +2356,110 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "service-policy"
+              "type": "SYMBOL",
+              "name": "_kw_ip"
+            },
+            {
+              "type": "PATTERN",
+              "value": "vrf",
+              "flags": "i"
+            },
+            {
+              "type": "PATTERN",
+              "value": "forwarding",
+              "flags": "i"
+            },
+            {
+              "type": "FIELD",
+              "name": "vrf",
+              "content": {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_newline"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_kw_ip"
+            },
+            {
+              "type": "PATTERN",
+              "value": "helper-address",
+              "flags": "i"
+            },
+            {
+              "type": "FIELD",
+              "name": "helper",
+              "content": {
+                "type": "SYMBOL",
+                "name": "ipv4_address"
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_newline"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "no",
+                  "flags": "i"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_kw_ip"
+            },
+            {
+              "type": "PATTERN",
+              "value": "proxy-arp",
+              "flags": "i"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_newline"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "service-policy",
+              "flags": "i"
             },
             {
               "type": "CHOICE",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "input"
+                  "type": "PATTERN",
+                  "value": "input",
+                  "flags": "i"
                 },
                 {
-                  "type": "STRING",
-                  "value": "output"
+                  "type": "PATTERN",
+                  "value": "output",
+                  "flags": "i"
                 }
               ]
             },
@@ -2070,8 +2555,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "secondary"
+              "type": "SYMBOL",
+              "name": "_kw_secondary"
             },
             {
               "type": "BLANK"
@@ -2120,8 +2605,9 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "no"
+              "type": "PATTERN",
+              "value": "no",
+              "flags": "i"
             },
             {
               "type": "BLANK"
@@ -2129,8 +2615,8 @@
           ]
         },
         {
-          "type": "STRING",
-          "value": "shutdown"
+          "type": "SYMBOL",
+          "name": "_kw_shutdown"
         },
         {
           "type": "SYMBOL",
@@ -2142,8 +2628,9 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "speed"
+          "type": "PATTERN",
+          "value": "speed",
+          "flags": "i"
         },
         {
           "type": "FIELD",
@@ -2152,8 +2639,9 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "STRING",
-                "value": "auto"
+                "type": "PATTERN",
+                "value": "auto",
+                "flags": "i"
               },
               {
                 "type": "SYMBOL",
@@ -2172,8 +2660,9 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "duplex"
+          "type": "PATTERN",
+          "value": "duplex",
+          "flags": "i"
         },
         {
           "type": "FIELD",
@@ -2182,16 +2671,19 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "STRING",
-                "value": "auto"
+                "type": "PATTERN",
+                "value": "auto",
+                "flags": "i"
               },
               {
-                "type": "STRING",
-                "value": "full"
+                "type": "PATTERN",
+                "value": "full",
+                "flags": "i"
               },
               {
-                "type": "STRING",
-                "value": "half"
+                "type": "PATTERN",
+                "value": "half",
+                "flags": "i"
               }
             ]
           }
@@ -2206,8 +2698,9 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "mtu"
+          "type": "PATTERN",
+          "value": "mtu",
+          "flags": "i"
         },
         {
           "type": "FIELD",
@@ -2227,8 +2720,9 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "bandwidth"
+          "type": "PATTERN",
+          "value": "bandwidth",
+          "flags": "i"
         },
         {
           "type": "FIELD",
@@ -2258,8 +2752,9 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "mode"
+                  "type": "PATTERN",
+                  "value": "mode",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -2275,12 +2770,14 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "access"
+                  "type": "PATTERN",
+                  "value": "access",
+                  "flags": "i"
                 },
                 {
-                  "type": "STRING",
-                  "value": "vlan"
+                  "type": "PATTERN",
+                  "value": "vlan",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -2296,16 +2793,19 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "trunk"
+                  "type": "PATTERN",
+                  "value": "trunk",
+                  "flags": "i"
                 },
                 {
-                  "type": "STRING",
-                  "value": "allowed"
+                  "type": "PATTERN",
+                  "value": "allowed",
+                  "flags": "i"
                 },
                 {
-                  "type": "STRING",
-                  "value": "vlan"
+                  "type": "PATTERN",
+                  "value": "vlan",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -2321,16 +2821,19 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "trunk"
+                  "type": "PATTERN",
+                  "value": "trunk",
+                  "flags": "i"
                 },
                 {
-                  "type": "STRING",
-                  "value": "native"
+                  "type": "PATTERN",
+                  "value": "native",
+                  "flags": "i"
                 },
                 {
-                  "type": "STRING",
-                  "value": "vlan"
+                  "type": "PATTERN",
+                  "value": "vlan",
+                  "flags": "i"
                 },
                 {
                   "type": "FIELD",
@@ -2341,6 +2844,10 @@
                   }
                 }
               ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "port_security_config"
             },
             {
               "type": "PREC",
@@ -2361,27 +2868,133 @@
         }
       ]
     },
+    "port_security_config": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_port_security"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "maximum",
+                      "flags": "i"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "max",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "number"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "violation",
+                      "flags": "i"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "action",
+                      "content": {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "PATTERN",
+                            "value": "shutdown",
+                            "flags": "i"
+                          },
+                          {
+                            "type": "PATTERN",
+                            "value": "restrict",
+                            "flags": "i"
+                          },
+                          {
+                            "type": "PATTERN",
+                            "value": "protect",
+                            "flags": "i"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "mac-address",
+                      "flags": "i"
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "sticky",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "mac",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "mac_address"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "switchport_mode": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "access"
+          "type": "PATTERN",
+          "value": "access",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "trunk"
+          "type": "PATTERN",
+          "value": "trunk",
+          "flags": "i"
         },
         {
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "dynamic"
+              "type": "PATTERN",
+              "value": "dynamic",
+              "flags": "i"
             },
             {
-              "type": "STRING",
-              "value": "auto"
+              "type": "PATTERN",
+              "value": "auto",
+              "flags": "i"
             }
           ]
         },
@@ -2389,12 +3002,14 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "dynamic"
+              "type": "PATTERN",
+              "value": "dynamic",
+              "flags": "i"
             },
             {
-              "type": "STRING",
-              "value": "desirable"
+              "type": "PATTERN",
+              "value": "desirable",
+              "flags": "i"
             }
           ]
         }
@@ -2404,182 +3019,28 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "router-id"
-            },
-            {
-              "type": "FIELD",
-              "name": "router_id",
-              "content": {
-                "type": "SYMBOL",
-                "name": "ipv4_address"
-              }
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "bgp_router_id"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bgp_neighbor"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bgp_address_family"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bgp_network"
         },
         {
           "type": "SEQ",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "_kw_neighbor"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "ipv4_address"
-            },
-            {
-              "type": "STRING",
-              "value": "remote-as"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "number"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_kw_neighbor"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "ipv4_address"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_kw_description"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "word"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "address-family"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "word"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "word"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_kw_network"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "ipv4_address"
-            },
-            {
-              "type": "STRING",
-              "value": "mask"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "ipv4_address"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_kw_neighbor"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "ipv4_address"
-            },
-            {
-              "type": "STRING",
-              "value": "activate"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_kw_neighbor"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "ipv4_address"
-            },
-            {
-              "type": "STRING",
-              "value": "soft-reconfiguration"
-            },
-            {
-              "type": "STRING",
-              "value": "inbound"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "exit-address-family"
+              "type": "PATTERN",
+              "value": "exit-address-family",
+              "flags": "i"
             },
             {
               "type": "SYMBOL",
@@ -2590,6 +3051,303 @@
         {
           "type": "SYMBOL",
           "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "bgp_router_id": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "router-id",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "router_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "bgp_neighbor": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_neighbor"
+        },
+        {
+          "type": "FIELD",
+          "name": "address",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ipv4_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "remote-as",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "remote_as",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_kw_description"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "description",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "word"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "update-source",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "interface",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "interface_name"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "PATTERN",
+              "value": "activate",
+              "flags": "i"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "soft-reconfiguration",
+                  "flags": "i"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "inbound",
+                  "flags": "i"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "bgp_address_family": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "address-family",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "afi",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "ipv4",
+                "flags": "i"
+              },
+              {
+                "type": "PATTERN",
+                "value": "ipv6",
+                "flags": "i"
+              },
+              {
+                "type": "PATTERN",
+                "value": "vpnv4",
+                "flags": "i"
+              },
+              {
+                "type": "PATTERN",
+                "value": "vpnv6",
+                "flags": "i"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "safi",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "PATTERN",
+                    "value": "unicast",
+                    "flags": "i"
+                  },
+                  {
+                    "type": "PATTERN",
+                    "value": "multicast",
+                    "flags": "i"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_indent"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_bgp_af_statement"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_dedent"
+        }
+      ]
+    },
+    "_bgp_af_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "bgp_network"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bgp_neighbor"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "exit-address-family",
+              "flags": "i"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_newline"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "bgp_network": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_network"
+        },
+        {
+          "type": "FIELD",
+          "name": "address",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "mask",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "mask",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "ipv4_address"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "SYMBOL",
@@ -2609,32 +3367,8 @@
           "name": "ospf_network"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "area"
-            },
-            {
-              "type": "FIELD",
-              "name": "area",
-              "content": {
-                "type": "SYMBOL",
-                "name": "number"
-              }
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "word"
-              }
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "ospf_area"
         },
         {
           "type": "SYMBOL",
@@ -2650,8 +3384,9 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "router-id"
+          "type": "PATTERN",
+          "value": "router-id",
+          "flags": "i"
         },
         {
           "type": "FIELD",
@@ -2691,8 +3426,9 @@
           }
         },
         {
-          "type": "STRING",
-          "value": "area"
+          "type": "PATTERN",
+          "value": "area",
+          "flags": "i"
         },
         {
           "type": "FIELD",
@@ -2708,6 +3444,79 @@
         }
       ]
     },
+    "ospf_area": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "area",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "area",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "stub",
+              "flags": "i"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "nssa",
+                  "flags": "i"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "no-summary",
+                      "flags": "i"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "range",
+                  "flags": "i"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "ipv4_address"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "ipv4_address"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
     "_vlan_statement": {
       "type": "CHOICE",
       "members": [
@@ -2715,8 +3524,9 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "name"
+              "type": "PATTERN",
+              "value": "name",
+              "flags": "i"
             },
             {
               "type": "SYMBOL",
@@ -2738,6 +3548,96 @@
         }
       ]
     },
+    "_vrf_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "vrf_rd"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "vrf_address_family"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "vrf_exit_address_family"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "vrf_rd": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "rd",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "rd",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "vrf_address_family": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "address-family",
+          "flags": "i"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "ipv4",
+              "flags": "i"
+            },
+            {
+              "type": "PATTERN",
+              "value": "ipv6",
+              "flags": "i"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "vrf_exit_address_family": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "exit-address-family",
+          "flags": "i"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
     "_line_statement": {
       "type": "CHOICE",
       "members": [
@@ -2745,15 +3645,17 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "login"
+              "type": "PATTERN",
+              "value": "login",
+              "flags": "i"
             },
             {
               "type": "CHOICE",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "local"
+                  "type": "PATTERN",
+                  "value": "local",
+                  "flags": "i"
                 },
                 {
                   "type": "BLANK"
@@ -2770,19 +3672,22 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "transport"
+              "type": "PATTERN",
+              "value": "transport",
+              "flags": "i"
             },
             {
               "type": "CHOICE",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "input"
+                  "type": "PATTERN",
+                  "value": "input",
+                  "flags": "i"
                 },
                 {
-                  "type": "STRING",
-                  "value": "output"
+                  "type": "PATTERN",
+                  "value": "output",
+                  "flags": "i"
                 }
               ]
             },
@@ -2816,8 +3721,9 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "match"
+              "type": "PATTERN",
+              "value": "match",
+              "flags": "i"
             },
             {
               "type": "REPEAT1",
@@ -2836,8 +3742,9 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "class"
+              "type": "PATTERN",
+              "value": "class",
+              "flags": "i"
             },
             {
               "type": "SYMBOL",
@@ -2853,15 +3760,17 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "priority"
+              "type": "PATTERN",
+              "value": "priority",
+              "flags": "i"
             },
             {
               "type": "CHOICE",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "percent"
+                  "type": "PATTERN",
+                  "value": "percent",
+                  "flags": "i"
                 },
                 {
                   "type": "SYMBOL",
@@ -2891,8 +3800,9 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "fair-queue"
+              "type": "PATTERN",
+              "value": "fair-queue",
+              "flags": "i"
             },
             {
               "type": "SYMBOL",
@@ -2972,12 +3882,14 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "permit"
+          "type": "PATTERN",
+          "value": "permit|perm",
+          "flags": "i"
         },
         {
-          "type": "STRING",
-          "value": "deny"
+          "type": "PATTERN",
+          "value": "deny|den",
+          "flags": "i"
         }
       ]
     },

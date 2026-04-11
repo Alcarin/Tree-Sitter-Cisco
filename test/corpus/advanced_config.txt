@@ -1,0 +1,89 @@
+==============================
+Advanced Global Configuration
+==============================
+username admin privilege 15 secret 5 $1$mER8$hx5Z description System_Admin
+aaa authentication login default local group tacacs+
+ip prefix-list PL_TEST seq 10 permit 10.0.0.0/8 ge 24 le 30
+ip route 172.16.0.0 255.255.0.0 10.1.1.1 250
+!
+vrf definition MGMT
+ rd 100:1
+ address-family ipv4
+ exit-address-family
+!
+
+---
+
+(source_file
+  (system_config
+    (username_config
+      name: (word)
+      level: (number)
+      (number)
+      password: (word)
+      description: (word)))
+  (system_config
+    (aaa_config
+      group_name: (word)))
+  (system_config
+    (prefix_list
+      name: (word)
+      sequence: (number)
+      action: (acl_action)
+      prefix: (ipv4_address)
+      length: (number)
+      ge: (number)
+      le: (number)))
+  (system_config
+    (static_route
+      destination: (ipv4_address)
+      mask: (ipv4_address)
+      next_hop: (ipv4_address)
+      distance: (number)))
+  (comment)
+  (system_config
+    (vrf_definition_block
+      name: (word)
+      (vrf_rd
+        rd: (word))
+      (vrf_address_family)
+      (vrf_exit_address_family)))
+  (comment))
+
+==============================
+Advanced Interface Configuration
+==============================
+interface GigabitEthernet0/1
+ description User_Port
+ ip vrf forwarding TRUST
+ ip address 10.1.1.1 255.255.255.0
+ ip helper-address 10.2.2.2
+ no ip proxy-arp
+ switchport mode access
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+!
+
+---
+
+(source_file
+  (interface_block
+    name: (interface_name)
+    (description_config
+      text: (word))
+    vrf: (word)
+    (ip_address_config
+      address: (ipv4_address)
+      mask: (ipv4_address))
+    helper: (ipv4_address)
+    (switchport_config
+      mode: (switchport_mode))
+    (switchport_config
+      (port_security_config
+        max: (number)))
+    (switchport_config
+      (port_security_config))
+    (switchport_config
+      (port_security_config)))
+  (comment))

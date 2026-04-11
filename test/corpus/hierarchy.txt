@@ -13,18 +13,26 @@ router ospf 1
 
 (source_file
   (block
-    (command (word) (word) (number))
+    (command
+      (word)
+      (word)
+      (number))
     (indented_command
       (block
-        (command (word) (number))
+        (command
+          (word)
+          (number))
         (indented_command
           (block
-            (command (interface_name))
+            (command
+              (interface_name))
             (indented_command
-              (command (word) (word))))
+              (command
+                (word)
+                (word))))
           (comment))
         (comment)))
-  (comment))
+    (comment))
 
 ==============================
 Banner with delimiters
@@ -38,5 +46,5 @@ banner motd ^C
 ---
 
 (source_file
-  (banner (delimiter))
+  (banner)
   (comment))

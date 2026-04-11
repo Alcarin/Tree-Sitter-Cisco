@@ -12,7 +12,9 @@ Configuration register is 0x2102
 (source_file
   (show_version)
   (software_info)
-  (uptime_info hostname: (word) uptime: (uptime))
+  (uptime_info
+    hostname: (word)
+    uptime: (uptime))
   (processor_info)
   (config_register))
 
@@ -39,4 +41,10 @@ GigabitEthernet0/0     192.168.1.1     YES NVRAM  up                    up
 
 (source_file
   (show_ip_interface_brief)
-  (ip_int_brief_entry interface: (interface_name) ip_address: (ipv4_address) ok: (word) method: (word) status: (operational_status) protocol: (operational_status)))
+  (ip_int_brief_entry
+    interface: (interface_name)
+    ip_address: (ipv4_address)
+    ok: (word)
+    method: (word)
+    status: (operational_status)
+    protocol: (operational_status)))

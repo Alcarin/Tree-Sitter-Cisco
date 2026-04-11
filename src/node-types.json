@@ -2,16 +2,27 @@
   {
     "type": "aaa_config",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "word",
-          "named": true
-        }
-      ]
+    "fields": {
+      "group_name": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "list_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -159,6 +170,29 @@
     "fields": {}
   },
   {
+    "type": "bgp_address_family",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "bgp_neighbor",
+          "named": true
+        },
+        {
+          "type": "bgp_network",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bgp_block",
     "named": true,
     "fields": {
@@ -171,16 +205,6 @@
             "named": true
           }
         ]
-      },
-      "router_id": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
@@ -188,22 +212,76 @@
       "required": false,
       "types": [
         {
+          "type": "bgp_address_family",
+          "named": true
+        },
+        {
+          "type": "bgp_neighbor",
+          "named": true
+        },
+        {
+          "type": "bgp_network",
+          "named": true
+        },
+        {
+          "type": "bgp_router_id",
+          "named": true
+        },
+        {
           "type": "comment",
-          "named": true
-        },
-        {
-          "type": "ipv4_address",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "word",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "bgp_neighbor",
+    "named": true,
+    "fields": {
+      "address": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "interface": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          }
+        ]
+      },
+      "remote_as": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -226,6 +304,48 @@
         "types": [
           {
             "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bgp_network",
+    "named": true,
+    "fields": {
+      "address": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "mask": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bgp_router_id",
+    "named": true,
+    "fields": {
+      "router_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
             "named": true
           }
         ]
@@ -450,12 +570,32 @@
     "type": "interface_block",
     "named": true,
     "fields": {
+      "helper": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "interface_name",
+            "named": true
+          }
+        ]
+      },
+      "vrf": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
             "named": true
           }
         ]
@@ -515,26 +655,7 @@
   {
     "type": "interface_duplex",
     "named": true,
-    "fields": {
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "auto",
-            "named": false
-          },
-          {
-            "type": "full",
-            "named": false
-          },
-          {
-            "type": "half",
-            "named": false
-          }
-        ]
-      }
-    }
+    "fields": {}
   },
   {
     "type": "interface_mtu",
@@ -565,10 +686,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "auto",
-            "named": false
-          },
           {
             "type": "number",
             "named": true
@@ -734,26 +851,7 @@
   {
     "type": "line_block",
     "named": true,
-    "fields": {
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "aux",
-            "named": false
-          },
-          {
-            "type": "con",
-            "named": false
-          },
-          {
-            "type": "vty",
-            "named": false
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
@@ -890,19 +988,35 @@
     }
   },
   {
-    "type": "ospf_block",
+    "type": "ospf_area",
     "named": true,
     "fields": {
       "area": {
-        "multiple": true,
-        "required": false,
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "number",
             "named": true
           }
         ]
-      },
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ipv4_address",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ospf_block",
+    "named": true,
+    "fields": {
       "process_id": {
         "multiple": false,
         "required": true,
@@ -933,15 +1047,15 @@
           "named": true
         },
         {
+          "type": "ospf_area",
+          "named": true
+        },
+        {
           "type": "ospf_network",
           "named": true
         },
         {
           "type": "ospf_router_id",
-          "named": true
-        },
-        {
-          "type": "word",
           "named": true
         }
       ]
@@ -1049,6 +1163,108 @@
         "types": [
           {
             "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "port_security_config",
+    "named": true,
+    "fields": {
+      "mac": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "mac_address",
+            "named": true
+          }
+        ]
+      },
+      "max": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "prefix_list",
+    "named": true,
+    "fields": {
+      "action": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "acl_action",
+            "named": true
+          }
+        ]
+      },
+      "ge": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "le": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "length": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "prefix": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "sequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
             "named": true
           }
         ]
@@ -1381,10 +1597,6 @@
           "named": true
         },
         {
-          "type": "static_route",
-          "named": true
-        },
-        {
           "type": "subnet_header",
           "named": true
         },
@@ -1417,6 +1629,16 @@
         "types": [
           {
             "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "distance": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
             "named": true
           }
         ]
@@ -1523,6 +1745,10 @@
       "required": false,
       "types": [
         {
+          "type": "port_security_config",
+          "named": true
+        },
+        {
           "type": "word",
           "named": true
         }
@@ -1598,11 +1824,23 @@
           "named": true
         },
         {
+          "type": "prefix_list",
+          "named": true
+        },
+        {
           "type": "snmp_config",
           "named": true
         },
         {
+          "type": "static_route",
+          "named": true
+        },
+        {
           "type": "username_config",
+          "named": true
+        },
+        {
+          "type": "vrf_definition_block",
           "named": true
         },
         {
@@ -1642,6 +1880,26 @@
     "type": "username_config",
     "named": true,
     "fields": {
+      "description": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "level": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -1654,7 +1912,7 @@
       },
       "password": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "word",
@@ -1664,7 +1922,7 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
@@ -1751,80 +2009,76 @@
     }
   },
   {
+    "type": "vrf_address_family",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "vrf_definition_block",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "vrf_address_family",
+          "named": true
+        },
+        {
+          "type": "vrf_exit_address_family",
+          "named": true
+        },
+        {
+          "type": "vrf_rd",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vrf_exit_address_family",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "vrf_rd",
+    "named": true,
+    "fields": {
+      "rd": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "wildcard",
     "named": true,
     "fields": {}
   },
   {
-    "type": "RO",
-    "named": false
-  },
-  {
-    "type": "RW",
-    "named": false
-  },
-  {
-    "type": "aaa",
-    "named": false
-  },
-  {
-    "type": "access",
-    "named": false
-  },
-  {
-    "type": "access-list",
-    "named": false
-  },
-  {
-    "type": "activate",
-    "named": false
-  },
-  {
-    "type": "address",
-    "named": false
-  },
-  {
-    "type": "address-family",
-    "named": false
-  },
-  {
-    "type": "allowed",
-    "named": false
-  },
-  {
-    "type": "area",
-    "named": false
-  },
-  {
-    "type": "authentication",
-    "named": false
-  },
-  {
-    "type": "auto",
-    "named": false
-  },
-  {
-    "type": "aux",
-    "named": false
-  },
-  {
-    "type": "bandwidth",
-    "named": false
-  },
-  {
-    "type": "bgp",
-    "named": false
-  },
-  {
-    "type": "boot",
-    "named": false
-  },
-  {
-    "type": "class",
-    "named": false
-  },
-  {
-    "type": "class-map",
+    "type": "/",
     "named": false
   },
   {
@@ -1832,196 +2086,16 @@
     "named": true
   },
   {
-    "type": "community",
-    "named": false
-  },
-  {
-    "type": "con",
-    "named": false
-  },
-  {
-    "type": "crypto",
-    "named": false
-  },
-  {
-    "type": "deny",
-    "named": false
-  },
-  {
-    "type": "description",
-    "named": false
-  },
-  {
-    "type": "desirable",
-    "named": false
-  },
-  {
-    "type": "domain-name",
-    "named": false
-  },
-  {
-    "type": "duplex",
-    "named": false
-  },
-  {
-    "type": "dynamic",
-    "named": false
-  },
-  {
-    "type": "enable",
-    "named": false
-  },
-  {
-    "type": "exit-address-family",
-    "named": false
-  },
-  {
-    "type": "extended",
-    "named": false
-  },
-  {
-    "type": "fair-queue",
-    "named": false
-  },
-  {
-    "type": "flash",
-    "named": false
-  },
-  {
-    "type": "ftp",
-    "named": false
-  },
-  {
-    "type": "full",
-    "named": false
-  },
-  {
-    "type": "general-keys",
-    "named": false
-  },
-  {
-    "type": "generate",
-    "named": false
-  },
-  {
-    "type": "half",
-    "named": false
-  },
-  {
-    "type": "host",
-    "named": false
-  },
-  {
-    "type": "hostname",
-    "named": false
-  },
-  {
-    "type": "inbound",
-    "named": false
-  },
-  {
-    "type": "input",
-    "named": false
-  },
-  {
-    "type": "interface",
-    "named": false
-  },
-  {
     "type": "interface_name",
     "named": true
-  },
-  {
-    "type": "ip",
-    "named": false
-  },
-  {
-    "type": "ipv6",
-    "named": false
   },
   {
     "type": "ipv6_address",
     "named": true
   },
   {
-    "type": "key",
-    "named": false
-  },
-  {
-    "type": "line",
-    "named": false
-  },
-  {
-    "type": "local",
-    "named": false
-  },
-  {
-    "type": "logging",
-    "named": false
-  },
-  {
-    "type": "login",
-    "named": false
-  },
-  {
     "type": "mac_address",
     "named": true
-  },
-  {
-    "type": "mask",
-    "named": false
-  },
-  {
-    "type": "match",
-    "named": false
-  },
-  {
-    "type": "match-all",
-    "named": false
-  },
-  {
-    "type": "match-any",
-    "named": false
-  },
-  {
-    "type": "mode",
-    "named": false
-  },
-  {
-    "type": "modulus",
-    "named": false
-  },
-  {
-    "type": "mtu",
-    "named": false
-  },
-  {
-    "type": "name",
-    "named": false
-  },
-  {
-    "type": "native",
-    "named": false
-  },
-  {
-    "type": "neighbor",
-    "named": false
-  },
-  {
-    "type": "network",
-    "named": false
-  },
-  {
-    "type": "new-model",
-    "named": false
-  },
-  {
-    "type": "no",
-    "named": false
-  },
-  {
-    "type": "ntp",
-    "named": false
   },
   {
     "type": "number",
@@ -2032,160 +2106,12 @@
     "named": true
   },
   {
-    "type": "ospf",
-    "named": false
-  },
-  {
-    "type": "output",
-    "named": false
-  },
-  {
-    "type": "password",
-    "named": false
-  },
-  {
-    "type": "peer",
-    "named": false
-  },
-  {
-    "type": "percent",
-    "named": false
-  },
-  {
-    "type": "permit",
-    "named": false
-  },
-  {
-    "type": "policy-map",
-    "named": false
-  },
-  {
-    "type": "priority",
-    "named": false
-  },
-  {
-    "type": "privilege",
-    "named": false
-  },
-  {
     "type": "punctuation",
     "named": true
   },
   {
-    "type": "remote-as",
-    "named": false
-  },
-  {
-    "type": "route",
-    "named": false
-  },
-  {
-    "type": "router",
-    "named": false
-  },
-  {
-    "type": "router-id",
-    "named": false
-  },
-  {
-    "type": "rsa",
-    "named": false
-  },
-  {
-    "type": "secondary",
-    "named": false
-  },
-  {
-    "type": "secret",
-    "named": false
-  },
-  {
-    "type": "server",
-    "named": false
-  },
-  {
-    "type": "service",
-    "named": false
-  },
-  {
-    "type": "service-policy",
-    "named": false
-  },
-  {
-    "type": "shutdown",
-    "named": false
-  },
-  {
-    "type": "snmp-server",
-    "named": false
-  },
-  {
-    "type": "soft-reconfiguration",
-    "named": false
-  },
-  {
-    "type": "source",
-    "named": false
-  },
-  {
-    "type": "source-interface",
-    "named": false
-  },
-  {
-    "type": "spanning-tree",
-    "named": false
-  },
-  {
-    "type": "speed",
-    "named": false
-  },
-  {
-    "type": "standard",
-    "named": false
-  },
-  {
-    "type": "switchport",
-    "named": false
-  },
-  {
-    "type": "system",
-    "named": false
-  },
-  {
-    "type": "tftp",
-    "named": false
-  },
-  {
-    "type": "transport",
-    "named": false
-  },
-  {
-    "type": "trap",
-    "named": false
-  },
-  {
-    "type": "trunk",
-    "named": false
-  },
-  {
     "type": "uptime",
     "named": true
-  },
-  {
-    "type": "username",
-    "named": false
-  },
-  {
-    "type": "vlan",
-    "named": false
-  },
-  {
-    "type": "vrf",
-    "named": false
-  },
-  {
-    "type": "vty",
-    "named": false
   },
   {
     "type": "word",

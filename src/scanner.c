@@ -152,7 +152,7 @@ bool tree_sitter_cisco_external_scanner_scan(void *payload, TSLexer *lexer, cons
     uint16_t current_indent = (uint16_t)lexer->get_column(lexer);
 
     // Skip blank lines or comments for indent calculation
-    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->lookahead == '!') {
+    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || false) {
       return false;
     }
 

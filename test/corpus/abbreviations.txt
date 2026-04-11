@@ -13,17 +13,26 @@ ip access-list extended MY_ACL
 ---
 
 (source_file
-  (block
-    (command (word) (interface_name))
-    (indented_command
-      (ip_address_assignment (address) (mask) (secondary)))
-    (indented_command
-      (ipv6_address_assignment (address))))
+  (interface_block
+    name: (interface_name)
+    (ip_address_config
+      address: (ipv4_address)
+      mask: (ipv4_address))
+    (ipv6_address_config
+      address: (ipv6_address)))
   (comment)
-  (block
-    (command (word) (word) (word) (word))
-    (indented_command
-      (acl_rule (word) (word) (word) (word)))
-    (indented_command
-      (acl_rule (word) (ipv4_address) (ipv4_address) (word))))
+  (acl_block
+    name: (word)
+    (acl_rule
+      action: (acl_action)
+      (word)
+      (word)
+      (word)
+      (word))
+    (acl_rule
+      action: (acl_action)
+      (word)
+      (ipv4_address)
+      (ipv4_address)
+      (word)))
   (comment))

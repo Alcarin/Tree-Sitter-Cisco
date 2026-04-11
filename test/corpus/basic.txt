@@ -25,12 +25,12 @@ router ospf 1
       text: (word))
     (ip_address_config
       address: (ipv4_address)
-      mask: (ipv4_address))
-    (comment))
+      mask: (ipv4_address)))
+  (comment)
   (ospf_block
     process_id: (number)
     (ospf_network
       address: (ipv4_address)
       wildcard: (wildcard)
-      area: (number))
-    (comment)))
+      area: (number)))
+  (comment))

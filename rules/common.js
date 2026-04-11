@@ -41,7 +41,7 @@ module.exports = {
   uptime: $ => token(prec(1, /\d+\s+(weeks?|days?|hours?|minutes?|seconds?)(,\s+\d+\s+(weeks?|days?|hours?|minutes?|seconds?))*/)),
   
   // Word ora è più inclusivo per catturare hostname, maschere /, liste e versioni con parentesi
-  word: $ => token(prec(-1, /[a-zA-Z0-9._\/!@#$%\-:,/()]+/)),
+  word: $ => token(prec(-1, /[a-zA-Z0-9._\/!@#$%\-:,/()+]+/)),
   
   wildcard: $ => token(prec(2, /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/)),
   

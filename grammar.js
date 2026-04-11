@@ -80,7 +80,6 @@ module.exports = grammar({
       $.ospf_block,
       $.interface_block,
       $.system_config,
-      $.static_route,
       $.command,
       $._newline
     ),

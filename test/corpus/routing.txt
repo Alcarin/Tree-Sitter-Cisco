@@ -1,43 +1,51 @@
 ==============================
 BGP and OSPF Routing
 ==============================
-router bgp 65000
- neighbor 1.1.1.1 remote-as 65001
- neighbor 1.1.1.1 update-source Loopback0
+router bgp 65001
+ neighbor 10.1.1.1 remote-as 65002
+ neighbor 10.1.1.1 update-source Loopback0
  !
  address-family ipv4 unicast
-  network 10.0.0.0 mask 255.255.255.0
-  neighbor 1.1.1.1 activate
- !
+  network 192.168.1.0 mask 255.255.255.0
+  neighbor 10.1.1.1 activate
+ exit-address-family
 !
 router ospf 1
- network 192.168.1.0 0.0.0.255 area 0
- area 0 authentication message-digest
+ router-id 1.1.1.1
+ network 10.1.1.0 0.0.0.255 area 0
+ area 0 stub
 !
 
 ---
 
 (source_file
-  (block
-    (command (word) (word) (number))
-    (indented_command
-      (bgp_neighbor (address) (remote_as)))
-    (indented_command
-      (bgp_neighbor (address) (interface)))
+  (bgp_block
+    as_number: (number)
+    (bgp_neighbor
+      address: (ipv4_address)
+      remote_as: (number))
+    (bgp_neighbor
+      address: (ipv4_address)
+      interface: (interface_name))
     (comment)
-    (indented_command
-      (block
-        (address_family (afi) (safi))
-        (indented_command
-          (bgp_network (address) (mask)))
-        (indented_command
-          (bgp_neighbor (address)))
-        (comment))))
+    (bgp_address_family
+      afi: (word)
+      safi: (word)
+      (bgp_network
+        address: (ipv4_address)
+        mask: (ipv4_address))
+      (bgp_neighbor
+        address: (ipv4_address)))
+    (comment))
   (comment)
-  (block
-    (command (word) (word) (number))
-    (indented_command
-      (ospf_network (address) (wildcard) (area)))
-    (indented_command
-      (ospf_area (area))))
-  (comment))
+  (ospf_block
+    process_id: (number)
+    (ospf_router_id
+      router_id: (ipv4_address))
+    (ospf_network
+      address: (ipv4_address)
+      wildcard: (wildcard)
+      area: (number))
+    (ospf_area
+      area: (number))
+    (comment)))

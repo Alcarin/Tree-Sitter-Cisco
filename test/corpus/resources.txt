@@ -25,8 +25,8 @@ ip access-list extended MY_ACL
       mask: (ipv4_address))
     (ipv6_address_config
       address: (ipv6_address))
-    (interface_shutdown)
-    (comment))
+    (interface_shutdown))
+  (comment)
   (acl_block
     name: (word)
     (acl_rule
@@ -40,8 +40,8 @@ ip access-list extended MY_ACL
       (word)
       (ipv4_address)
       (ipv4_address)
-      (word))
-    (comment)))
+      (word)))
+  (comment))
 
 ==============================
 Layer 2 Switching Details
@@ -63,12 +63,12 @@ interface GigabitEthernet0/1
     (switchport_config
       mode: (switchport_mode))
     (switchport_config
-      vlan_id: (number))
-    (comment))
+      vlan_id: (number)))
+  (comment)
   (interface_block
     name: (interface_name)
     (switchport_config
       mode: (switchport_mode))
     (switchport_config
-      vlan_list: (word))
-    (comment)))
+      vlan_list: (word)))
+  (comment))

@@ -12,15 +12,17 @@ logging trap debugging
 ---
 
 (source_file
-  (static_route
-    destination: (ipv4_address)
-    mask: (ipv4_address)
-    next_hop: (ipv4_address))
-  (static_route
-    vrf: (word)
-    destination: (ipv4_address)
-    mask: (ipv4_address)
-    next_hop: (interface_name))
+  (system_config
+    (static_route
+      destination: (ipv4_address)
+      mask: (ipv4_address)
+      next_hop: (ipv4_address)))
+  (system_config
+    (static_route
+      vrf: (word)
+      destination: (ipv4_address)
+      mask: (ipv4_address)
+      next_hop: (interface_name)))
   (system_config
     (ntp_config
       address: (ipv4_address)))
