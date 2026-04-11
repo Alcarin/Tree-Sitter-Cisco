@@ -40,10 +40,14 @@ module.exports = {
   // --- SHOW IP INTERFACE BRIEF CONTENTS ---
   ip_int_brief_entry: $ => prec.dynamic(100, seq(
     field('interface', $.interface_name),
+    $._field_separator,
     field('ip_address', choice($.ipv4_address, /unassigned/i)),
+    $._field_separator,
     field('ok', $.word),
-    field('method', $.word),
+    field('method', $.word), // Space handled by extras
+    $._field_separator,
     field('status', $.operational_status),
+    $._field_separator,
     field('protocol', $.operational_status),
     $._newline
   )),

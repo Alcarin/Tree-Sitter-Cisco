@@ -15,11 +15,16 @@ module.exports = grammar({
   externals: $ => [
     $._indent,
     $._dedent,
-    $._newline
+    $._newline,
+    $._field_separator,
+    $._dashed_line,
+    $._console_prompt,
+    $._whitespace
   ],
 
   extras: $ => [
-    /[ \t]+/,
+    $._whitespace,
+    $._console_prompt
   ],
 
   conflicts: $ => [

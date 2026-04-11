@@ -66,6 +66,37 @@ If an output line has a fixed label (e.g., `Uptime is:`), wrap it in a `token(pr
 
 ---
 
+## 🏗️ External Scanner Tools
+
+The custom scanner in `src/scanner.c` provides specialized tokens to handle Cisco-specific text patterns that are difficult for standard regex:
+
+### 1. Tabular Data (`_field_separator`)
+Most `show` commands use tables where columns are separated by **two or more spaces**. 
+- **Use**: Use `$._field_separator` between fields in tabular rules.
+- **Why**: It prevents a single space (common in names like `Fast Ethernet`) from being mistaken for a field delimiter.
+
+```javascript
+ip_int_brief_entry: $ => seq(
+    field('interface', $.interface_name),
+    $._field_separator,
+    field('ip', $.ipv4_address),
+    // ...
+)
+```
+
+### 2. Separator Lines (`_dashed_line`)
+Used to identify lines like `-------` or `=======` often found in headers.
+- **Use**: Match headers or decorative separators.
+
+### 3. Automatic Log Cleaning (`_console_prompt`)
+The scanner automatically detects and ignores:
+- `--More--`
+- `[confirm]`
+- Common pagination prompts.
+**Note**: You don't need to do anything; these are included in `extras` and will be silently ignored during parsing.
+
+---
+
 ## ⚡ Performance & Efficiency Guidelines
 
 ### ⚠️ Avoid GLR State Explosion
