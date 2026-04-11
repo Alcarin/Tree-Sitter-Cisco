@@ -1,142 +1,271 @@
 /**
- * @file Configuration rules for Cisco grammar
+ * @file Configuration rules for Cisco grammar - Refined Switchport
  */
 
 module.exports = {
-  vlan_block: $ => prec.left(1, seq(
-    $.vlan_definition,
-    repeat(choice($._newline, $.comment)),
-    $.indented_command,
-    repeat(choice($.indented_command, $.comment, $._newline)),
-    optional(seq('!', $._newline))
-  )),
+  // KEYWORDS ATOMICHE (Proteggono da ambiguità con 'word')
+  _kw_interface: $ => token(prec(10, 'interface')),
+  _kw_router: $ => token(prec(10, 'router')),
+  _kw_bgp: $ => token(prec(10, 'bgp')),
+  _kw_ospf: $ => token(prec(10, 'ospf')),
+  _kw_vlan: $ => token(prec(10, 'vlan')),
+  _kw_line: $ => token(prec(10, 'line')),
+  _kw_ip: $ => token(prec(10, 'ip')),
+  _kw_hostname: $ => token(prec(10, 'hostname')),
+  _kw_username: $ => token(prec(10, 'username')),
+  _kw_description: $ => token(prec(10, 'description')),
+  _kw_address: $ => token(prec(10, 'address')),
+  _kw_switchport: $ => token(prec(10, 'switchport')),
+  _kw_spanning_tree: $ => token(prec(10, 'spanning-tree')),
+  _kw_neighbor: $ => token(prec(10, 'neighbor')),
+  _kw_network: $ => token(prec(10, 'network')),
+  _kw_ntp: $ => token(prec(10, 'ntp')),
+  _kw_logging: $ => token(prec(10, 'logging')),
+  _kw_snmp: $ => token(prec(10, 'snmp-server')),
+  _kw_aaa: $ => token(prec(10, 'aaa')),
+  _kw_boot: $ => token(prec(10, 'boot')),
+  _kw_crypto: $ => token(prec(10, 'crypto')),
+  _kw_ipv6: $ => token(prec(10, 'ipv6')),
 
-  line_block: $ => prec.left(1, seq(
-    seq('line', field('type', choice('vty', 'con', 'aux')), repeat1($.number), $._newline),
-    repeat(choice($._newline, $.comment)),
-    $.indented_command,
-    repeat(choice($.indented_command, $.comment, $._newline)),
-    optional(seq('!', $._newline))
-  )),
+  // BLOCCHI CON SCOPED STATEMENTS
+  interface_block: $ => seq(
+    $._kw_interface, field('name', $.interface_name), $._newline,
+    $._indent, repeat($._interface_statement), $._dedent
+  ),
 
-  qos_block: $ => prec.left(1, seq(
+  bgp_block: $ => seq(
+    $._kw_router, $._kw_bgp, field('as_number', $.number), $._newline,
+    $._indent, repeat($._bgp_statement), $._dedent
+  ),
+
+  ospf_block: $ => seq(
+    $._kw_router, $._kw_ospf, field('process_id', $.number), optional(seq('vrf', field('vrf', $.word))), $._newline,
+    $._indent, repeat($._ospf_statement), $._dedent
+  ),
+
+  vlan_block: $ => seq(
+    $._kw_vlan, field('id', $.number), $._newline,
+    $._indent, repeat($._vlan_statement), $._dedent
+  ),
+
+  line_block: $ => seq(
+    $._kw_line, field('type', choice('vty', 'con', 'aux')), repeat1($.number), $._newline,
+    $._indent, repeat($._line_statement), $._dedent
+  ),
+
+  qos_block: $ => seq(
     choice(
       seq('class-map', optional(choice('match-all', 'match-any')), field('name', $.word)),
       seq('policy-map', field('name', $.word))
     ),
     $._newline,
-    repeat(choice($._newline, $.comment)),
-    $.indented_command,
-    repeat(choice($.indented_command, $.comment, $._newline)),
-    optional(seq('!', $._newline))
-  )),
-
-  acl_block: $ => prec.left(1, seq(
-    $.acl_definition,
-    repeat(choice($._newline, $.comment)),
-    $.indented_command,
-    repeat(choice($.indented_command, $.comment, $._newline)),
-    optional(seq('!', $._newline))
-  )),
-
-  acl_definition: $ => seq(
-    'ip', 'access-list',
-    choice('standard', 'extended'),
-    field('name', $.word),
-    $._newline
+    $._indent, repeat($._qos_statement), $._dedent
   ),
 
-  crypto_config: $ => seq('crypto', /.*/, $._newline),
-  system_config: $ => seq(
-    choice('hostname', 'service', 'enable', 'username', 'ip domain-name'),
-    /.*/,
-    $._newline
+  acl_block: $ => seq(
+    $._kw_ip, 'access-list', choice('standard', 'extended'), field('name', $.word), $._newline,
+    $._indent, repeat($._acl_statement), $._dedent
   ),
 
-  block: $ => prec.left(seq(
-    $.command,
-    repeat(choice($._newline, $.comment)),
-    $.indented_command,
-    repeat(choice($.indented_command, $.comment, $._newline)),
-    optional(seq('!', $._newline))
-  )),
+  // REGOLE DI SUPPORTO E CONFIGURAZIONE GLOBALE (Capitolo 1)
+  system_config: $ => choice(
+    seq($._kw_hostname, field('name', $.word), $._newline),
+    seq('service', $.word, $._newline),
+    seq('enable', 'secret', $.number, field('password', $.word), $._newline),
+    seq($._kw_ip, 'domain-name', field('domain', $.word), $._newline),
+    $.username_config,
+    $.ntp_config,
+    $.logging_config,
+    $.snmp_config,
+    $.aaa_config,
+    $.boot_config,
+    $.crypto_config
+  ),
 
-  indented_command: $ => seq(
-    /[ \t]+/,
+  ntp_config: $ => seq(
+    $._kw_ntp, 
     choice(
-      $.ip_address_assignment,
-      $.ipv6_address_assignment,
-      $.acl_rule,
-      $.bgp_neighbor,
-      $.bgp_network,
-      $.ospf_network,
-      $.ospf_area,
-      $.address_family,
-      $.service_policy,
-      $.block,
-      $.command
-    )
+      seq(choice('server', 'peer'), field('address', choice($.ipv4_address, $.word))),
+      seq('source', field('interface', $.interface_name))
+    ),
+    $._newline
   ),
 
-  service_policy: $ => seq('service-policy', choice('input', 'output'), field('name', $.word), $._newline),
+  logging_config: $ => seq(
+    $._kw_logging, 
+    choice(
+      seq('host', field('host', $.ipv4_address)),
+      seq('source-interface', field('interface', $.interface_name)),
+      seq('trap', field('severity', choice($.word, $.number)))
+    ),
+    $._newline
+  ),
 
-  ntp_config: $ => seq('ntp', choice(
-    seq('server', field('address', choice($.ipv4_address, $.word))),
-    seq('peer', field('address', choice($.ipv4_address, $.word))),
-    seq('source', field('interface', $.interface_name)),
-    seq('access-group', optional(choice('ipv4', 'ipv6')), choice('peer', 'serve', 'serve-only', 'query-only'), field('acl', $.word))
-  ), $._newline),
+  snmp_config: $ => seq(
+    $._kw_snmp, 
+    choice(
+      seq('community', field('name', $.word), optional(choice('RO', 'RW'))),
+      seq('host', field('address', $.ipv4_address), field('community', $.word))
+    ),
+    $._newline
+  ),
 
-  logging_config: $ => seq('logging', choice(
-    field('host', $.ipv4_address),
-    seq('source-interface', field('interface', $.interface_name)),
-    seq('trap', field('severity', $.word)),
-    seq('facility', field('facility', $.word)),
-    seq('buffered', optional(field('size', $.number)))
-  ), $._newline),
+  aaa_config: $ => seq(
+    $._kw_aaa, choice('new-model', seq('authentication', $.word, $.word, repeat($.word))),
+    $._newline
+  ),
 
-  snmp_config: $ => seq('snmp-server', choice(
-    seq('community', field('name', $.word), optional(choice('RO', 'RW')), optional(field('acl', $.word))),
-    seq('host', field('address', $.ipv4_address), optional('version'), optional($.word), field('community', $.word)),
-    seq('contact', field('text', /.*/)),
-    seq('location', field('text', /.*/))
-  ), $._newline),
+  boot_config: $ => seq(
+    $._kw_boot, 'system', choice('flash', 'tftp', 'ftp'), field('path', $.word),
+    $._newline
+  ),
 
-  vlan_definition: $ => seq('vlan', field('id', $.number), $._newline),
-  vrf_definition: $ => seq(choice('vrf', 'ip vrf'), choice('definition', 'forwarding'), field('name', $.word), $._newline),
+  crypto_config: $ => seq(
+    $._kw_crypto, 'key', 'generate', 'rsa', optional('general-keys'),
+    optional(seq('modulus', field('bits', $.number))),
+    $._newline
+  ),
 
-  bgp_neighbor: $ => seq('neighbor', field('address', choice($.ipv4_address, $.ipv6_address, $.word)), choice(
-    seq('remote-as', field('remote_as', $.number)),
-    seq('description', choice(field('description', $.string), field('description_word', $.word))),
-    seq('update-source', field('interface', $.interface_name)),
-    seq('soft-reconfiguration', 'inbound'),
-    'next-hop-self',
-    'activate',
-    seq('route-map', field('route_map', $.word), choice('in', 'out'))
-  ), $._newline),
+  username_config: $ => seq(
+    $._kw_username, field('name', $.word),
+    optional(seq('privilege', $.number)),
+    optional(choice('password', 'secret')),
+    optional($.number),
+    field('password', $.word),
+    $._newline
+  ),
 
-  bgp_network: $ => seq('network', field('address', $.ipv4_address), optional(seq('mask', field('mask', $.ipv4_address))), optional(seq('route-map', field('route_map', $.word))), $._newline),
+  vrf_definition: $ => seq(
+    choice('vrf', seq($._kw_ip, 'vrf')), 
+    choice('definition', 'forwarding'), 
+    field('name', $.word), 
+    $._newline
+  ),
 
-  address_family: $ => seq('address-family', field('afi', choice('ipv4', 'ipv6', 'vpnv4', 'vpnv6', 'l2vpn')), optional(field('safi', choice('unicast', 'multicast', 'vpls', 'evpn'))), optional(seq('vrf', field('vrf', $.word))), $._newline),
+  static_route: $ => seq(
+    $._kw_ip, 'route', optional(seq('vrf', field('vrf', $.word))), 
+    field('destination', $.ipv4_address), field('mask', $.ipv4_address), 
+    field('next_hop', choice($.ipv4_address, $.interface_name)),
+    $._newline
+  ),
 
-  ospf_network: $ => seq('network', field('address', $.ipv4_address), field('wildcard', $.ipv4_address), 'area', field('area', choice($.number, $.ipv4_address)), $._newline),
+  // DEFINIZIONI DEGLI SCOPED STATEMENTS
+  _interface_statement: $ => choice(
+    $.description_config,
+    $.ip_address_config,
+    $.ipv6_address_config,
+    $.interface_shutdown,
+    $.interface_speed,
+    $.interface_duplex,
+    $.interface_mtu,
+    $.interface_bandwidth,
+    $.switchport_config,
+    seq('service-policy', choice('input', 'output'), $.word, $._newline),
+    seq($._kw_spanning_tree, repeat1($.word), $._newline),
+    $.comment,
+    $._newline
+  ),
 
-  ospf_area: $ => seq('area', field('area', choice($.number, $.ipv4_address)), choice(
-    seq('range', field('address', $.ipv4_address), field('mask', $.ipv4_address)),
-    seq('authentication', optional('message-digest')),
-    seq('stub', optional('no-summary')),
-    seq('nssa', optional('no-summary'))
-  ), $._newline),
+  description_config: $ => seq($._kw_description, field('text', $.word), $._newline),
+  
+  ip_address_config: $ => seq(
+    $._kw_ip, $._kw_address, 
+    field('address', $.ipv4_address), field('mask', $.ipv4_address), 
+    optional('secondary'), $._newline
+  ),
 
-  static_route: $ => seq('ip', 'route', optional(seq('vrf', field('vrf', $.word))), field('destination', $.ipv4_address), field('mask', $.ipv4_address), field('next_hop', choice($.ipv4_address, $.interface_name)), optional(field('distance', $.number)), optional(seq('tag', field('tag', $.number))), optional(field('permanent', 'permanent')), optional(seq('name', field('name', $.word))), optional(seq('track', field('track', $.number))), $._newline),
+  ipv6_address_config: $ => prec(5, seq(
+    $._kw_ipv6, $._kw_address, field('address', $.ipv6_address), $._newline
+  )),
 
-  ip_address_assignment: $ => seq(choice('ip', 'ipv4'), choice('address', 'addr'), field('address', $.ipv4_address), field('mask', $.ipv4_address), optional(field('secondary', choice('secondary', 'sec'))), $._newline),
+  interface_shutdown: $ => seq(optional('no'), 'shutdown', $._newline),
+  interface_speed: $ => seq('speed', field('value', choice('auto', $.number)), $._newline),
+  interface_duplex: $ => seq('duplex', field('value', choice('auto', 'full', 'half')), $._newline),
+  interface_mtu: $ => seq('mtu', field('value', $.number), $._newline),
+  interface_bandwidth: $ => seq('bandwidth', field('value', $.number), $._newline),
 
-  ipv6_address_assignment: $ => seq('ipv6', choice('address', 'addr'), field('address', $.ipv6_address), optional(field('secondary', choice('secondary', 'sec'))), $._newline),
+  switchport_config: $ => seq(
+    $._kw_switchport, 
+    choice(
+      seq('mode', field('mode', $.switchport_mode)),
+      seq('access', 'vlan', field('vlan_id', $.number)),
+      seq('trunk', 'allowed', 'vlan', field('vlan_list', $.word)),
+      seq('trunk', 'native', 'vlan', field('vlan_id', $.number)),
+      prec(-1, repeat1($.word))
+    ),
+    $._newline
+  ),
 
-  acl_rule: $ => seq(choice('permit', 'perm', 'deny', 'den'), $._line_content, $._newline),
+  switchport_mode: $ => choice('access', 'trunk', seq('dynamic', 'auto'), seq('dynamic', 'desirable')),
 
-  command: $ => seq($._line_content, $._newline),
+  _bgp_statement: $ => choice(
+    seq('router-id', field('router_id', $.ipv4_address), $._newline),
+    seq($._kw_neighbor, $.ipv4_address, 'remote-as', $.number, $._newline),
+    seq($._kw_neighbor, $.ipv4_address, $._kw_description, $.word, $._newline),
+    seq('address-family', $.word, optional($.word), $._newline),
+    seq($._kw_network, $.ipv4_address, 'mask', $.ipv4_address, $._newline),
+    seq($._kw_neighbor, $.ipv4_address, 'activate', $._newline),
+    seq($._kw_neighbor, $.ipv4_address, 'soft-reconfiguration', 'inbound', $._newline),
+    seq('exit-address-family', $._newline),
+    $.comment,
+    $._newline
+  ),
 
-  _line_content: $ => repeat1(choice($.ipv6_address, $.ipv4_address, $.interface_name, $.mac_address, $.vlan_range, $.number, $.word, $.string, $.punctuation, $.operator))
+  _ospf_statement: $ => choice(
+    $.ospf_router_id,
+    $.ospf_network,
+    seq('area', field('area', $.number), repeat($.word), $._newline),
+    $.comment,
+    $._newline
+  ),
+
+  ospf_router_id: $ => seq('router-id', field('router_id', $.ipv4_address), $._newline),
+
+  ospf_network: $ => seq(
+    $._kw_network, 
+    field('address', $.ipv4_address), field('wildcard', $.wildcard), 
+    'area', field('area', $.number), $._newline
+  ),
+
+  _vlan_statement: $ => choice(
+    seq('name', $.word, $._newline),
+    $.comment,
+    $._newline
+  ),
+
+  _line_statement: $ => choice(
+    seq('login', optional('local'), $._newline),
+    seq('transport', choice('input', 'output'), repeat1($.word), $._newline),
+    $.comment,
+    $._newline
+  ),
+
+  _qos_statement: $ => choice(
+    seq('match', repeat1($.word), $._newline),
+    seq('class', $.word, $._newline),
+    seq('priority', choice('percent', $.number), optional($.number), $._newline),
+    seq('fair-queue', $._newline),
+    $.comment,
+    $._newline
+  ),
+
+  _acl_statement: $ => choice(
+    $.acl_rule,
+    $.comment,
+    $._newline
+  ),
+
+  acl_rule: $ => seq(
+    field('action', $.acl_action), 
+    repeat1(choice($.word, $.number, $.ipv4_address, $.ipv6_address)), 
+    $._newline
+  ),
+
+  acl_action: $ => choice('permit', 'deny'),
+
+  // COMANDO GENERICO (Bassa priorità, fallback dinamico)
+  command: $ => prec.dynamic(-10, prec(-1, seq(
+    repeat1(choice($.word, $.number, $.ipv4_address, $.interface_name, $.mac_address, $.punctuation)),
+    $._newline
+  )))
 };

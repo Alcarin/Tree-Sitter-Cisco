@@ -21,7 +21,11 @@ module.exports = {
   interface_name: $ => token(prec(2, choice(
     /(Ethernet|GigabitEthernet|TenGigabitEthernet|FastEthernet|FourtyGigabitEthernet|HundredGigabitEthernet)\d+([./]\d+)*/,
     /(Vlan|Port-channel|Loopback|Tunnel|BVI|Dialer|Embedded-Service-Engine|Group-Async|MFR|Multilink|Serial|Virtual-Template|Virtual-TokenRing)\d+/,
-    /Management\d+([./]\d+)*/
+    /Management\d+([./]\d+)*/,
+    /Eth\d+([./]\d+)*/,
+    /Gi\d+([./]\d+)*/,
+    /Te\d+([./]\d+)*/,
+    /Fa\d+([./]\d+)*/
   ))),
 
   mac_address: $ => token(prec(2, choice(
@@ -34,7 +38,12 @@ module.exports = {
   
   number: $ => token(prec(1, /\d+/)),
   
-  word: $ => token(prec(0, /[a-zA-Z0-9._\/!@#$%-]+/)),
+  uptime: $ => token(prec(1, /\d+\s+(weeks?|days?|hours?|minutes?|seconds?)(,\s+\d+\s+(weeks?|days?|hours?|minutes?|seconds?))*/)),
+  
+  // Word ora è più inclusivo per catturare hostname, maschere /, liste e versioni con parentesi
+  word: $ => token(prec(-1, /[a-zA-Z0-9._\/!@#$%\-:,/()]+/)),
+  
+  wildcard: $ => token(prec(2, /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/)),
   
   string: $ => token(choice(
     seq('"', /[^"]*/, '"'),
@@ -42,8 +51,5 @@ module.exports = {
   )),
   
   punctuation: $ => token(/[.,:;]/),
-  
-  operator: $ => token(/[<>=]/),
-  
-  _newline: $ => /\r?\n/
+  operator: $ => token(/[<>=]/)
 };

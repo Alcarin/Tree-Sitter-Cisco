@@ -12,16 +12,12 @@ interface Vlan100
 ---
 
 (source_file
-  (block
+  (generic_block
     (command (word) (interface_name))
-    (indented_command
-      (command (word) (word) (ipv6_address)))
-    (indented_command
-      (command (word) (mac_address)))
-    (indented_command
-      (command (word) (word) (word) (word) (vlan_range))))
+    (command (word) (word) (ipv6_address))
+    (command (word) (mac_address))
+    (command (word) (word) (word) (word) (vlan_range)))
   (comment)
-  (block
+  (generic_block
     (command (word) (interface_name))
-    (indented_command
-      (command (word) (word) (ipv4_address) (ipv4_address)))))
+    (ip_address_assignment (address) (mask))))

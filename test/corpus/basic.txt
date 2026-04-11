@@ -16,17 +16,21 @@ router ospf 1
 
 (source_file
   (comment)
-  (command (word) (word))
+  (system_config
+    name: (word))
   (comment)
-  (block
-    (command (word) (interface_name))
-    (indented_command
-      (command (word) (word)))
-    (indented_command
-      (command (word) (word) (ipv4_address) (ipv4_address))))
-  (comment)
-  (block
-    (command (word) (word) (number))
-    (indented_command
-      (command (word) (ipv4_address) (ipv4_address) (word) (number))))
-  (comment))
+  (interface_block
+    name: (interface_name)
+    (description_config
+      text: (word))
+    (ip_address_config
+      address: (ipv4_address)
+      mask: (ipv4_address))
+    (comment))
+  (ospf_block
+    process_id: (number)
+    (ospf_network
+      address: (ipv4_address)
+      wildcard: (wildcard)
+      area: (number))
+    (comment)))

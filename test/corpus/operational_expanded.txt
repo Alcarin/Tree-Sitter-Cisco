@@ -1,102 +1,42 @@
 ==============================
-Expanded Operational State
+Show Version
 ==============================
 show version
-Cisco IOS Software, C2960 Software (C2960-LANBASEK9-M), Version 12.2(55)SE7, RELEASE SOFTWARE (fc1)
-Technical Support: http://www.cisco.com/techsupport
-Copyright (c) 1986-2013 by Cisco Systems, Inc.
-Compiled Mon 28-Jan-13 10:18 by prod_rel_team
-Switch uptime is 1 week, 2 days, 3 hours, 4 minutes
-System image file is "flash:/c2960-lanbasek9-mz.122-55.SE7.bin"
-Model number: WS-C2960-24TT-L
-System serial number: FOC12345678
-!
-show inventory
-NAME: "1", DESCR: "WS-C2960-24TT-L"
-PID: WS-C2960-24TT-L  , VID: V02  , SN: FOC12345678
-NAME: "GigabitEthernet0/1", DESCR: "10/100/1000BaseTX SFP"
-PID: GLC-LH-SMD       , VID: V01  , SN: AGM12345678
-!
-show ip interface brief
-Interface              IP-Address      OK? Method Status                Protocol
-GigabitEthernet0/1     192.168.1.1     YES manual up                    up
-Vlan10                 unassigned      YES unset  administratively down down
-!
-show interfaces GigabitEthernet0/1
-GigabitEthernet0/1 is up, line protocol is up
-  Hardware is Gigabit Ethernet, address is aaaa.bbbb.cccc (bia aaaa.bbbb.cccc)
-  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec,
-  Full-duplex, 1000Mb/s, media type is 10/100/1000BaseTX
-     100 packets input, 10000 bytes, 0 no buffer
-     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored
-     200 packets output, 20000 bytes, 0 underruns
-     0 output errors, 0 collisions, 0 interface resets
-!
-show vlan brief
-VLAN Name                             Status    Ports
----- -------------------------------- --------- -------------------------------
-1    default                          active    Gi0/2, Gi0/3
-10   Data                             active    Gi0/1
-!
-show ip arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  192.168.1.1             -   aaaa.bbbb.cccc  ARPA   GigabitEthernet0/1
-Internet  192.168.1.254          10   bbbb.cccc.dddd  ARPA   GigabitEthernet0/1
-!
-show ip bgp summary
-BGP router identifier 1.1.1.1, local AS number 65000
-Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
-10.0.0.1        4        65001     100     100       10    0    0 01:02:03 5
-!
-show spanning-tree
- VLAN0001
-  Spanning tree enabled protocol ieee
-  Root ID    Priority    32769
-             Address     aaaa.bbbb.cccc
-             This bridge is the root
-  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
-             Address     aaaa.bbbb.cccc
-  Interface           Role Sts Cost      Prio.Nbr Type
-  ------------------- ---- --- --------- -------- --------------------------------
-  Gi0/1               Desg FWD 4         128.1    P2p
+Cisco IOS Software, C1900 Software (C1900-UNIVERSALK9-M), Version 15.1(4)M4, RELEASE SOFTWARE (fc1)
+Router uptime is 22 weeks, 5 days, 15 hours, 44 minutes
+Processor board ID FTX1624AJ38
+Configuration register is 0x2102
 
 ---
 
 (source_file
-  (show_command
-    (show_version_content (version) (uptime) (image) (model) (serial)))
-  (comment)
-  (show_command
-    (show_inventory_content
-      (inventory_entry (name) (description) (pid) (vid) (sn))
-      (inventory_entry (name) (description) (pid) (vid) (sn))))
-  (comment)
-  (show_command
-    (show_ip_interface_brief_content
-      (ip_int_brief_entry (interface) (ip_address) (ok) (method) (status) (protocol))
-      (ip_int_brief_entry (interface) (ip_address) (ok) (method) (status) (protocol))))
-  (comment)
-  (show_command
-    (show_interfaces_content
-      (interface_status_entry (interface) (status) (protocol) (mac) (mtu) (bandwidth) (duplex) (speed) (input_packets) (input_bytes) (input_errors) (crc_errors) (output_packets) (output_bytes) (output_errors) (collisions))))
-  (comment)
-  (show_command
-    (show_vlan_brief_content
-      (vlan_brief_entry (id) (name) (status) (ports) (ports))
-      (vlan_brief_entry (id) (name) (status) (ports))))
-  (comment)
-  (show_command
-    (show_ip_arp_content
-      (arp_entry (protocol) (address) (age) (mac) (type) (interface))
-      (arp_entry (protocol) (address) (age) (mac) (type) (interface))))
-  (comment)
-  (show_command
-    (show_ip_bgp_summary_content
-      (bgp_summary_entry (neighbor) (version) (as) (msg_rcvd) (msg_sent) (table_version) (in_queue) (out_queue) (up_down) (state_pfxrcd))))
-  (comment)
-  (show_command
-    (show_spanning_tree_content
-      (vlan)
-      (root_priority) (root_address)
-      (bridge_priority) (bridge_address)
-      (port) (role) (status) (cost))))
+  (show_version)
+  (software_info)
+  (uptime_info hostname: (word) uptime: (uptime))
+  (processor_info)
+  (config_register))
+
+==============================
+Show Inventory
+==============================
+show inventory
+NAME: "CISCO1941/K9", DESCR: "CISCO1941/K9 chassis, Hw Revision 1.0"
+PID: CISCO1941/K9, VID: V01, SN: FTX1624AJ38
+
+---
+
+(source_file
+  (show_inventory)
+  (inventory_entry))
+
+==============================
+Show IP Interface Brief
+==============================
+show ip interface brief
+GigabitEthernet0/0     192.168.1.1     YES NVRAM  up                    up      
+
+---
+
+(source_file
+  (show_ip_interface_brief)
+  (ip_int_brief_entry interface: (interface_name) ip_address: (ipv4_address) ok: (word) method: (word) status: (operational_status) protocol: (operational_status)))

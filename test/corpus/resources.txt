@@ -5,6 +5,7 @@ interface GigabitEthernet0/1
  ip address 192.168.1.1 255.255.255.0
  ip address 10.0.0.1 255.255.255.0 secondary
  ipv6 address 2001:db8::1/64
+ shutdown
 !
 ip access-list extended MY_ACL
  permit tcp any any established
@@ -14,19 +15,60 @@ ip access-list extended MY_ACL
 ---
 
 (source_file
-  (block
-    (command (word) (interface_name))
-    (indented_command
-      (ip_address_assignment (address) (mask)))
-    (indented_command
-      (ip_address_assignment (address) (mask) (secondary)))
-    (indented_command
-      (ipv6_address_assignment (address))))
-  (comment)
-  (block
-    (command (word) (word) (word) (word))
-    (indented_command
-      (acl_rule (word) (word) (word) (word)))
-    (indented_command
-      (acl_rule (word) (ipv4_address) (ipv4_address) (word))))
-  (comment))
+  (interface_block
+    name: (interface_name)
+    (ip_address_config
+      address: (ipv4_address)
+      mask: (ipv4_address))
+    (ip_address_config
+      address: (ipv4_address)
+      mask: (ipv4_address))
+    (ipv6_address_config
+      address: (ipv6_address))
+    (interface_shutdown)
+    (comment))
+  (acl_block
+    name: (word)
+    (acl_rule
+      action: (acl_action)
+      (word)
+      (word)
+      (word)
+      (word))
+    (acl_rule
+      action: (acl_action)
+      (word)
+      (ipv4_address)
+      (ipv4_address)
+      (word))
+    (comment)))
+
+==============================
+Layer 2 Switching Details
+==============================
+interface FastEthernet0/24
+ switchport mode access
+ switchport access vlan 10
+!
+interface GigabitEthernet0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+!
+
+---
+
+(source_file
+  (interface_block
+    name: (interface_name)
+    (switchport_config
+      mode: (switchport_mode))
+    (switchport_config
+      vlan_id: (number))
+    (comment))
+  (interface_block
+    name: (interface_name)
+    (switchport_config
+      mode: (switchport_mode))
+    (switchport_config
+      vlan_list: (word))
+    (comment)))

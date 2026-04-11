@@ -1,7 +1,5 @@
 /**
- * @file Cisco configuration grammar for tree-sitter
- * @author Alcarin
- * @license ISC
+ * @file Cisco configuration grammar - Fixed Dictionary Integration
  */
 
 /// <reference types="tree-sitter-cli/dsl" />
@@ -14,25 +12,30 @@ const operational = require('./rules/operational');
 module.exports = grammar({
   name: 'cisco',
 
+  externals: $ => [
+    $._indent,
+    $._dedent,
+    $._newline
+  ],
+
   extras: $ => [
-    /[\t ]+/,
+    /[ \t]+/,
   ],
 
   conflicts: $ => [
-    // Conflitti critici per la distinzione tra statement e blocchi
-    [$._statement, $.vlan_block],
-    [$._statement, $.line_block],
-    [$._statement, $.qos_block],
-    [$._statement, $.acl_block],
-    [$._statement, $.block],
-    
-    // Conflitti tra comandi singoli e l'inizio di un blocco
-    [$.command, $.block],
-    [$.command, $.indented_command],
-    [$.block, $.indented_command],
-    
-    // Conflitto greedy sulla riga
-    [$._line_content]
+    [$.bgp_summary_entry],
+    [$.generic_show_command],
+    [$.bgp_neighbor_block],
+    [$.command, $.ip_int_brief_entry],
+    [$.command, $.routing_entry],
+    [$.command, $.software_info],
+    [$.command, $.uptime_info],
+    [$.command, $.processor_info],
+    [$.command, $.config_register],
+    [$.command, $.mac_entry],
+    [$.command, $.arp_entry, $.routing_entry],
+    [$.command, $.vlan_brief_entry],
+    [$.command, $.bgp_summary_entry, $.ospf_neighbor_entry]
   ],
 
   rules: {
@@ -41,38 +44,46 @@ module.exports = grammar({
     _statement: $ => choice(
       $.comment,
       $.banner,
-      $.show_version,
-      $.show_inventory,
-      $.show_ip_int_brief,
-      $.show_interfaces,
-      $.show_vlan_brief,
-      $.show_ip_arp,
-      $.show_ip_route,
-      $.show_mac_address_table,
-      $.show_ip_ospf_neighbor,
-      $.show_ip_bgp_summary,
-      $.show_spanning_tree,
-      $.static_route,
-      $.ntp_config,
-      $.logging_config,
-      $.snmp_config,
-      $.vlan_definition,
-      $.vrf_definition,
+      prec(100, $.show_version),
+      prec(100, $.show_inventory),
+      prec(100, $.show_ip_interface_brief),
+      prec(100, $.show_ip_route),
+      prec(100, $.show_mac_address_table),
+      prec(100, $.show_ip_arp),
+      prec(100, $.show_ip_bgp_summary),
+      prec(100, $.show_ip_bgp_neighbors),
+      prec(100, $.software_info),
+      prec(100, $.uptime_info),
+      prec(100, $.processor_info),
+      prec(100, $.config_register),
+      prec(100, $.inventory_entry),
+      prec(100, $.ip_int_brief_entry),
+      prec(100, $.interface_status_entry),
+      prec(100, $.vlan_brief_entry),
+      prec(100, $.arp_entry),
+      prec(100, $.bgp_summary_entry),
+      prec(100, $.routing_entry),
+      prec(100, $.subnet_header),
+      prec(100, $.mac_entry),
+      prec(100, $.ospf_neighbor_entry),
+      prec(100, $.bgp_neighbor_block),
       $.vlan_block,
       $.line_block,
       $.qos_block,
       $.acl_block,
-      $.crypto_config,
+      $.bgp_block,
+      $.ospf_block,
+      $.interface_block,
       $.system_config,
-      $.block,
+      $.static_route,
       $.command,
       $._newline
     ),
 
-    comment: $ => seq('!', /.*/, $._newline),
+    comment: $ => token(prec(20, seq('!', /.*/, /\r?\n/))),
 
     banner: $ => seq(
-      /banner\s+\S+/,
+      token(prec(10, /banner\s+\S+/)),
       field('delimiter', $._banner_delimiter),
       field('content', repeat($._banner_content)),
       $._banner_delimiter,
