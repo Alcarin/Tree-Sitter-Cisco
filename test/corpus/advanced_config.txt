@@ -72,11 +72,13 @@ interface GigabitEthernet0/1
     name: (interface_name)
     (description_config
       text: (word))
-    vrf: (word)
+    (interface_vrf_forwarding
+      vrf: (word))
     (ip_address_config
       address: (ipv4_address)
       mask: (ipv4_address))
-    helper: (ipv4_address)
+    (interface_helper_address
+      helper: (ipv4_address))
     (switchport_config
       mode: (switchport_mode))
     (switchport_config

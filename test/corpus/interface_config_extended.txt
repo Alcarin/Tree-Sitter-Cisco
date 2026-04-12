@@ -1,0 +1,132 @@
+==============================
+Interface Configuration Extended
+==============================
+vtp domain MYDOMAIN
+vtp mode server
+interface GigabitEthernet0/1
+ description LAN
+ speed 1000
+ duplex full
+ mtu 1500
+ bandwidth 1000000
+ switchport mode trunk
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30-40
+ switchport trunk native vlan 99
+ switchport port-security maximum 10
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+ spanning-tree portfast trunk
+ spanning-tree bpduguard enable
+ spanning-tree vlan 10 priority 4096
+ ip address 192.168.1.1 255.255.255.0 secondary
+ ip vrf forwarding MANAGEMENT
+ ip helper-address 10.1.1.1
+ ipv6 address 2001:db8::1/64
+ standby version 2
+ standby delay minimum 30
+ standby use-bia
+ standby 10 ip 192.168.1.254
+ standby 10 priority 110
+ standby 10 preempt delay minimum 60
+ standby 10 timers 5 15
+ standby 10 track 1 decrement 20
+ channel-group 1 mode active
+!
+interface Ethernet0/0
+ nameif outside
+ security-level 0
+ ip address 1.1.1.1 255.255.255.252 standby 1.1.1.2
+!
+
+---
+
+(source_file
+  (system_config
+    (vtp_config
+      domain: (word)))
+  (system_config
+    (vtp_config))
+  (interface_block
+    name: (interface_name)
+    (description_config
+      text: (word))
+    (interface_speed
+      value: (number))
+    (interface_duplex)
+    (interface_mtu
+      value: (number))
+    (interface_bandwidth
+      value: (number))
+    (switchport_config
+      mode: (switchport_mode))
+    (switchport_config
+      (switchport_trunk_encap))
+    (switchport_config
+      (switchport_trunk_allowed
+        vlan_list: (vlan_range)))
+    (switchport_config
+      (switchport_trunk_native
+        vlan_id: (number)))
+    (switchport_config
+      (port_security_config
+        max: (number)))
+    (switchport_config
+      (port_security_config))
+    (switchport_config
+      (port_security_config))
+    (interface_spanning_tree
+      (word)
+      (word))
+    (interface_spanning_tree
+      (word)
+      (word))
+    (interface_spanning_tree
+      (word)
+      (number)
+      (word)
+      (number))
+    (ip_address_config
+      address: (ipv4_address)
+      mask: (ipv4_address))
+    (interface_vrf_forwarding
+      vrf: (word))
+    (interface_helper_address
+      helper: (ipv4_address))
+    (ipv6_address_config
+      address: (ipv6_address))
+    (interface_standby)
+    (interface_standby
+      (number))
+    (interface_standby)
+    (interface_standby
+      group: (number)
+      ip: (ipv4_address))
+    (interface_standby
+      group: (number)
+      priority: (number))
+    (interface_standby
+      group: (number)
+      (number))
+    (interface_standby
+      group: (number)
+      hello: (number)
+      hold: (number))
+    (interface_standby
+      group: (number)
+      object_id: (number)
+      value: (number))
+    (interface_channel_group
+      channel: (number)))
+  (comment)
+  (interface_block
+    name: (interface_name)
+    (interface_nameif
+      name: (word))
+    (interface_security_level
+      level: (number))
+    (ip_address_config
+      address: (ipv4_address)
+      mask: (ipv4_address)
+      standby: (ipv4_address)))
+  (comment))

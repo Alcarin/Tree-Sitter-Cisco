@@ -721,7 +721,7 @@
     "named": true,
     "fields": {
       "text": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
@@ -804,32 +804,12 @@
     "type": "interface_block",
     "named": true,
     "fields": {
-      "helper": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
       "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "interface_name",
-            "named": true
-          }
-        ]
-      },
-      "vrf": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "word",
             "named": true
           }
         ]
@@ -856,7 +836,15 @@
           "named": true
         },
         {
+          "type": "interface_channel_group",
+          "named": true
+        },
+        {
           "type": "interface_duplex",
+          "named": true
+        },
+        {
+          "type": "interface_helper_address",
           "named": true
         },
         {
@@ -864,11 +852,31 @@
           "named": true
         },
         {
+          "type": "interface_nameif",
+          "named": true
+        },
+        {
+          "type": "interface_security_level",
+          "named": true
+        },
+        {
           "type": "interface_shutdown",
           "named": true
         },
         {
+          "type": "interface_spanning_tree",
+          "named": true
+        },
+        {
           "type": "interface_speed",
+          "named": true
+        },
+        {
+          "type": "interface_standby",
+          "named": true
+        },
+        {
+          "type": "interface_vrf_forwarding",
           "named": true
         },
         {
@@ -891,9 +899,41 @@
     }
   },
   {
+    "type": "interface_channel_group",
+    "named": true,
+    "fields": {
+      "channel": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "interface_duplex",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "interface_helper_address",
+    "named": true,
+    "fields": {
+      "helper": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "interface_mtu",
@@ -912,9 +952,64 @@
     }
   },
   {
+    "type": "interface_nameif",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_security_level",
+    "named": true,
+    "fields": {
+      "level": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "interface_shutdown",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "interface_spanning_tree",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "vlan_range",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "interface_speed",
@@ -930,6 +1025,116 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "interface_standby",
+    "named": true,
+    "fields": {
+      "group": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "hello": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "hold": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "ip": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "ipv6": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "object_id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "priority": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "version": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "1",
+            "named": false
+          },
+          {
+            "type": "2",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -962,6 +1167,22 @@
         "types": [
           {
             "type": "operational_status",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_vrf_forwarding",
+    "named": true,
+    "fields": {
+      "vrf": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
             "named": true
           }
         ]
@@ -1061,6 +1282,16 @@
             "named": true
           }
         ]
+      },
+      "standby": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
       }
     }
   },
@@ -1150,6 +1381,10 @@
         "types": [
           {
             "type": "ipv6_address",
+            "named": true
+          },
+          {
+            "type": "word",
             "named": true
           }
         ]
@@ -2511,20 +2746,6 @@
             "named": true
           }
         ]
-      },
-      "vlan_list": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "vlan_range",
-            "named": true
-          },
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
@@ -2533,6 +2754,18 @@
       "types": [
         {
           "type": "port_security_config",
+          "named": true
+        },
+        {
+          "type": "switchport_trunk_allowed",
+          "named": true
+        },
+        {
+          "type": "switchport_trunk_encap",
+          "named": true
+        },
+        {
+          "type": "switchport_trunk_native",
           "named": true
         },
         {
@@ -2546,6 +2779,51 @@
     "type": "switchport_mode",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "switchport_trunk_allowed",
+    "named": true,
+    "fields": {
+      "vlan_list": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "vlan_range",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "switchport_trunk_encap",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "switchport_trunk_native",
+    "named": true,
+    "fields": {
+      "vlan_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "system_config",
@@ -2636,6 +2914,10 @@
         },
         {
           "type": "vrf_definition_block",
+          "named": true
+        },
+        {
+          "type": "vtp_config",
           "named": true
         },
         {
@@ -2962,6 +3244,42 @@
     }
   },
   {
+    "type": "vtp_config",
+    "named": true,
+    "fields": {
+      "domain": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "password": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "version": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "wildcard",
     "named": true,
     "fields": {}
@@ -2976,6 +3294,14 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "1",
+    "named": false
+  },
+  {
+    "type": "2",
     "named": false
   },
   {

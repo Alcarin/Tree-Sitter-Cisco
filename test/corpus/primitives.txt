@@ -20,7 +20,8 @@ interface Vlan100
       (word)
       (mac_address))
     (switchport_config
-      (vlan_range)))
+      (switchport_trunk_allowed
+        (vlan_range))))
   (comment)
   (interface_block
     (interface_name)

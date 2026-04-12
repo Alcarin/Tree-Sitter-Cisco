@@ -111,6 +111,8 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
             - [x] `<number_list>` | `<vlan_range>`
         - [x] `native vlan`
             - [x] `<number>`
+        - [x] `encapsulation`
+            - [x] `dot1q` | `isl` | `negotiate`
     - [x] `port-security`
         - [x] `maximum`
             - [x] `<number>`
@@ -118,18 +120,18 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
             - [x] `shutdown` | `restrict` | `protect`
         - [x] `mac-address`
             - [x] `sticky` | `<mac_address>`
-- [/] `spanning-tree`
-    - [ ] `vlan <number>`
-        - [ ] `priority <number>`
-    - [ ] `portfast` | `bpduguard enable`
-    - [ ] `mode` [pvst | rapid-pvst | mst]
-- [ ] `vtp`
-    - [ ] `domain <word>`
-    - [ ] `mode` [client | server | transparent | off]
+- [x] `spanning-tree`
+    - [x] `vlan <number>`
+        - [x] `priority <number>`
+    - [x] `portfast` | `bpduguard enable`
+    - [x] `mode` [pvst | rapid-pvst | mst]
+- [x] `vtp`
+    - [x] `domain <word>`
+    - [x] `mode` [client | server | transparent | off]
 
 ### 2.3 Port-Channel (EtherChannel)
-- [ ] `interface Port-channel <number>`
-- [ ] `channel-group <number> mode` [active | passive | on | desirable | auto]
+- [x] `interface Port-channel <number>`
+- [x] `channel-group <number> mode` [active | passive | on | desirable | auto]
 
 ### 2.4 Layer 3 (IP & VRF)
 - [x] `ip`
@@ -151,30 +153,30 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
     - [x] `<ipv6_address>/<number>`
 
 ### 2.4 HSRP (Hot Standby Router Protocol)
-- [ ] `standby`
-    - [ ] `version`
-        - [ ] `<1|2>`
-    - [ ] `delay`
-        - [ ] `minimum <sec>` | `reload <sec>`
-    - [ ] `use-bia`
-    - [ ] `group`
-        - [ ] `<number>`
-            - [ ] `ip`
-                - [ ] `<ipv4_address> [secondary]`
-            - [ ] `ipv6`
-                - [ ] `<ipv6_address> | autoconfig`
-            - [ ] `priority`
-                - [ ] `<number>`
-            - [ ] `preempt`
-            - [ ] `timers`
-                - [ ] `[msec] <hello> [msec] <hold>`
-            - [ ] `track`
-                - [ ] `<object_id> [decrement <value>]`
+- [x] `standby`
+    - [x] `version`
+        - [x] `<1|2>`
+    - [x] `delay`
+        - [x] `minimum <sec>` | `reload <sec>`
+    - [x] `use-bia`
+    - [x] `group`
+        - [x] `<number>`
+            - [x] `ip`
+                - [x] `<ipv4_address> [secondary]`
+            - [x] `ipv6`
+                - [x] `<ipv6_address> | autoconfig`
+            - [x] `priority`
+                - [x] `<number>`
+            - [x] `preempt`
+            - [x] `timers`
+                - [x] `[msec] <hello> [msec] <hold>`
+            - [x] `track`
+                - [x] `<object_id> [decrement <value>]`
 
 ### 2.5 ASA Specific Interface Config
-- [ ] `nameif <word>` (Interface zone)
-- [ ] `security-level <number>` (0-100)
-- [ ] `ip address <ipv4> <mask> [standby <ipv4>]`
+- [x] `nameif <word>` (Interface zone)
+- [x] `security-level <number>` (0-100)
+- [x] `ip address <ipv4> <mask> [standby <ipv4>]`
 
 ---
 

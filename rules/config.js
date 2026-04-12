@@ -29,6 +29,8 @@ module.exports = {
   _kw_port_security: $ => token(prec(10, /port-security|port-sec/i)),
   _kw_secondary: $ => token(prec(10, /secondary|sec/i)),
   _kw_shutdown: $ => token(prec(10, /shutdown|shut/i)),
+  _kw_standby: $ => token(prec(10, /standby/i)),
+  _kw_channel_group: $ => token(prec(10, /channel-group|chan-grp/i)),
 
   // BLOCCHI CON SCOPED STATEMENTS
   interface_block: $ => seq(
@@ -81,6 +83,7 @@ module.exports = {
     seq(/service/i, $.word, $._newline),
     seq(/enable/i, /secret/i, $.number, field('password', $.word), $._newline),
     seq($._kw_ip, /domain-name/i, field('domain', $.word), $._newline),
+    $.vtp_config,
     $.username_config,
     $.ntp_config,
     $.logging_config,
@@ -94,6 +97,19 @@ module.exports = {
     $.vrf_definition,
     $.vrf_definition_block
   ),
+
+  vtp_config: $ => seq(
+    /vtp/i,
+    choice(
+      seq(/domain/i, field('domain', $.word)),
+      seq(/mode/i, field('mode', choice(/client/i, /server/i, /transparent/i, /off/i))),
+      seq(/password/i, field('password', $.word)),
+      seq(/version/i, field('version', $.number))
+    ),
+    $._newline
+  ),
+
+  // ... rest of support rules ...
 
   ntp_config: $ => seq(
     $._kw_ntp, 
@@ -207,26 +223,40 @@ module.exports = {
     $.interface_mtu,
     $.interface_bandwidth,
     $.switchport_config,
-    seq($._kw_ip, /vrf/i, /forwarding/i, field('vrf', $.word), $._newline),
-    seq($._kw_ip, /helper-address/i, field('helper', $.ipv4_address), $._newline),
+    $.interface_spanning_tree,
+    $.interface_standby,
+    $.interface_channel_group,
+    $.interface_vrf_forwarding,
+    $.interface_helper_address,
+    $.interface_nameif,
+    $.interface_security_level,
     seq(optional(/no/i), $._kw_ip, /proxy-arp/i, $._newline),
     seq(/service-policy/i, choice(/input/i, /output/i), $.word, $._newline),
-    seq($._kw_spanning_tree, repeat1($.word), $._newline),
     $.comment,
     $.command,
     $._newline
   ),
 
-  description_config: $ => seq($._kw_description, field('text', $.word), $._newline),
+  description_config: $ => seq($._kw_description, field('text', repeat1($.word)), $._newline),
   
   ip_address_config: $ => seq(
     $._kw_ip, $._kw_address, 
     field('address', $.ipv4_address), field('mask', $.ipv4_address), 
-    optional($._kw_secondary), $._newline
+    optional(choice(
+      field('secondary', $._kw_secondary),
+      seq(/standby/i, field('standby', $.ipv4_address))
+    )), 
+    $._newline
   ),
 
+  interface_nameif: $ => seq(/nameif/i, field('name', $.word), $._newline),
+  interface_security_level: $ => seq(/security-level/i, field('level', $.number), $._newline),
+
+  interface_vrf_forwarding: $ => seq($._kw_ip, /vrf/i, /forwarding/i, field('vrf', $.word), $._newline),
+  interface_helper_address: $ => seq($._kw_ip, /helper-address/i, field('helper', $.ipv4_address), $._newline),
+
   ipv6_address_config: $ => prec(5, seq(
-    $._kw_ipv6, $._kw_address, field('address', $.ipv6_address), 
+    $._kw_ipv6, $._kw_address, field('address', choice($.ipv6_address, $.word)), 
     optional(choice(/link-local/i, /anycast/i)),
     $._newline
   )),
@@ -242,13 +272,18 @@ module.exports = {
     choice(
       seq(/mode/i, field('mode', $.switchport_mode)),
       seq(/access/i, /vlan/i, field('vlan_id', $.number)),
-      seq(/trunk/i, /allowed/i, /vlan/i, field('vlan_list', choice($.word, $.vlan_range))),
-      seq(/trunk/i, /native/i, /vlan/i, field('vlan_id', $.number)),
+      $.switchport_trunk_allowed,
+      $.switchport_trunk_native,
+      $.switchport_trunk_encap,
       $.port_security_config,
       prec(-1, repeat1($.word))
     ),
     $._newline
   ),
+
+  switchport_trunk_allowed: $ => seq(/trunk/i, /allowed/i, /vlan/i, field('vlan_list', choice($.word, $.vlan_range, $.number))),
+  switchport_trunk_native: $ => seq(/trunk/i, /native/i, /vlan/i, field('vlan_id', $.number)),
+  switchport_trunk_encap: $ => seq(/trunk/i, /encapsulation/i, field('encapsulation', choice(/dot1q/i, /isl/i, /negotiate/i))),
 
   port_security_config: $ => seq(
     $._kw_port_security,
@@ -260,6 +295,41 @@ module.exports = {
   ),
 
   switchport_mode: $ => choice(/access/i, /trunk/i, seq(/dynamic/i, /auto/i), seq(/dynamic/i, /desirable/i)),
+
+  interface_spanning_tree: $ => seq(
+    $._kw_spanning_tree,
+    repeat1(choice($.word, $.number, $.vlan_range)),
+    $._newline
+  ),
+
+  interface_standby: $ => seq(
+    $._kw_standby,
+    choice(
+      seq(/version/i, field('version', choice('1', '2'))),
+      seq(/delay/i, choice(seq(/minimum/i, $.number), seq(/reload/i, $.number))),
+      /use-bia/i,
+      seq(
+        optional(field('group', $.number)),
+        choice(
+          seq(/ip/i, field('ip', $.ipv4_address), optional(field('secondary', $._kw_secondary))),
+          seq(/ipv6/i, field('ipv6', choice($.ipv6_address, /autoconfig/i))),
+          seq(/priority/i, field('priority', $.number)),
+          seq(/preempt/i, optional(seq(/delay/i, /minimum/i, $.number))),
+          seq(/timers/i, optional(/msec/i), field('hello', $.number), optional(/msec/i), field('hold', $.number)),
+          seq(/track/i, field('object_id', $.number), optional(seq(/decrement/i, field('value', $.number))))
+        )
+      )
+    ),
+    $._newline
+  ),
+
+  interface_channel_group: $ => seq(
+    $._kw_channel_group,
+    field('channel', $.number),
+    /mode/i,
+    field('mode', choice(/active/i, /passive/i, /on/i, /desirable/i, /auto/i)),
+    $._newline
+  ),
 
   _bgp_statement: $ => choice(
     $.bgp_router_id,

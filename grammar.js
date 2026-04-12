@@ -56,6 +56,8 @@ module.exports = grammar({
     [$.text_line, $.inventory_pid_line],
     [$.text_line, $.software_info],
     [$.text_line, $.hardware_info],
+    [$.interface_standby],
+    [$.interface_standby, $.command],
   ],
 
   rules: {
@@ -80,7 +82,7 @@ module.exports = grammar({
       $._newline
     ),
 
-    comment: $ => token(prec(20, seq('!', /.*/, /\r?\n/))),
+    comment: $ => token(prec(20, seq('!', /[^\n]*/, /\r?\n/))),
 
     banner: $ => seq(
       token(prec(10, /banner\s+\S+/)),

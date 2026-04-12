@@ -70,5 +70,6 @@ interface GigabitEthernet0/1
     (switchport_config
       mode: (switchport_mode))
     (switchport_config
-      vlan_list: (vlan_range)))
+      (switchport_trunk_allowed
+        vlan_list: (vlan_range))))
   (comment))

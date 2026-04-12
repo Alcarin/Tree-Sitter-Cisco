@@ -22,10 +22,8 @@ interface GigabitEthernet0/0
   (comment)
   (interface_block
     (interface_name)
-    (command
-      (word)
+    (interface_nameif
       (word))
-    (command
-      (word)
+    (interface_security_level
       (number)))
   (comment))

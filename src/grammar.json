@@ -96,7 +96,7 @@
             },
             {
               "type": "PATTERN",
-              "value": ".*"
+              "value": "[^\\n]*"
             },
             {
               "type": "PATTERN",
@@ -848,6 +848,30 @@
         }
       }
     },
+    "_kw_standby": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "standby",
+          "flags": "i"
+        }
+      }
+    },
+    "_kw_channel_group": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 10,
+        "content": {
+          "type": "PATTERN",
+          "value": "channel-group|chan-grp",
+          "flags": "i"
+        }
+      }
+    },
     "interface_block": {
       "type": "SEQ",
       "members": [
@@ -1385,6 +1409,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "vtp_config"
+        },
+        {
+          "type": "SYMBOL",
           "name": "username_config"
         },
         {
@@ -1430,6 +1458,118 @@
         {
           "type": "SYMBOL",
           "name": "vrf_definition_block"
+        }
+      ]
+    },
+    "vtp_config": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "vtp",
+          "flags": "i"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "domain",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "domain",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "word"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "mode",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "mode",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "PATTERN",
+                        "value": "client",
+                        "flags": "i"
+                      },
+                      {
+                        "type": "PATTERN",
+                        "value": "server",
+                        "flags": "i"
+                      },
+                      {
+                        "type": "PATTERN",
+                        "value": "transparent",
+                        "flags": "i"
+                      },
+                      {
+                        "type": "PATTERN",
+                        "value": "off",
+                        "flags": "i"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "password",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "password",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "word"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "version",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "version",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         }
       ]
     },
@@ -2560,61 +2700,32 @@
           "name": "switchport_config"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_kw_ip"
-            },
-            {
-              "type": "PATTERN",
-              "value": "vrf",
-              "flags": "i"
-            },
-            {
-              "type": "PATTERN",
-              "value": "forwarding",
-              "flags": "i"
-            },
-            {
-              "type": "FIELD",
-              "name": "vrf",
-              "content": {
-                "type": "SYMBOL",
-                "name": "word"
-              }
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "interface_spanning_tree"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_kw_ip"
-            },
-            {
-              "type": "PATTERN",
-              "value": "helper-address",
-              "flags": "i"
-            },
-            {
-              "type": "FIELD",
-              "name": "helper",
-              "content": {
-                "type": "SYMBOL",
-                "name": "ipv4_address"
-              }
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "interface_standby"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interface_channel_group"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interface_vrf_forwarding"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interface_helper_address"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interface_nameif"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interface_security_level"
         },
         {
           "type": "SEQ",
@@ -2681,26 +2792,6 @@
           ]
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_kw_spanning_tree"
-            },
-            {
-              "type": "REPEAT1",
-              "content": {
-                "type": "SYMBOL",
-                "name": "word"
-              }
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_newline"
-            }
-          ]
-        },
-        {
           "type": "SYMBOL",
           "name": "comment"
         },
@@ -2725,8 +2816,11 @@
           "type": "FIELD",
           "name": "text",
           "content": {
-            "type": "SYMBOL",
-            "name": "word"
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "word"
+            }
           }
         },
         {
@@ -2766,13 +2860,141 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "_kw_secondary"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "secondary",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_kw_secondary"
+                  }
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "standby",
+                      "flags": "i"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "standby",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "ipv4_address"
+                      }
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "interface_nameif": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "nameif",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "interface_security_level": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "security-level",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "level",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "interface_vrf_forwarding": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_ip"
+        },
+        {
+          "type": "PATTERN",
+          "value": "vrf",
+          "flags": "i"
+        },
+        {
+          "type": "PATTERN",
+          "value": "forwarding",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "vrf",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "interface_helper_address": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_ip"
+        },
+        {
+          "type": "PATTERN",
+          "value": "helper-address",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "helper",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
         },
         {
           "type": "SYMBOL",
@@ -2798,8 +3020,17 @@
             "type": "FIELD",
             "name": "address",
             "content": {
-              "type": "SYMBOL",
-              "name": "ipv6_address"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "ipv6_address"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "word"
+                }
+              ]
             }
           },
           {
@@ -3024,69 +3255,16 @@
               ]
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "PATTERN",
-                  "value": "trunk",
-                  "flags": "i"
-                },
-                {
-                  "type": "PATTERN",
-                  "value": "allowed",
-                  "flags": "i"
-                },
-                {
-                  "type": "PATTERN",
-                  "value": "vlan",
-                  "flags": "i"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "vlan_list",
-                  "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "word"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "vlan_range"
-                      }
-                    ]
-                  }
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "switchport_trunk_allowed"
             },
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "PATTERN",
-                  "value": "trunk",
-                  "flags": "i"
-                },
-                {
-                  "type": "PATTERN",
-                  "value": "native",
-                  "flags": "i"
-                },
-                {
-                  "type": "PATTERN",
-                  "value": "vlan",
-                  "flags": "i"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "vlan_id",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "number"
-                  }
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "switchport_trunk_native"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "switchport_trunk_encap"
             },
             {
               "type": "SYMBOL",
@@ -3108,6 +3286,114 @@
         {
           "type": "SYMBOL",
           "name": "_newline"
+        }
+      ]
+    },
+    "switchport_trunk_allowed": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "trunk",
+          "flags": "i"
+        },
+        {
+          "type": "PATTERN",
+          "value": "allowed",
+          "flags": "i"
+        },
+        {
+          "type": "PATTERN",
+          "value": "vlan",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "vlan_list",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "vlan_range"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "switchport_trunk_native": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "trunk",
+          "flags": "i"
+        },
+        {
+          "type": "PATTERN",
+          "value": "native",
+          "flags": "i"
+        },
+        {
+          "type": "PATTERN",
+          "value": "vlan",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "vlan_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        }
+      ]
+    },
+    "switchport_trunk_encap": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "trunk",
+          "flags": "i"
+        },
+        {
+          "type": "PATTERN",
+          "value": "encapsulation",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "encapsulation",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "dot1q",
+                "flags": "i"
+              },
+              {
+                "type": "PATTERN",
+                "value": "isl",
+                "flags": "i"
+              },
+              {
+                "type": "PATTERN",
+                "value": "negotiate",
+                "flags": "i"
+              }
+            ]
+          }
         }
       ]
     },
@@ -3255,6 +3541,431 @@
               "flags": "i"
             }
           ]
+        }
+      ]
+    },
+    "interface_spanning_tree": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_spanning_tree"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "vlan_range"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "interface_standby": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_standby"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "version",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "version",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "1"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "2"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "delay",
+                  "flags": "i"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "minimum",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "number"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "reload",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "number"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "PATTERN",
+              "value": "use-bia",
+              "flags": "i"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "FIELD",
+                      "name": "group",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "number"
+                      }
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "ip",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "ip",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "ipv4_address"
+                          }
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "FIELD",
+                              "name": "secondary",
+                              "content": {
+                                "type": "SYMBOL",
+                                "name": "_kw_secondary"
+                              }
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "ipv6",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "ipv6",
+                          "content": {
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "ipv6_address"
+                              },
+                              {
+                                "type": "PATTERN",
+                                "value": "autoconfig",
+                                "flags": "i"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "priority",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "priority",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "number"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "preempt",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "PATTERN",
+                                  "value": "delay",
+                                  "flags": "i"
+                                },
+                                {
+                                  "type": "PATTERN",
+                                  "value": "minimum",
+                                  "flags": "i"
+                                },
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "number"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "timers",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "PATTERN",
+                              "value": "msec",
+                              "flags": "i"
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "hello",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "number"
+                          }
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "PATTERN",
+                              "value": "msec",
+                              "flags": "i"
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "hold",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "number"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "track",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "object_id",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "number"
+                          }
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "PATTERN",
+                                  "value": "decrement",
+                                  "flags": "i"
+                                },
+                                {
+                                  "type": "FIELD",
+                                  "name": "value",
+                                  "content": {
+                                    "type": "SYMBOL",
+                                    "name": "number"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "interface_channel_group": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_channel_group"
+        },
+        {
+          "type": "FIELD",
+          "name": "channel",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "PATTERN",
+          "value": "mode",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "mode",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "active",
+                "flags": "i"
+              },
+              {
+                "type": "PATTERN",
+                "value": "passive",
+                "flags": "i"
+              },
+              {
+                "type": "PATTERN",
+                "value": "on",
+                "flags": "i"
+              },
+              {
+                "type": "PATTERN",
+                "value": "desirable",
+                "flags": "i"
+              },
+              {
+                "type": "PATTERN",
+                "value": "auto",
+                "flags": "i"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         }
       ]
     },
@@ -7327,6 +8038,13 @@
     [
       "text_line",
       "hardware_info"
+    ],
+    [
+      "interface_standby"
+    ],
+    [
+      "interface_standby",
+      "command"
     ]
   ],
   "precedences": [],
