@@ -1,51 +1,70 @@
 ==============================
-Advanced Diagnostic Outputs
+Diagnostics and Utilities
 ==============================
-show ip interface Gi0/1
-GigabitEthernet0/1 is up, line protocol is up
-  Internet address is 192.168.1.1/24
-  Broadcast address is 255.255.255.255
-  Address determined by setup command
-  MTU is 1500 bytes
-  Helper address is not set
-  Directed broadcast forwarding is disabled
-  Outgoing access list is not set
-  Inbound  access list is not set
-!
-show ip ospf neighbor
-Neighbor ID     Pri   State           Dead Time   Address         Interface
-1.1.1.1           1   FULL/DR         00:00:35    192.168.1.1     GigabitEthernet0/0
-!
-show cdp neighbors
-Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
-                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone
-Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-R1               Gi0/0             125              R S I  2901      Gi0/1
-!
+ping 10.0.0.1
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms
+traceroute 8.8.8.8
+  1 10.0.0.1 1 ms 1 ms 1 ms
+  2 8.8.8.8 2 ms 2 ms 2 ms
+dir flash:
+Directory of flash:/
+   1  -rw-    12345678  Jan 1 2026 12:34:56  ios.bin
+12345678 bytes total (87654321 bytes free)
+terminal length 0
+terminal width 512
 
 ---
 
 (source_file
-  (show_command
-    (show_ip_interface_block
-      (interface_name)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line))))
+  (diagnostic_command
+    (ping_block
+      destination: (ipv4_address)
+      (ping_stream_line
+        response_stream: (word))
+      (ping_stats_line
+        success_rate: (number)
+        success_qty: (number)
+        sent_qty: (number)
+        rtt_min: (number)
+        rtt_avg: (number)
+        rtt_max: (number))))
+  (diagnostic_command
+    (traceroute_block
+      destination: (ipv4_address)
+      (traceroute_hop_line
+        hop_number: (number)
+        hop_address: (ipv4_address)
+        rtt: (number)
+        rtt: (number)
+        rtt: (number))
+      (traceroute_hop_line
+        hop_number: (number)
+        hop_address: (ipv4_address)
+        rtt: (number)
+        rtt: (number)
+        rtt: (number))))
+  (diagnostic_command
+    (dir_block
+      filesystem: (word)
+      (dir_header
+        filesystem: (word))
+      (dir_entry
+        id: (number)
+        permissions: (word)
+        size: (number)
+        date_time: (text
+          (word)
+          (word)
+          (word)
+          (word))
+        file_name: (word))
+      (dir_summary
+        total_size: (number)
+        total_free: (number))))
+  (diagnostic_command
+    (terminal_command
+      length: (number)))
+  (diagnostic_command
+    (terminal_command
+      width: (number))))

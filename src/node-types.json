@@ -733,6 +733,165 @@
     }
   },
   {
+    "type": "diagnostic_command",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "dir_block",
+          "named": true
+        },
+        {
+          "type": "ping_block",
+          "named": true
+        },
+        {
+          "type": "terminal_command",
+          "named": true
+        },
+        {
+          "type": "traceroute_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dir_block",
+    "named": true,
+    "fields": {
+      "filesystem": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "dir_entry",
+          "named": true
+        },
+        {
+          "type": "dir_header",
+          "named": true
+        },
+        {
+          "type": "dir_summary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dir_entry",
+    "named": true,
+    "fields": {
+      "date_time": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "text",
+            "named": true
+          }
+        ]
+      },
+      "file_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "permissions": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "size": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dir_header",
+    "named": true,
+    "fields": {
+      "filesystem": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "dir_summary",
+    "named": true,
+    "fields": {
+      "total_free": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "total_size": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "environment_info",
     "named": true,
     "fields": {
@@ -1848,6 +2007,188 @@
     }
   },
   {
+    "type": "ping_block",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "repeat": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "timeout": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "vrf": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ping_stats_line",
+          "named": true
+        },
+        {
+          "type": "ping_stream_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ping_stats_line",
+    "named": true,
+    "fields": {
+      "rtt_avg": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "rtt_max": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "rtt_min": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "sent_qty": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "success_qty": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "success_rate": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ping_stream_line",
+    "named": true,
+    "fields": {
+      "response_stream": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "port_security_config",
     "named": true,
     "fields": {
@@ -2553,6 +2894,10 @@
           "named": true
         },
         {
+          "type": "diagnostic_command",
+          "named": true
+        },
+        {
           "type": "interface_block",
           "named": true
         },
@@ -2944,6 +3289,32 @@
     }
   },
   {
+    "type": "terminal_command",
+    "named": true,
+    "fields": {
+      "length": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "width": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "text",
     "named": true,
     "fields": {},
@@ -2980,6 +3351,84 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "traceroute_block",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "traceroute_hop_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "traceroute_hop_line",
+    "named": true,
+    "fields": {
+      "hop_address": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "hop_number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "rtt": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3285,6 +3734,14 @@
     "fields": {}
   },
   {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
     "type": "*",
     "named": false
   },
@@ -3302,6 +3759,14 @@
   },
   {
     "type": "2",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "=",
     "named": false
   },
   {

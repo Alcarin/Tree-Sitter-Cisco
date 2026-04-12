@@ -26,6 +26,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "diagnostic_command"
+        },
+        {
+          "type": "SYMBOL",
           "name": "system_config"
         },
         {
@@ -5138,6 +5142,980 @@
         }
       ]
     },
+    "diagnostic_command": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "ping_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "traceroute_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dir_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "terminal_command"
+        }
+      ]
+    },
+    "ping_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Pp]ing",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 110,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[Vv][Rr][Ff]",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "vrf",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "word"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "afi",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "TOKEN",
+                    "content": {
+                      "type": "PREC",
+                      "value": 110,
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[Ii][Pp]",
+                        "flags": "i"
+                      }
+                    }
+                  },
+                  {
+                    "type": "TOKEN",
+                    "content": {
+                      "type": "PREC",
+                      "value": 110,
+                      "content": {
+                        "type": "PATTERN",
+                        "value": "[Ii][Pp][Vv]6",
+                        "flags": "i"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ipv4_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "ipv6_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 110,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[Rr]epeat",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "repeat",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 110,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[Tt]imeout",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "timeout",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 110,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[Ss]ize",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "size",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 110,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[Ss]ource",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "source",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "interface_name"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "ipv4_address"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "ipv6_address"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "word"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ping_stats_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "ping_stream_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "ping_stream_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "response_stream",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": 110,
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[.!/U/Q ]+"
+                }
+              }
+            },
+            "named": true,
+            "value": "word"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "ping_stats_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]uccess",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "rate",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ii]s",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "success_rate",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "percent",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "success_qty",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "/"
+        },
+        {
+          "type": "FIELD",
+          "name": "sent_qty",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 110,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[Rr]ound-trip",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 110,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[Mm]in\\/[Aa]vg\\/[Mm]ax",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": "="
+                },
+                {
+                  "type": "FIELD",
+                  "name": "rtt_min",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": "/"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "rtt_avg",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": "/"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "rtt_max",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                },
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 110,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[Mm]s",
+                      "flags": "i"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "traceroute_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Tt]raceroute",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "destination",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ipv4_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "ipv6_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "traceroute_hop_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "traceroute_hop_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "hop_number",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "hop_address",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ipv4_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "ipv6_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "rtt",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "number"
+                }
+              },
+              {
+                "type": "TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 110,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[Mm]s",
+                    "flags": "i"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "dir_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Dd]ir",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "filesystem",
+              "content": {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "dir_header"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dir_entry"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dir_summary"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "dir_header": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Dd]irectory",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "PATTERN",
+          "value": "[Oo][Ff]",
+          "flags": "i"
+        },
+        {
+          "type": "FIELD",
+          "name": "filesystem",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "dir_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "permissions",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": 110,
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[d\\-rwx]{4,10}"
+                }
+              }
+            },
+            "named": true,
+            "value": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "size",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "date_time",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            },
+            "named": true,
+            "value": "text"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "file_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "dir_summary": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "total_size",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Bb]ytes",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Tt]otal",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "total_free",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Bb]ytes",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ff]ree",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "terminal_command": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 110,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Tt]erminal",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 110,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[Ll]ength",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "length",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 110,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "[Ww]idth",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "width",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
     "text_line": {
       "type": "PREC_LEFT",
       "value": 0,
@@ -7984,6 +8962,15 @@
     ],
     [
       "show_ip_ospf_neighbor_block"
+    ],
+    [
+      "ping_block"
+    ],
+    [
+      "traceroute_block"
+    ],
+    [
+      "dir_block"
     ],
     [
       "bgp_summary_entry"

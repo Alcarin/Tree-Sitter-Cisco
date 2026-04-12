@@ -490,15 +490,20 @@ These nodes capture command outputs and map them to structured data fields.
 ---
 
 ## 📋 6. Diagnostics & Utilities
-- [ ] `ping`
-    - [ ] `<ipv4_address> | <word>` (Destination)
-    - [ ] `source <interface> | <ipv4_address>`
-    - [ ] Field: `success_rate` | `rtt_min` | `rtt_avg` | `rtt_max`
-- [ ] `traceroute`
-    - [ ] `<ipv4_address> | <word>`
-    - [ ] Field: `hop_number` | `hop_address` | `rtt`
-- [ ] `dir`
-    - [ ] `[<filesystem>]` (e.g., flash:, disk0:, nvram:)
-    - [ ] Field: `file_name` | `size` | `date_time` | `permissions`
+- [x] `ping`
+    - [x] `<ipv4_address> | <word>` (Destination)
+    - [x] `source <interface> | <ipv4_address>`
+    - [x] `vrf <word>`
+    - [x] `repeat <number>` | `timeout <number>` | `size <number>`
+    - [x] Field: `success_rate` | `success_qty` | `sent_qty`
+    - [x] Field: `rtt_min` | `rtt_avg` | `rtt_max`
+    - [x] Field: `response_stream` (e.g., !!!!!)
+- [x] `traceroute`
+    - [x] `<ipv4_address> | <word>`
+    - [x] Field: `hop_number` | `hop_address` | `rtt`
+- [x] `dir`
+    - [x] `[<filesystem>]` (e.g., flash:, disk0:, nvram:)
+    - [x] Field: `id` | `permissions` | `size` | `date_time` | `file_name`
+    - [x] Field: `total_size` | `total_free`
 - [x] `terminal length <number>`
 - [x] `terminal width <number>`

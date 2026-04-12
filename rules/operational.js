@@ -19,6 +19,96 @@ module.exports = {
     $.show_ip_interface_block
   ),
 
+  // --- DIAGNOSTIC & UTILITY COMMANDS ---
+  diagnostic_command: $ => choice(
+    $.ping_block,
+    $.traceroute_block,
+    $.dir_block,
+    $.terminal_command
+  ),
+
+  // --- PING ---
+  ping_block: $ => seq(
+    token(prec(110, /[Pp]ing/i)),
+    optional(seq(token(prec(110, /[Vv][Rr][Ff]/i)), field('vrf', $.word))),
+    optional(field('afi', choice(token(prec(110, /[Ii][Pp]/i)), token(prec(110, /[Ii][Pp][Vv]6/i))))),
+    field('destination', choice($.ipv4_address, $.ipv6_address, $.word)),
+    optional(seq(token(prec(110, /[Rr]epeat/i)), field('repeat', $.number))),
+    optional(seq(token(prec(110, /[Tt]imeout/i)), field('timeout', $.number))),
+    optional(seq(token(prec(110, /[Ss]ize/i)), field('size', $.number))),
+    optional(seq(token(prec(110, /[Ss]ource/i)), field('source', choice($.interface_name, $.ipv4_address, $.ipv6_address, $.word)))),
+    $._newline,
+    repeat(choice(
+        $.ping_stats_line,
+        $.ping_stream_line,
+        $._newline
+    ))
+  ),
+  ping_stream_line: $ => seq(field('response_stream', alias(token(prec(110, /[.!/U/Q ]+/)), $.word)), $._newline),
+  ping_stats_line: $ => seq(
+    token(prec(110, /[Ss]uccess/i)), token(prec(110, /rate/i)), token(prec(110, /[Ii]s/i)), field('success_rate', $.number), token(prec(110, /percent/i)),
+    '(', field('success_qty', $.number), '/', field('sent_qty', $.number), ')',
+    optional(seq(
+        ',', token(prec(110, /[Rr]ound-trip/i)), token(prec(110, /[Mm]in\/[Aa]vg\/[Mm]ax/i)), '=',
+        field('rtt_min', $.number), '/', field('rtt_avg', $.number), '/', field('rtt_max', $.number), token(prec(110, /[Mm]s/i))
+    )),
+    $._newline
+  ),
+
+  // --- TRACEROUTE ---
+  traceroute_block: $ => seq(
+    token(prec(110, /[Tt]raceroute/i)),
+    field('destination', choice($.ipv4_address, $.ipv6_address, $.word)),
+    $._newline,
+    repeat(choice(
+        $.traceroute_hop_line,
+        $._newline
+    ))
+  ),
+  traceroute_hop_line: $ => seq(
+    field('hop_number', $.number),
+    field('hop_address', choice($.ipv4_address, $.ipv6_address, $.word)),
+    repeat1(seq(field('rtt', $.number), token(prec(110, /[Mm]s/i)))),
+    $._newline
+  ),
+
+  // --- DIR ---
+  dir_block: $ => seq(
+    token(prec(110, /[Dd]ir/i)),
+    optional(field('filesystem', $.word)),
+    $._newline,
+    repeat(choice(
+        $.dir_header,
+        $.dir_entry,
+        $.dir_summary,
+        $._newline
+    ))
+  ),
+  dir_header: $ => seq(token(prec(110, /[Dd]irectory/i)), /[Oo][Ff]/i, field('filesystem', $.word), optional(':'), $._newline),
+  dir_entry: $ => seq(
+    field('id', $.number),
+    field('permissions', alias(token(prec(110, /[d\-rwx]{4,10}/)), $.word)),
+    field('size', $.number),
+    field('date_time', alias(repeat1($.word), $.text)),
+    field('file_name', $.word),
+    $._newline
+  ),
+  dir_summary: $ => seq(
+    field('total_size', $.number), token(prec(110, /[Bb]ytes/i)), token(prec(110, /[Tt]otal/i)),
+    '(', field('total_free', $.number), token(prec(110, /[Bb]ytes/i)), token(prec(110, /[Ff]ree/i)), ')',
+    $._newline
+  ),
+
+  // --- TERMINAL ---
+  terminal_command: $ => seq(
+    token(prec(110, /[Tt]erminal/i)),
+    choice(
+        seq(token(prec(110, /[Ll]ength/i)), field('length', $.number)),
+        seq(token(prec(110, /[Ww]idth/i)), field('width', $.number))
+    ),
+    $._newline
+  ),
+
   // REGOLE DI SUPPORTO
   text_line: $ => prec.left(repeat1(choice($.word, $.number, $.punctuation, $.ipv4_address, $.interface_name, $.mac_address, $.ipv6_address))),
   _header_line: $ => seq(alias($.text_line, $.header), $._newline),
