@@ -59,7 +59,8 @@ module.exports = {
   ),
 
   line_block: $ => seq(
-    $._kw_line, field('type', choice(/vty/i, /con/i, /aux/i)), repeat1($.number), $._newline,
+    $._kw_line, field('type', alias(choice(/vty/i, /con/i, /console/i, /aux/i), $.word)), 
+    field('start', $.number), optional(field('end', $.number)), $._newline,
     $._indent, repeat($._line_statement), $._dedent
   ),
 
@@ -95,7 +96,44 @@ module.exports = {
     $.prefix_list,
     $.static_route,
     $.vrf_definition,
-    $.vrf_definition_block
+    $.vrf_definition_block,
+    $.object_group_block
+  ),
+
+  object_group_block: $ => seq(
+    /object-group/i, 
+    choice(
+      seq(/network/i, field('name', $.word)),
+      seq(/service/i, field('name', $.word), optional(field('protocol', choice(alias(/tcp/i, $.word), alias(/udp/i, $.word), alias(/tcp-udp/i, $.word)))))
+    ),
+    $._newline,
+    $._indent, repeat($._object_group_statement), $._dedent
+  ),
+
+  _object_group_statement: $ => choice(
+    $.network_object,
+    $.port_object,
+    $.comment,
+    $.command,
+    $._newline
+  ),
+
+  network_object: $ => seq(
+    /network-object/i,
+    choice(
+      field('host', seq(/host/i, $.ipv4_address)),
+      seq(field('address', $.ipv4_address), field('mask', $.ipv4_address)),
+      field('object', seq(/object/i, $.word))
+    ),
+    $._newline
+  ),
+
+  port_object: $ => seq(
+    /port-object/i,
+    field('operator', alias(choice(/eq/i, /gt/i, /lt/i, /neq/i, /range/i), $.word)),
+    field('port', choice($.number, $.word)),
+    optional(field('port_end', choice($.number, $.word))),
+    $._newline
   ),
 
   vtp_config: $ => seq(
@@ -455,10 +493,32 @@ module.exports = {
   vrf_exit_address_family: $ => seq(/exit-address-family/i, $._newline),
 
   _line_statement: $ => choice(
-    seq(/login/i, optional(/local/i), $._newline),
-    seq(/transport/i, choice(/input/i, /output/i), repeat1($.word), $._newline),
+    $.line_login,
+    $.line_transport,
+    $.line_password,
+    $.line_exec_timeout,
     $.comment,
     $.command,
+    $._newline
+  ),
+
+  line_login: $ => seq(/login/i, optional(field('method', alias(/local/i, $.word))), $._newline),
+  line_password: $ => seq(
+    /password/i, 
+    optional(field('encryption_type', $.number)), 
+    field('password', $.word), 
+    $._newline
+  ),
+  line_exec_timeout: $ => seq(
+    /exec-timeout/i, 
+    field('minutes', $.number), 
+    optional(field('seconds', $.number)), 
+    $._newline
+  ),
+  line_transport: $ => seq(
+    /transport/i, 
+    field('direction', alias(choice(/input/i, /output/i), $.word)), 
+    repeat1(field('protocol', alias(choice(/ssh/i, /telnet/i, /all/i, /none/i), $.word))), 
     $._newline
   ),
 
@@ -480,9 +540,45 @@ module.exports = {
   ),
 
   acl_rule: $ => seq(
-    field('action', $.acl_action), 
-    repeat1(choice($.word, $.number, $.ipv4_address, $.ipv6_address, $.vlan_range)), 
+    optional(field('sequence', $.number)),
+    field('action', $.acl_action),
+    optional(field('protocol', choice(alias(token(prec(100, /tcp/i)), $.word), alias(token(prec(100, /udp/i)), $.word), alias(token(prec(100, /icmp/i)), $.word), alias(token(prec(100, /ip/i)), $.word), $.number))),
+    $._acl_addr_spec_source,
+    optional($._acl_addr_spec_dest),
+    repeat(choice(
+      field('log', alias(choice(token(prec(100, /log/i)), token(prec(100, /log-input/i))), $.word)),
+      seq(token(prec(100, /time-range/i)), field('time_range', $.word)),
+      $.word,
+      $.number
+    )),
     $._newline
+  ),
+
+  _acl_addr_spec_source: $ => choice(
+    field('source_any', alias(token(prec(100, /any/i)), $.word)),
+    seq(token(prec(100, /host/i)), field('source_host', $.ipv4_address)),
+    seq(field('source_network', $.ipv4_address), field('source_wildcard', $.ipv4_address)),
+    seq(token(prec(100, /object-group/i)), field('source_object_group', $.word))
+  ),
+
+  _acl_addr_spec_dest: $ => seq(
+    choice(
+      field('destination_any', alias(token(prec(100, /any/i)), $.word)),
+      seq(token(prec(100, /host/i)), field('destination_host', $.ipv4_address)),
+      seq(field('destination_network', $.ipv4_address), field('destination_wildcard', $.ipv4_address)),
+      seq(token(prec(100, /object-group/i)), field('destination_object_group', $.word))
+    ),
+    optional(seq(
+      field('destination_port_operator', alias(choice(
+        token(prec(100, /eq/i)), 
+        token(prec(100, /gt/i)), 
+        token(prec(100, /lt/i)), 
+        token(prec(100, /neq/i)), 
+        token(prec(100, /range/i))
+      ), $.word)),
+      field('destination_port', choice($.number, $.word)),
+      optional(field('destination_port_end', choice($.number, $.word)))
+    ))
   ),
 
   acl_action: $ => choice(/permit|perm/i, /deny|den/i),

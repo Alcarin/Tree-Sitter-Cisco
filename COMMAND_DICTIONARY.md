@@ -479,13 +479,17 @@ These nodes capture command outputs and map them to structured data fields.
 
 ### 5.3 Line Configuration
 - [x] `line`
-    - [x] `vty` | `con` | `aux`
+    - [x] `vty` | `con` | `console` | `aux`
         - [x] `<number>` (Start)
             - [x] `[<number>]` (End)
                 - [x] `login` [local]
-                - [x] `transport input` [ssh | telnet | all]
-    - [ ] `password`
-    - [ ] `exec-timeout`
+                - [x] `transport input` [ssh | telnet | all | none]
+    - [x] `password`
+        - [x] `[<number>]` (Encryption type)
+        - [x] `<word>` (Password)
+    - [x] `exec-timeout`
+        - [x] `<number>` (Minutes)
+        - [x] `[<number>]` (Seconds)
 
 ---
 

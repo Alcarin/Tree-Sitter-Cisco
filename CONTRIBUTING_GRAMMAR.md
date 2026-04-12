@@ -107,11 +107,16 @@ Tree-sitter uses a GLR (Generalized LR) parser. If too many rules match the same
 ### 🧩 Use the External Scanner
 The `src/scanner.c` handles `INDENT` and `DEDENT`. Never manually parse leading spaces for hierarchy; rely on the scanner to provide these tokens.
 
-### 🧪 Regression Testing
-Every new command **must** have a corresponding test case in `test/corpus/`:
-1. Add the CLI input.
-2. Add the expected AST.
-3. Run `tree-sitter test` and ensure `ERROR` nodes are absent.
+### 🧪 Regression Testing & Global Validation
+Every new command **must** have a corresponding test case in `test/corpus/`. However, because this is a GLR parser, a change in one rule can cause unintended regressions in unrelated parts of the grammar.
+
+1. **Add your test**: Place the CLI input and expected AST in a file within `test/corpus/`.
+2. **Generate**: Run `tree-sitter generate` to apply your changes.
+3. **Run GLOBAL Tests**: Do not just test your new file. Run the **entire** suite:
+   ```bash
+   tree-sitter test
+   ```
+4. **Fix Errors**: If existing tests fail (e.g., in `abbreviations.txt`), you may need to adjust precedences or add conflicts in `grammar.js`. Ensure `ERROR` nodes are absent from all tests.
 
 ---
 
@@ -120,5 +125,5 @@ Every new command **must** have a corresponding test case in `test/corpus/`:
 - [ ] Does it use `field()` for all variable data?
 - [ ] Does it end with `$._newline`?
 - [ ] Is it placed in the correct scope (Global vs. Block)?
-- [ ] Did you run `tree-sitter generate` and `tree-sitter test`?
+- [ ] Did you run `tree-sitter generate` and **verified that ALL tests pass** via `tree-sitter test`?
 - [ ] Is the `COMMAND_DICTIONARY.md` updated with the new support status?

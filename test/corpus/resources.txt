@@ -31,16 +31,16 @@ ip access-list extended MY_ACL
     name: (word)
     (acl_rule
       action: (acl_action)
-      (word)
-      (word)
-      (word)
+      protocol: (word)
+      source_any: (word)
+      destination_any: (word)
       (word))
     (acl_rule
       action: (acl_action)
-      (word)
-      (ipv4_address)
-      (ipv4_address)
-      (word)))
+      protocol: (word)
+      source_network: (ipv4_address)
+      source_wildcard: (ipv4_address)
+      destination_any: (word)))
   (comment))
 
 ==============================
