@@ -49,6 +49,7 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
         - [x] `<ipv4_address>` | `<word>`
     - [x] `source`
         - [x] `<interface_name>`
+    - [ ] `master [<number>]`
 - [x] `logging` / `log`
     - [x] `host`
         - [x] `<ipv4_address>` (Syslog host)
@@ -65,6 +66,8 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
             - [x] `[version <word>]` (Optional: 2c, 3)
             - [x] `<word>` (Community string)
     - [x] `enable traps`
+    - [ ] `location <string>`
+    - [ ] `contact <string>`
 - [x] `vlan`
     - [x] `<number>` (ID: 1-4094)
         - [x] `name`
@@ -74,9 +77,12 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
         - [x] `general-keys`
             - [x] `modulus`
                 - [x] `<number>` (Bits: 1024, 2048, 4096)
+- [ ] `ip ssh`
+- [ ] `version <1|2>`
+- [ ] `authentication-retries <number>`
+- [ ] `time-out <number>`
 
 ---
-
 ## 🔌 2. Interface Configuration
 
 ### 2.1 Base Parameters
@@ -112,8 +118,20 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
             - [x] `shutdown` | `restrict` | `protect`
         - [x] `mac-address`
             - [x] `sticky` | `<mac_address>`
+- [/] `spanning-tree`
+    - [ ] `vlan <number>`
+        - [ ] `priority <number>`
+    - [ ] `portfast` | `bpduguard enable`
+    - [ ] `mode` [pvst | rapid-pvst | mst]
+- [ ] `vtp`
+    - [ ] `domain <word>`
+    - [ ] `mode` [client | server | transparent | off]
 
-### 2.3 Layer 3 (IP & VRF)
+### 2.3 Port-Channel (EtherChannel)
+- [ ] `interface Port-channel <number>`
+- [ ] `channel-group <number> mode` [active | passive | on | desirable | auto]
+
+### 2.4 Layer 3 (IP & VRF)
 - [x] `ip`
     - [x] `address` / `addr`
         - [x] `<ipv4_address>` (IP)
@@ -131,6 +149,32 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
             - [x] `ipv4` | `ipv6`
 - [x] `ipv6 address`
     - [x] `<ipv6_address>/<number>`
+
+### 2.4 HSRP (Hot Standby Router Protocol)
+- [ ] `standby`
+    - [ ] `version`
+        - [ ] `<1|2>`
+    - [ ] `delay`
+        - [ ] `minimum <sec>` | `reload <sec>`
+    - [ ] `use-bia`
+    - [ ] `group`
+        - [ ] `<number>`
+            - [ ] `ip`
+                - [ ] `<ipv4_address> [secondary]`
+            - [ ] `ipv6`
+                - [ ] `<ipv6_address> | autoconfig`
+            - [ ] `priority`
+                - [ ] `<number>`
+            - [ ] `preempt`
+            - [ ] `timers`
+                - [ ] `[msec] <hello> [msec] <hold>`
+            - [ ] `track`
+                - [ ] `<object_id> [decrement <value>]`
+
+### 2.5 ASA Specific Interface Config
+- [ ] `nameif <word>` (Interface zone)
+- [ ] `security-level <number>` (0-100)
+- [ ] `ip address <ipv4> <mask> [standby <ipv4>]`
 
 ---
 
@@ -162,9 +206,14 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
                 - [x] `description`
                 - [x] `activate`
                 - [x] `update-source`
+                - [x] `soft-reconfiguration inbound`
         - [x] `address-family`
             - [x] `ipv4` | `ipv6` | `vpnv4` | `vpnv6`
                 - [x] `unicast` | `multicast`
+                    - [x] `network`
+                        - [x] `<ipv4_address> [mask <ipv4_address>]`
+                    - [x] `neighbor <addr> activate`
+
 - [x] `router ospf`
     - [x] `<number>` (Process ID)
         - [x] `[vrf <word>]` (Optional VRF)
@@ -332,19 +381,122 @@ These nodes capture command outputs and map them to structured data fields.
     - [x] Field: `interface`
         - [x] `<interface_name>`
 
+### 4.4 Security (ASA/FTD)
+- [ ] `show crypto ipsec sa`
+    - [ ] Field: `interface` | `local_address` | `current_peer`
+    - [ ] Field: `packets_encapsulated` | `packets_decapsulated`
+    - [ ] Field: `local_ident` | `remote_ident` (Addr/Mask/Port)
+- [ ] `show crypto ikev1 sa [detail]`
+    - [ ] Field: `connection_id` | `ip_address` | `state` | `role`
+- [ ] `show failover`
+    - [ ] Field: `failover_status` (On/Off)
+    - [ ] Field: `role` (Active/Standby/Primary/Secondary)
+    - [ ] Field: `lan_interface` | `mate_status`
+- [ ] `show vpn-sessiondb [anyconnect | l2l]`
+    - [ ] Field: `username` | `index` | `public_ip` | `protocol` | `encryption` | `hashing` | `uptime`
+
+### 4.5 Service Provider (IOS-XR)
+- [ ] `show bgp neighbors`
+    - [ ] Field: `neighbor` | `remote_as` | `local_as` | `description` | `state` | `uptime`
+    - [ ] Field: `prefixes_in` | `prefixes_out`
+- [ ] `show mpls ldp neighbor [brief]`
+    - [ ] Field: `peer_id` | `local_ldp_id` | `state` | `uptime`
+- [ ] `show controllers [HundredGigabitEthernet <name>]`
+    - [ ] Field: `interface` | `operational_state` | `mac_address`
+
+### 4.6 Data Center (NX-OS)
+- [ ] `show vpc`
+    - [ ] Field: `vpc_id` | `port` | `status` | `consistency_status`
+- [ ] `show fex`
+    - [ ] Field: `fex_id` | `description` | `state` | `model` | `serial`
+- [ ] `show nve peers`
+    - [ ] Field: `interface` | `peer_ip` | `state` | `uptime`
+- [ ] `show nve vni`
+    - [ ] Field: `vni` | `mcast_group` | `vni_state`
+
+### 4.7 Advanced L2/L3 (IOS/XE)
+- [ ] `show etherchannel summary`
+    - [ ] Field: `group` | `bundle_name` | `bundle_status` | `bundle_protocol`
+    - [ ] Field: `member_interface` | `member_interface_status`
+- [ ] `show spanning-tree`
+    - [ ] Field: `vlan_id` | `interface` | `role` | `status` | `cost` | `port_priority` | `port_id`
+- [ ] `show vtp status`
+    - [ ] Field: `version` | `domain` | `mode` | `max_vlans` | `existing_vlan_count` | `revision_number`
+- [ ] `show standby [brief]` (HSRP)
+    - [ ] Field: `interface` | `group` | `state` | `virtual_ip` | `active_router` | `standby_router`
+- [ ] `show vrrp [brief]`
+    - [ ] Field: `interface` | `group` | `state` | `virtual_ip` | `master_router`
+
+### 4.8 Infrastructure & Services (IOS/XE)
+- [ ] `show logging`
+    - [ ] Field: `facility` | `severity` | `mnemonic` | `message` | `timestamp`
+- [ ] `show snmp community` | `show snmp group` | `show snmp user`
+    - [ ] Field: `community_name` | `group_name` | `user_name` | `acl` | `storage_type`
+- [ ] `show ip dhcp binding`
+    - [ ] Field: `ip_address` | `mac_address` | `lease_expiration` | `type`
+- [ ] `show ip nat translations`
+    - [ ] Field: `protocol` | `inside_global_ip` | `inside_local_ip` | `outside_local_ip` | `outside_global_ip`
+
+### 4.9 Security & Auth (IOS/XE)
+- [ ] `show authentication sessions`
+    - [ ] Field: `interface` | `mac_address` | `method` | `domain` | `status` | `session_id`
+- [ ] `show dot1x all`
+    - [ ] Field: `interface` | `pae` | `auth_status`
+- [ ] `show ip access-lists`
+    - [ ] Field: `acl_name` | `line_number` | `action` | `protocol` | `source` | `destination` | `matches`
+
+### 4.10 SD-WAN & Advanced Routing (IOS/XE)
+- [ ] `show sdwan bfd sessions`
+    - [ ] Field: `system_ip` | `site_id` | `local_color` | `remote_color` | `state` | `uptime`
+- [ ] `show ip eigrp topology`
+    - [ ] Field: `as` | `id` | `network` | `mask` | `successors` | `fd`
+- [ ] `show ip ospf database`
+    - [ ] Field: `link_id` | `adv_router` | `age` | `seq_number` | `checksum`
+
 ---
 
 ## 🛡️ 5. Security & ACL
+
+### 5.1 IP Access Lists
 - [x] `ip access-list`
     - [x] `standard` | `extended`
         - [x] `<word>` (ACL Name)
             - [x] `permit` / `perm` | `deny` / `den`
                 - [x] `<protocol>` (tcp, udp, icmp, ip)
-                - [x] `any` | `host <ipv4>`
+                - [x] `any` | `host <ipv4>` | `<ipv4> <wildcard>`
                 - [x] `[eq | range <port>]`
+
+### 5.2 Object Groups (ASA)
+- [x] `object-group network`
+    - [x] `<name>`
+        - [x] `network-object host <ipv4>`
+        - [x] `network-object <ipv4> <mask>`
+- [x] `object-group service`
+    - [x] `<name> <protocol>`
+        - [x] `port-object eq <port>`
+
+### 5.3 Line Configuration
 - [x] `line`
     - [x] `vty` | `con` | `aux`
         - [x] `<number>` (Start)
             - [x] `[<number>]` (End)
                 - [x] `login` [local]
                 - [x] `transport input` [ssh | telnet | all]
+    - [ ] `password`
+    - [ ] `exec-timeout`
+
+---
+
+## 📋 6. Diagnostics & Utilities
+- [ ] `ping`
+    - [ ] `<ipv4_address> | <word>` (Destination)
+    - [ ] `source <interface> | <ipv4_address>`
+    - [ ] Field: `success_rate` | `rtt_min` | `rtt_avg` | `rtt_max`
+- [ ] `traceroute`
+    - [ ] `<ipv4_address> | <word>`
+    - [ ] Field: `hop_number` | `hop_address` | `rtt`
+- [ ] `dir`
+    - [ ] `[<filesystem>]` (e.g., flash:, disk0:, nvram:)
+    - [ ] Field: `file_name` | `size` | `date_time` | `permissions`
+- [x] `terminal length <number>`
+- [x] `terminal width <number>`
