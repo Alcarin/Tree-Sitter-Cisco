@@ -1,0 +1,45 @@
+==============================
+Op Security
+==============================
+show failover
+Failover On
+Failover unit Primary
+
+---
+
+(source_file
+  (show_command
+    (show_failover_block
+      (failover_line)
+      (failover_line status: (word))
+      (failover_line role: (word)))))
+
+==============================
+Op SP
+==============================
+show bgp neighbors
+BGP neighbor is 1.1.1.1, remote AS 65001, local AS 65002
+
+---
+
+(source_file
+  (show_command
+    (show_bgp_neighbors_block
+      (bgp_neighbor_summary_line
+        neighbor: (ipv4_address)
+        remote_as: (number)
+        local_as: (number)))))
+
+==============================
+Op DC
+==============================
+show vpc
+vPC domain id: 10
+
+---
+
+(source_file
+  (show_command
+    (show_vpc_block
+      (vpc_summary_line
+        domain_id: (number)))))

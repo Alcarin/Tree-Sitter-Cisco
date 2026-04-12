@@ -16,7 +16,22 @@ module.exports = {
     $.show_ip_route_block,
     $.show_ip_bgp_summary_block,
     $.show_ip_ospf_neighbor_block,
-    $.show_ip_interface_block
+    $.show_ip_interface_block,
+    // --- Security ASA/FTD (4.4) ---
+    $.show_crypto_ipsec_sa_block,
+    $.show_crypto_ikev1_sa_block,
+    $.show_failover_block,
+    $.show_vpn_sessiondb_block,
+    // --- Service Provider (4.5) ---
+    $.show_bgp_neighbors_block,
+    $.show_mpls_ldp_neighbor_block,
+    // --- Data Center (4.6) ---
+    $.show_vpc_block,
+    $.show_fex_block,
+    // --- Advanced L2/L3 (4.7) ---
+    $.show_etherchannel_summary_block,
+    $.show_spanning_tree_block,
+    $.show_standby_block
   ),
 
   // --- DIAGNOSTIC & UTILITY COMMANDS ---
@@ -310,5 +325,244 @@ module.exports = {
 
   interface_status_entry: $ => prec(100, seq(field('interface', $.interface_name), /[Ii][Ss]/i, field('status', alias(repeat1($.word), $.operational_status)), /,/, /[Ll]ine/i, /[Pp]rotocol/i, /[Ii][Ss]/i, field('protocol', alias($.word, $.operational_status)), $._newline)),
   vlan_brief_entry: $ => prec(100, seq(field('id', $.number), field('name', $.word), field('status', $.word), field('ports', repeat1($.interface_name)), $._newline)),
-  bgp_neighbor_block: $ => prec(100, seq(/[Bb][Gg][Pp]/i, /[Nn]eighbor/i, /[Ii][Ss]/i, field('neighbor', $.ipv4_address), /,/, /[Rr]emote/i, /[Aa][Ss]/i, field('remote_as', $.number), /.*/, $._newline))
+  bgp_neighbor_block: $ => prec(100, seq(/[Bb][Gg][Pp]/i, /[Nn]eighbor/i, /[Ii][Ss]/i, field('neighbor', $.ipv4_address), /,/, /[Rr]emote/i, /[Aa][Ss]/i, field('remote_as', $.number), /.*/, $._newline)),
+
+  // --- SECURITY ASA/FTD (4.4) ---
+
+  // --- SHOW CRYPTO IPSEC SA ---
+  show_crypto_ipsec_sa_block: $ => seq(
+    token(prec(120, /[Ss]how\s+[Cc]rypto\s+[Ii]psec\s+[Ss][Aa]/i)), $._newline,
+    repeat(choice(
+        $.crypto_ipsec_sa_entry,
+        $._newline
+    ))
+  ),
+  crypto_ipsec_sa_entry: $ => seq(
+    token(prec(120, /[Ii]nterface\s*:/i)), field('interface', choice($.interface_name, $.word)), $._newline,
+    repeat(choice(
+        $.crypto_map_line,
+        $.crypto_ident_line,
+        $.crypto_peer_line,
+        $.crypto_pkts_line,
+        $._newline
+    ))
+  ),
+  crypto_map_line: $ => seq(
+    token(prec(120, /[Cc]rypto\s+map\s+tag\s*:/i)), field('tag', $.word), ',',
+    token(prec(120, /seq\s+num\s*:/i)), field('seq', $.number), ',',
+    token(prec(120, /local\s+addr\s*:/i)), field('local_addr', $.ipv4_address),
+    $._newline
+  ),
+  crypto_ident_line: $ => seq(
+    field('side', choice(token(prec(120, /local/i)), token(prec(120, /remote/i)))),
+    token(prec(120, /ident/i)), '(', token(prec(120, /addr\/mask\/prot\/port/i)), '):',
+    '(', field('address', $.ipv4_address), '/', field('mask', choice($.ipv4_address, $.number)), '/', field('protocol', $.number), '/', field('port', $.number), ')',
+    $._newline
+  ),
+  crypto_peer_line: $ => seq(
+    token(prec(120, /current_peer\s*:/i)), field('peer', $.ipv4_address),
+    optional(seq(token(prec(120, /port\s*:/i)), field('port', $.number))),
+    $._newline
+  ),
+  crypto_pkts_line: $ => seq(
+    choice(
+        seq(token(prec(120, /#pkts\s+encaps\s*:/i)), field('encaps', $.number)),
+        seq(token(prec(120, /#pkts\s+decaps\s*:/i)), field('decaps', $.number))
+    ),
+    repeat(seq(token(prec(130, ',')), choice($.word, $.number, $.punctuation, /#[a-z]+/i, /:[a-z]+/i))),
+    $._newline
+  ),
+
+  // --- SHOW CRYPTO IKEV1 SA ---
+  show_crypto_ikev1_sa_block: $ => seq(
+    token(prec(120, /[Ss]how\s+[Cc]rypto\s+[Ii]kev1\s+[Ss][Aa]/i)), optional(token(prec(120, /[Dd]etail/i))), $._newline,
+    repeat(choice(
+        $.ikev1_sa_header,
+        $.ikev1_sa_entry,
+        $._newline
+    ))
+  ),
+  ikev1_sa_header: $ => prec(200, seq(token(prec(120, /IKEv1\s+SAs:/i)), $._newline, optional($._dashed_line))),
+  ikev1_sa_entry: $ => seq(
+    field('connection_id', $.number),
+    field('ip_address', $.ipv4_address),
+    field('state', $.word),
+    field('role', choice(token(prec(120, /INITIATOR/i)), token(prec(120, /RESPONDER/i)))),
+    $._newline
+  ),
+
+  // --- SHOW FAILOVER ---
+  show_failover_block: $ => seq(
+    token(prec(200, /[Ss]how\s+[Ff]ailover/i)),
+    $._newline,
+    repeat(choice(
+        $.failover_line,
+        $._newline
+    ))
+  ),
+  failover_line: $ => seq(
+    /[Ff]ailover/i,
+    choice(
+        seq($._whitespace, field('status', alias(choice(/[Oo]n/i, /[Oo]ff/i), $.word))),
+        seq($._whitespace, /[Uu]nit/i, $._whitespace, field('role', $.word))
+    ),
+    $._newline
+  ),
+  failover_interface_line: $ => seq(
+    field('interface_label', alias(repeat1($.word), $.text)),
+    ':',
+    field('interface', choice($.interface_name, $.word)),
+    field('status', alias(repeat1($.word), $.text)),
+    $._newline
+  ),
+
+  // --- SHOW VPN-SESSIONDB ---
+  show_vpn_sessiondb_block: $ => seq(
+    token(prec(120, /[Ss]how\s+[Vv]pn-sessiondb/i)), optional(choice(/[Aa]nyconnect/i, /[Ll]2[Ll]/i)), $._newline,
+    repeat(choice(
+        $.vpn_session_summary,
+        $.vpn_session_entry,
+        $._newline
+    ))
+  ),
+  vpn_session_summary: $ => seq(token(prec(120, /Total\s+active\s+and\s+inactive\s*:/i)), field('total', $.number), $._newline),
+  vpn_session_entry: $ => seq(
+    token(prec(120, /Index\s*:/i)), field('index', $.number), ',',
+    token(prec(120, /Username\s*:/i)), field('username', $.word), ',',
+    token(prec(120, /Public\s+IP\s*:/i)), field('public_ip', $.ipv4_address),
+    $._newline
+  ),
+
+  // --- SERVICE PROVIDER IOS-XR (4.5) ---
+
+  // --- SHOW BGP NEIGHBORS ---
+  show_bgp_neighbors_block: $ => seq(
+    token(prec(120, /[Ss]how\s+[Bb][Gg][Pp]\s+[Nn]eighbors/i)), $._newline,
+    repeat(choice(
+        $.bgp_neighbor_summary_line,
+        $._newline
+    ))
+  ),
+  bgp_neighbor_summary_line: $ => seq(
+    token(prec(120, /BGP\s+neighbor\s+is/i)), field('neighbor', choice($.ipv4_address, $.ipv6_address)), ',',
+    token(prec(120, /remote\s+AS/i)), field('remote_as', $.number), ',',
+    token(prec(120, /local\s+AS/i)), field('local_as', $.number),
+    $._newline
+  ),
+
+  // --- SHOW MPLS LDP NEIGHBOR ---
+  show_mpls_ldp_neighbor_block: $ => seq(
+    token(prec(120, /[Ss]how\s+[Mm][Pp][Ll][Ss]\s+[Ll][Dd][Pp]\s+[Nn]eighbor/i)), optional(token(prec(120, /[Bb]rief/i))), $._newline,
+    repeat(choice(
+        $.mpls_ldp_neighbor_line,
+        $._newline
+    ))
+  ),
+  mpls_ldp_neighbor_line: $ => seq(
+    token(prec(120, /Peer\s+LDP\s+ID:/i)), field('peer_id', $.ipv4_address), ':', field('label_space', $.number), ';',
+    token(prec(120, /Local\s+LDP\s+ID:/i)), field('local_id', $.ipv4_address), ':', field('local_label_space', $.number),
+    $._newline
+  ),
+
+  // --- DATA CENTER NX-OS (4.6) ---
+
+  // --- SHOW VPC ---
+  show_vpc_block: $ => seq(
+    token(prec(120, /[Ss]how\s+vpc/i)), $._newline,
+    repeat(choice(
+        $.vpc_summary_line,
+        $.vpc_entry,
+        $._dashed_line,
+        $._newline
+    ))
+  ),
+  vpc_summary_line: $ => seq(token(prec(120, /vPC\s+domain\s+id\s*:/i)), field('domain_id', $.number), optional($._whitespace), $._newline),
+  vpc_entry: $ => seq(
+    field('vpc_id', $.number),
+    field('port', choice($.interface_name, $.word)),
+    field('status', $.word),
+    field('consistency', $.word),
+    optional($._whitespace),
+    $._newline
+  ),
+
+  // --- SHOW FEX ---
+  show_fex_block: $ => seq(
+    token(prec(120, /[Ss]how\s+fex/i)), $._newline,
+    repeat(choice(
+        $.fex_entry,
+        $._newline
+    ))
+  ),
+  fex_entry: $ => seq(
+    field('fex_id', $.number),
+    field('description', $.word),
+    field('state', $.word),
+    field('model', $.word),
+    field('serial', $.word),
+    $._newline
+  ),
+
+  // --- ADVANCED L2/L3 (4.7) ---
+  show_etherchannel_summary_block: $ => seq(
+    token(prec(120, /[Ss]how\s+[Ee]therchannel\s+[Ss]ummary/i)), $._newline,
+    repeat(choice(
+        $.etherchannel_header,
+        $.etherchannel_entry,
+        $._dashed_line,
+        $._newline
+    ))
+  ),
+  etherchannel_header: $ => prec(200, seq(token(prec(120, /Group/i)), /Port-channel/i, /Protocol/i, /Ports/i, $._newline)),
+  etherchannel_entry: $ => seq(
+    field('group', $.number),
+    field('bundle_name', choice($.interface_name, $.word)),
+    field('bundle_status', $.word),
+    field('bundle_protocol', $.word),
+    repeat1(seq(field('member_interface', choice($.interface_name, $.word)), '(', field('member_status', $.word), ')')),
+    $._newline
+  ),
+
+  show_spanning_tree_block: $ => seq(
+    token(prec(120, /[Ss]how\s+[Ss]panning-tree/i)), optional($.word), $._newline,
+    repeat(choice(
+        $.spanning_tree_vlan_header,
+        $.spanning_tree_entry,
+        $._dashed_line,
+        $._newline
+    ))
+  ),
+  spanning_tree_vlan_header: $ => seq(token(prec(120, /VLAN/i)), field('vlan_id', $.number), optional(alias($.text_line, $.text)), $._newline),
+  spanning_tree_entry: $ => seq(
+    field('interface', choice($.interface_name, $.word)),
+    field('role', $.word),
+    field('status', $.word),
+    field('cost', $.number),
+    field('port_priority', $.number),
+    '.',
+    field('port_id', $.number),
+    field('type', optional($.word)),
+    $._newline
+  ),
+
+  show_standby_block: $ => seq(
+    token(prec(120, /[Ss]how\s+[Ss]tandby/i)), optional(token(prec(120, /[Bb]rief/i))), $._newline,
+    repeat(choice(
+        $.standby_header,
+        $.standby_entry,
+        $._newline
+    ))
+  ),
+  standby_header: $ => prec(200, seq(token(prec(120, /Interface/i)), /Grp/i, /Prio/i, /P/i, /State/i, /Active/i, /Standby/i, /Virtual\s+IP/i, $._newline)),
+  standby_entry: $ => seq(
+    field('interface', choice($.interface_name, $.word)),
+    field('group', $.number),
+    field('priority', $.number),
+    field('preempt', $.word),
+    field('state', $.word),
+    field('active_router', choice($.ipv4_address, $.word)),
+    field('standby_router', choice($.ipv4_address, $.word)),
+    field('virtual_ip', $.ipv4_address),
+    $._newline
+  )
 };

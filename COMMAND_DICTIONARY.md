@@ -384,48 +384,47 @@ These nodes capture command outputs and map them to structured data fields.
         - [x] `<interface_name>`
 
 ### 4.4 Security (ASA/FTD)
-- [ ] `show crypto ipsec sa`
-    - [ ] Field: `interface` | `local_address` | `current_peer`
-    - [ ] Field: `packets_encapsulated` | `packets_decapsulated`
-    - [ ] Field: `local_ident` | `remote_ident` (Addr/Mask/Port)
-- [ ] `show crypto ikev1 sa [detail]`
-    - [ ] Field: `connection_id` | `ip_address` | `state` | `role`
-- [ ] `show failover`
-    - [ ] Field: `failover_status` (On/Off)
-    - [ ] Field: `role` (Active/Standby/Primary/Secondary)
-    - [ ] Field: `lan_interface` | `mate_status`
-- [ ] `show vpn-sessiondb [anyconnect | l2l]`
-    - [ ] Field: `username` | `index` | `public_ip` | `protocol` | `encryption` | `hashing` | `uptime`
+- [x] `show crypto ipsec sa`
+    - [x] Field: `interface` | `local_addr` | `peer`
+    - [x] Field: `encaps` | `decaps`
+    - [x] Field: `address` | `mask` | `protocol` | `port` (Ident)
+- [x] `show crypto ikev1 sa [detail]`
+    - [x] Field: `connection_id` | `ip_address` | `state` | `role`
+- [x] `show failover`
+    - [x] Field: `status` (On/Off)
+    - [x] Field: `role` (Active/Standby/Primary/Secondary)
+    - [x] Field: `interface` | `status`
+- [x] `show vpn-sessiondb [anyconnect | l2l]`
+    - [x] Field: `username` | `index` | `public_ip` | `total`
 
 ### 4.5 Service Provider (IOS-XR)
-- [ ] `show bgp neighbors`
-    - [ ] Field: `neighbor` | `remote_as` | `local_as` | `description` | `state` | `uptime`
-    - [ ] Field: `prefixes_in` | `prefixes_out`
-- [ ] `show mpls ldp neighbor [brief]`
-    - [ ] Field: `peer_id` | `local_ldp_id` | `state` | `uptime`
+- [x] `show bgp neighbors`
+    - [x] Field: `neighbor` | `remote_as` | `local_as`
+- [x] `show mpls ldp neighbor [brief]`
+    - [x] Field: `peer_id` | `label_space` | `local_id` | `local_label_space`
 - [ ] `show controllers [HundredGigabitEthernet <name>]`
     - [ ] Field: `interface` | `operational_state` | `mac_address`
 
 ### 4.6 Data Center (NX-OS)
-- [ ] `show vpc`
-    - [ ] Field: `vpc_id` | `port` | `status` | `consistency_status`
-- [ ] `show fex`
-    - [ ] Field: `fex_id` | `description` | `state` | `model` | `serial`
+- [x] `show vpc`
+    - [x] Field: `domain_id` | `vpc_id` | `port` | `status` | `consistency`
+- [x] `show fex`
+    - [x] Field: `fex_id` | `description` | `state` | `model` | `serial`
 - [ ] `show nve peers`
     - [ ] Field: `interface` | `peer_ip` | `state` | `uptime`
 - [ ] `show nve vni`
     - [ ] Field: `vni` | `mcast_group` | `vni_state`
 
 ### 4.7 Advanced L2/L3 (IOS/XE)
-- [ ] `show etherchannel summary`
-    - [ ] Field: `group` | `bundle_name` | `bundle_status` | `bundle_protocol`
-    - [ ] Field: `member_interface` | `member_interface_status`
-- [ ] `show spanning-tree`
-    - [ ] Field: `vlan_id` | `interface` | `role` | `status` | `cost` | `port_priority` | `port_id`
+- [x] `show etherchannel summary`
+    - [x] Field: `group` | `bundle_name` | `bundle_status` | `bundle_protocol`
+    - [x] Field: `member_interface` | `member_status`
+- [x] `show spanning-tree`
+    - [x] Field: `vlan_id` | `interface` | `role` | `status` | `cost` | `port_priority` | `port_id`
 - [ ] `show vtp status`
     - [ ] Field: `version` | `domain` | `mode` | `max_vlans` | `existing_vlan_count` | `revision_number`
-- [ ] `show standby [brief]` (HSRP)
-    - [ ] Field: `interface` | `group` | `state` | `virtual_ip` | `active_router` | `standby_router`
+- [x] `show standby [brief]` (HSRP)
+    - [x] Field: `interface` | `group` | `priority` | `preempt` | `state` | `active_router` | `standby_router` | `virtual_ip`
 - [ ] `show vrrp [brief]`
     - [ ] Field: `interface` | `group` | `state` | `virtual_ip` | `master_router`
 

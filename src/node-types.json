@@ -502,6 +502,46 @@
     }
   },
   {
+    "type": "bgp_neighbor_summary_line",
+    "named": true,
+    "fields": {
+      "local_as": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "neighbor": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "remote_as": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "bgp_network",
     "named": true,
     "fields": {
@@ -887,6 +927,204 @@
     }
   },
   {
+    "type": "crypto_ident_line",
+    "named": true,
+    "fields": {
+      "address": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "mask": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "port": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "protocol": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "crypto_ipsec_sa_entry",
+    "named": true,
+    "fields": {
+      "interface": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "crypto_ident_line",
+          "named": true
+        },
+        {
+          "type": "crypto_map_line",
+          "named": true
+        },
+        {
+          "type": "crypto_peer_line",
+          "named": true
+        },
+        {
+          "type": "crypto_pkts_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "crypto_map_line",
+    "named": true,
+    "fields": {
+      "local_addr": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "seq": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "tag": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "crypto_peer_line",
+    "named": true,
+    "fields": {
+      "peer": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "port": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "crypto_pkts_line",
+    "named": true,
+    "fields": {
+      "decaps": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "encaps": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "punctuation",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "description_config",
     "named": true,
     "fields": {
@@ -1098,6 +1336,167 @@
     }
   },
   {
+    "type": "etherchannel_entry",
+    "named": true,
+    "fields": {
+      "bundle_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "bundle_protocol": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "bundle_status": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "group": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "member_interface": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "member_status": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "etherchannel_header",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "failover_line",
+    "named": true,
+    "fields": {
+      "role": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "status": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "fex_entry",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "fex_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "model": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "serial": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "hardware_info",
     "named": true,
     "fields": {
@@ -1112,6 +1511,47 @@
         ]
       }
     }
+  },
+  {
+    "type": "ikev1_sa_entry",
+    "named": true,
+    "fields": {
+      "connection_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "ip_address": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ikev1_sa_header",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "interface_bandwidth",
@@ -1970,6 +2410,52 @@
     "type": "mac_table_header",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "mpls_ldp_neighbor_line",
+    "named": true,
+    "fields": {
+      "label_space": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "local_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "local_label_space": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "peer_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "network_object",
@@ -2862,6 +3348,21 @@
     }
   },
   {
+    "type": "show_bgp_neighbors_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "bgp_neighbor_summary_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "show_cdp_neighbors_block",
     "named": true,
     "fields": {},
@@ -2912,6 +3413,10 @@
       "required": true,
       "types": [
         {
+          "type": "show_bgp_neighbors_block",
+          "named": true
+        },
+        {
           "type": "show_cdp_neighbors_block",
           "named": true
         },
@@ -2920,7 +3425,27 @@
           "named": true
         },
         {
+          "type": "show_crypto_ikev1_sa_block",
+          "named": true
+        },
+        {
+          "type": "show_crypto_ipsec_sa_block",
+          "named": true
+        },
+        {
           "type": "show_environment_block",
+          "named": true
+        },
+        {
+          "type": "show_etherchannel_summary_block",
+          "named": true
+        },
+        {
+          "type": "show_failover_block",
+          "named": true
+        },
+        {
+          "type": "show_fex_block",
           "named": true
         },
         {
@@ -2956,7 +3481,61 @@
           "named": true
         },
         {
+          "type": "show_mpls_ldp_neighbor_block",
+          "named": true
+        },
+        {
+          "type": "show_spanning_tree_block",
+          "named": true
+        },
+        {
+          "type": "show_standby_block",
+          "named": true
+        },
+        {
           "type": "show_version_block",
+          "named": true
+        },
+        {
+          "type": "show_vpc_block",
+          "named": true
+        },
+        {
+          "type": "show_vpn_sessiondb_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_crypto_ikev1_sa_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ikev1_sa_entry",
+          "named": true
+        },
+        {
+          "type": "ikev1_sa_header",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_crypto_ipsec_sa_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "crypto_ipsec_sa_entry",
           "named": true
         }
       ]
@@ -2976,6 +3555,55 @@
         },
         {
           "type": "unknown_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_etherchannel_summary_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "etherchannel_entry",
+          "named": true
+        },
+        {
+          "type": "etherchannel_header",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_failover_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "failover_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_fex_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "fex_entry",
           "named": true
         }
       ]
@@ -3181,6 +3809,63 @@
     }
   },
   {
+    "type": "show_mpls_ldp_neighbor_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "mpls_ldp_neighbor_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_spanning_tree_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "spanning_tree_entry",
+          "named": true
+        },
+        {
+          "type": "spanning_tree_vlan_header",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_standby_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "standby_entry",
+          "named": true
+        },
+        {
+          "type": "standby_header",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "show_version_block",
     "named": true,
     "fields": {},
@@ -3214,6 +3899,44 @@
         },
         {
           "type": "uptime_info",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_vpc_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "vpc_entry",
+          "named": true
+        },
+        {
+          "type": "vpc_summary_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_vpn_sessiondb_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "vpn_session_entry",
+          "named": true
+        },
+        {
+          "type": "vpn_session_summary",
           "named": true
         }
       ]
@@ -3378,6 +4101,112 @@
     }
   },
   {
+    "type": "spanning_tree_entry",
+    "named": true,
+    "fields": {
+      "cost": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "interface": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "port_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "port_priority": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "role": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "status": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "spanning_tree_vlan_header",
+    "named": true,
+    "fields": {
+      "vlan_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ssh_config",
     "named": true,
     "fields": {
@@ -3412,6 +4241,109 @@
         ]
       }
     }
+  },
+  {
+    "type": "standby_entry",
+    "named": true,
+    "fields": {
+      "active_router": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "group": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "interface": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "preempt": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "priority": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "standby_router": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "state": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "virtual_ip": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "standby_header",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "static_route",
@@ -4054,6 +4986,124 @@
     }
   },
   {
+    "type": "vpc_entry",
+    "named": true,
+    "fields": {
+      "consistency": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "port": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "status": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "vpc_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "vpc_summary_line",
+    "named": true,
+    "fields": {
+      "domain_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "vpn_session_entry",
+    "named": true,
+    "fields": {
+      "index": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "public_ip": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "username": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "vpn_session_summary",
+    "named": true,
+    "fields": {
+      "total": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "vrf_address_family",
     "named": true,
     "fields": {}
@@ -4187,11 +5237,19 @@
     "named": false
   },
   {
+    "type": "):",
+    "named": false
+  },
+  {
     "type": "*",
     "named": false
   },
   {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": ".",
     "named": false
   },
   {
@@ -4208,6 +5266,10 @@
   },
   {
     "type": ":",
+    "named": false
+  },
+  {
+    "type": ";",
     "named": false
   },
   {

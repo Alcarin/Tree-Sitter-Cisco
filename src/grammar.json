@@ -6123,6 +6123,50 @@
         {
           "type": "SYMBOL",
           "name": "show_ip_interface_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_crypto_ipsec_sa_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_crypto_ikev1_sa_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_failover_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_vpn_sessiondb_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_bgp_neighbors_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_mpls_ldp_neighbor_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_vpc_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_fex_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_etherchannel_summary_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_spanning_tree_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_standby_block"
         }
       ]
     },
@@ -9893,6 +9937,2081 @@
           }
         ]
       }
+    },
+    "show_crypto_ipsec_sa_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+[Cc]rypto\\s+[Ii]psec\\s+[Ss][Aa]",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "crypto_ipsec_sa_entry"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "crypto_ipsec_sa_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ii]nterface\\s*:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "interface",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "interface_name"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "crypto_map_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "crypto_ident_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "crypto_peer_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "crypto_pkts_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "crypto_map_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Cc]rypto\\s+map\\s+tag\\s*:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "tag",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "seq\\s+num\\s*:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "seq",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "local\\s+addr\\s*:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "local_addr",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "crypto_ident_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "side",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 120,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "local",
+                    "flags": "i"
+                  }
+                }
+              },
+              {
+                "type": "TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 120,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "remote",
+                    "flags": "i"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "ident",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "addr\\/mask\\/prot\\/port",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "):"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "address",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "/"
+        },
+        {
+          "type": "FIELD",
+          "name": "mask",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ipv4_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "/"
+        },
+        {
+          "type": "FIELD",
+          "name": "protocol",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "/"
+        },
+        {
+          "type": "FIELD",
+          "name": "port",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "crypto_peer_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "current_peer\\s*:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "peer",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 120,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "port\\s*:",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "port",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "crypto_pkts_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 120,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "#pkts\\s+encaps\\s*:",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "encaps",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 120,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "#pkts\\s+decaps\\s*:",
+                      "flags": "i"
+                    }
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "decaps",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 130,
+                  "content": {
+                    "type": "STRING",
+                    "value": ","
+                  }
+                }
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "word"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "punctuation"
+                  },
+                  {
+                    "type": "PATTERN",
+                    "value": "#[a-z]+",
+                    "flags": "i"
+                  },
+                  {
+                    "type": "PATTERN",
+                    "value": ":[a-z]+",
+                    "flags": "i"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "show_crypto_ikev1_sa_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+[Cc]rypto\\s+[Ii]kev1\\s+[Ss][Aa]",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": 120,
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[Dd]etail",
+                  "flags": "i"
+                }
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ikev1_sa_header"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "ikev1_sa_entry"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "ikev1_sa_header": {
+      "type": "PREC",
+      "value": 200,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 120,
+              "content": {
+                "type": "PATTERN",
+                "value": "IKEv1\\s+SAs:",
+                "flags": "i"
+              }
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_newline"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_dashed_line"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "ikev1_sa_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "connection_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "ip_address",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "state",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "role",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 120,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "INITIATOR",
+                    "flags": "i"
+                  }
+                }
+              },
+              {
+                "type": "TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 120,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "RESPONDER",
+                    "flags": "i"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "show_failover_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 200,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+[Ff]ailover",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "failover_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "failover_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[Ff]ailover",
+          "flags": "i"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_whitespace"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "status",
+                  "content": {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "PATTERN",
+                          "value": "[Oo]n",
+                          "flags": "i"
+                        },
+                        {
+                          "type": "PATTERN",
+                          "value": "[Oo]ff",
+                          "flags": "i"
+                        }
+                      ]
+                    },
+                    "named": true,
+                    "value": "word"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_whitespace"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[Uu]nit",
+                  "flags": "i"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_whitespace"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "role",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "word"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "failover_interface_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "interface_label",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            },
+            "named": true,
+            "value": "text"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "interface",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "interface_name"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "status",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            },
+            "named": true,
+            "value": "text"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "show_vpn_sessiondb_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+[Vv]pn-sessiondb",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "[Aa]nyconnect",
+                  "flags": "i"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[Ll]2[Ll]",
+                  "flags": "i"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "vpn_session_summary"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "vpn_session_entry"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "vpn_session_summary": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "Total\\s+active\\s+and\\s+inactive\\s*:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "total",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "vpn_session_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "Index\\s*:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "index",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "Username\\s*:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "username",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "Public\\s+IP\\s*:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "public_ip",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "show_bgp_neighbors_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+[Bb][Gg][Pp]\\s+[Nn]eighbors",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "bgp_neighbor_summary_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "bgp_neighbor_summary_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "BGP\\s+neighbor\\s+is",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "neighbor",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ipv4_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "ipv6_address"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "remote\\s+AS",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "remote_as",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "local\\s+AS",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "local_as",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "show_mpls_ldp_neighbor_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+[Mm][Pp][Ll][Ss]\\s+[Ll][Dd][Pp]\\s+[Nn]eighbor",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": 120,
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[Bb]rief",
+                  "flags": "i"
+                }
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "mpls_ldp_neighbor_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "mpls_ldp_neighbor_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "Peer\\s+LDP\\s+ID:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "peer_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "label_space",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "Local\\s+LDP\\s+ID:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "local_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "local_label_space",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "show_vpc_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+vpc",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "vpc_summary_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "vpc_entry"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_dashed_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "vpc_summary_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "vPC\\s+domain\\s+id\\s*:",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "domain_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_whitespace"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "vpc_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "vpc_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "port",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "interface_name"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "status",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "consistency",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_whitespace"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "show_fex_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+fex",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "fex_entry"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "fex_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "fex_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "description",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "state",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "model",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "serial",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "show_etherchannel_summary_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+[Ee]therchannel\\s+[Ss]ummary",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "etherchannel_header"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "etherchannel_entry"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_dashed_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "etherchannel_header": {
+      "type": "PREC",
+      "value": 200,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 120,
+              "content": {
+                "type": "PATTERN",
+                "value": "Group",
+                "flags": "i"
+              }
+            }
+          },
+          {
+            "type": "PATTERN",
+            "value": "Port-channel",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Protocol",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Ports",
+            "flags": "i"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_newline"
+          }
+        ]
+      }
+    },
+    "etherchannel_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "group",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "bundle_name",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "interface_name"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "bundle_status",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "bundle_protocol",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "member_interface",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "interface_name"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "word"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "FIELD",
+                "name": "member_status",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "word"
+                }
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "show_spanning_tree_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+[Ss]panning-tree",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "word"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "spanning_tree_vlan_header"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "spanning_tree_entry"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_dashed_line"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "spanning_tree_vlan_header": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "VLAN",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "vlan_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "text_line"
+              },
+              "named": true,
+              "value": "text"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "spanning_tree_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "interface",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "interface_name"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "role",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "status",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "cost",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "port_priority",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "FIELD",
+          "name": "port_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "show_standby_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": 120,
+            "content": {
+              "type": "PATTERN",
+              "value": "[Ss]how\\s+[Ss]tandby",
+              "flags": "i"
+            }
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "TOKEN",
+              "content": {
+                "type": "PREC",
+                "value": 120,
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[Bb]rief",
+                  "flags": "i"
+                }
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "standby_header"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "standby_entry"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_newline"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "standby_header": {
+      "type": "PREC",
+      "value": 200,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 120,
+              "content": {
+                "type": "PATTERN",
+                "value": "Interface",
+                "flags": "i"
+              }
+            }
+          },
+          {
+            "type": "PATTERN",
+            "value": "Grp",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Prio",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "P",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "State",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Active",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Standby",
+            "flags": "i"
+          },
+          {
+            "type": "PATTERN",
+            "value": "Virtual\\s+IP",
+            "flags": "i"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_newline"
+          }
+        ]
+      }
+    },
+    "standby_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "interface",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "interface_name"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "group",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "priority",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "preempt",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "state",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "active_router",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ipv4_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "standby_router",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ipv4_address"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "virtual_ip",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ipv4_address"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
     }
   },
   "extras": [
@@ -9946,6 +12065,60 @@
     ],
     [
       "show_ip_ospf_neighbor_block"
+    ],
+    [
+      "show_crypto_ipsec_sa_block"
+    ],
+    [
+      "show_crypto_ikev1_sa_block"
+    ],
+    [
+      "show_failover_block"
+    ],
+    [
+      "show_vpn_sessiondb_block"
+    ],
+    [
+      "show_bgp_neighbors_block"
+    ],
+    [
+      "show_mpls_ldp_neighbor_block"
+    ],
+    [
+      "show_vpc_block"
+    ],
+    [
+      "show_fex_block"
+    ],
+    [
+      "show_etherchannel_summary_block"
+    ],
+    [
+      "show_spanning_tree_block"
+    ],
+    [
+      "show_standby_block"
+    ],
+    [
+      "failover_line"
+    ],
+    [
+      "crypto_ipsec_sa_entry"
+    ],
+    [
+      "ikev1_sa_entry"
+    ],
+    [
+      "vpn_session_entry"
+    ],
+    [
+      "etherchannel_entry"
+    ],
+    [
+      "spanning_tree_entry"
+    ],
+    [
+      "standby_entry"
     ],
     [
       "ping_block"
@@ -10018,6 +12191,22 @@
     [
       "text_line",
       "hardware_info"
+    ],
+    [
+      "text_line",
+      "failover_interface_line"
+    ],
+    [
+      "text_line",
+      "vpn_session_entry"
+    ],
+    [
+      "text_line",
+      "ikev1_sa_entry"
+    ],
+    [
+      "text_line",
+      "crypto_pkts_line"
     ],
     [
       "interface_standby"
