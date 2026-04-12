@@ -1,99 +1,224 @@
 /**
- * @file Operational commands for Cisco grammar - Absolute Stabilization
+ * @file Operational commands for Cisco grammar - Bulletproof Version
  */
 
 module.exports = {
-  // KEYWORDS OPERATIVE
-  _kw_uptime_is: $ => token(prec(100, /uptime is/i)),
+  // --- SHOW COMMAND DISPATCHER ---
+  show_command: $ => choice(
+    $.show_version_block,
+    $.show_inventory_block,
+    $.show_ip_int_brief_block,
+    $.show_clock_block,
+    $.show_environment_block,
+    $.show_cdp_neighbors_block,
+    $.show_mac_address_table_block,
+    $.show_ip_arp_block,
+    $.show_ip_route_block,
+    $.show_ip_bgp_summary_block,
+    $.show_ip_ospf_neighbor_block,
+    $.show_ip_interface_block
+  ),
 
-  // --- HEADERS ---
-  show_version: $ => seq(token(prec(10, /show\s+version/i)), $._newline),
-  show_inventory: $ => seq(token(prec(10, /show\s+inventory/i)), $._newline),
-  show_ip_interface_brief: $ => seq(token(prec(10, /show\s+ip\s+interface\s+brief/i)), $._newline),
-  show_ip_route: $ => seq(token(prec(10, /show\s+ip\s+route(\s+vrf\s+\S+)?/i)), $._newline),
-  show_mac_address_table: $ => seq(token(prec(10, /show\s+mac\s+address-table/i)), $._newline),
-  show_ip_arp: $ => seq(token(prec(10, /show\s+ip\s+arp/i)), $._newline),
-  show_ip_bgp_summary: $ => seq(token(prec(10, /show\s+ip\s+bgp\s+summary/i)), $._newline),
-  show_ip_bgp_neighbors: $ => seq(token(prec(10, /show\s+ip\s+bgp\s+neighbors/i)), $._newline),
-  generic_show_command: $ => seq(/show\s+/i, /[^\n\r]+/, $._newline),
+  // REGOLE DI SUPPORTO
+  text_line: $ => prec.left(repeat1(choice($.word, $.number, $.punctuation, $.ipv4_address, $.interface_name, $.mac_address, $.ipv6_address))),
+  _header_line: $ => seq(alias($.text_line, $.header), $._newline),
 
-  // --- SHOW VERSION CONTENTS ---
-  software_info: $ => prec.dynamic(100, seq(
-    token(prec(100, /Cisco\s+IOS\s+Software.*/i)), $._newline
-  )),
-  uptime_info: $ => prec.dynamic(100, seq(
-    field('hostname', $.word), $._kw_uptime_is, field('uptime', $.uptime), $._newline
-  )),
-  processor_info: $ => prec.dynamic(100, seq(
-    token(prec(100, /[Pp]rocessor\s+board\s+ID.*/i)), $._newline
-  )),
-  config_register: $ => prec.dynamic(100, seq(
-    token(prec(100, /[Cc]onfiguration\s+register\s+is.*/i)), $._newline
-  )),
+  // --- SHOW VERSION ---
+  show_version_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Vv]ersion/i)), $._newline,
+    repeat(choice(
+      $.software_info,
+      $.system_image,
+      $.uptime_info,
+      $.hardware_info,
+      $.processor_info,
+      $.config_register,
+      $._newline,
+      prec.dynamic(-1000, alias($._line_content, $.unknown_line))
+    ))
+  ),
+  software_info: $ => prec(100, seq(/[Cc]isco/i, /[Ii][Oo][Ss]/i, /[Ss]oftware/i, optional(','), field('version', alias($.text_line, $.text)), $._newline)),
+  system_image: $ => prec(100, seq(/[Ss]ystem/i, /[Ii]mage/i, /[Ff]ile/i, /[Ii][Ss]/i, field('image_file', $.string), $._newline)),
+  uptime_info: $ => prec(100, seq(optional(field('hostname', $.word)), /[Uu]ptime/i, /[Ii][Ss]/i, field('uptime', $.uptime), $._newline)),
+  hardware_info: $ => prec(100, seq(/[Cc]isco/i, field('hardware', alias($.text_line, $.text)), $._newline)),
+  processor_info: $ => prec(100, seq(/[Pp]rocessor/i, /[Bb]oard/i, /ID/i, field('serial', $.word), $._newline)),
+  config_register: $ => prec(100, seq(/[Cc]onfiguration/i, /register/i, /[Ii][Ss]/i, field('register', $.word), $._newline)),
 
-  // --- SHOW INVENTORY CONTENTS ---
-  inventory_entry: $ => prec.dynamic(100, seq(
-    token(prec(100, /NAME:.*DESCR:.*/i)), $._newline,
-    token(prec(100, /PID:.*VID:.*SN:.*/i)), $._newline
-  )),
+  // --- SHOW INVENTORY ---
+  show_inventory_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Ii]nventory/i)), $._newline,
+    repeat(choice($.inventory_name_line, $.inventory_pid_line, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
+  ),
+  inventory_name_line: $ => prec(100, seq(/NAME:/i, field('name', choice($.string, alias($.text_line, $.text))), /,/, /DESCR:/i, field('description', choice($.string, alias($.text_line, $.text))), $._newline)),
+  inventory_pid_line: $ => prec(100, seq(/PID:/i, field('pid', $.word), /,/, /VID:/i, field('vid', $.word), /,/, /SN:/i, field('sn', $.word), $._newline)),
 
-  // --- SHOW IP INTERFACE BRIEF CONTENTS ---
-  ip_int_brief_entry: $ => prec.dynamic(100, seq(
+  // --- SHOW IP INTERFACE BRIEF ---
+  show_ip_int_brief_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Ii][Pp]/i, /[Ii]nterface/i, /[Bb]rief/i)), $._newline,
+    repeat(choice($.ip_int_brief_header, $.ip_int_brief_entry, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
+  ),
+  ip_int_brief_header: $ => prec(200, seq(/[Ii]nterface/i, /[Ii][Pp]-[Aa]ddress/i, /[Oo][Kk]\?/i, /[Mm]ethod/i, /[Ss]tatus/i, /[Pp]rotocol/i, $._newline)),
+  ip_int_brief_entry: $ => prec(100, seq(
     field('interface', $.interface_name),
-    $._field_separator,
-    field('ip_address', choice($.ipv4_address, /unassigned/i)),
-    $._field_separator,
+    field('ip_address', choice($.ipv4_address, /[Uu]nassigned/i)),
     field('ok', $.word),
-    field('method', $.word), // Space handled by extras
-    $._field_separator,
-    field('status', $.operational_status),
-    $._field_separator,
-    field('protocol', $.operational_status),
+    field('method', $.word),
+    field('status', alias(repeat1($.word), $.operational_status)),
+    field('protocol', alias($.word, $.operational_status)),
     $._newline
   )),
 
-  operational_status: $ => token(prec(10, choice(/up/i, /down/i, /administratively down/i, /deleted/i))),
+  // --- SHOW IP INTERFACE ---
+  show_ip_interface_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Ii][Pp]/i, /[Ii]nterface/i, field('interface', $.interface_name))), $._newline,
+    repeat(choice($.interface_status_entry, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
+  ),
 
-  // --- SHOW INTERFACES CONTENTS ---
-  interface_status_entry: $ => prec.dynamic(100, seq(
-    field('interface', $.interface_name), /is/i, field('status', $.operational_status), /,\s+line\s+protocol\s+is/i, field('protocol', $.operational_status), $._newline
+  // --- SHOW CLOCK ---
+  show_clock_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Cc]lock/i)), $._newline,
+    $.clock_info
+  ),
+  clock_info: $ => prec(100, seq(
+    optional('*'),
+    field('time', $.word),
+    field('timezone', $.word),
+    field('day', $.word),
+    field('month', $.word),
+    field('day_of_month', $.number),
+    field('year', $.number),
+    $._newline
   )),
 
-  // --- SHOW VLAN BRIEF CONTENTS ---
-  vlan_brief_entry: $ => prec.dynamic(100, seq(
-    field('id', $.number), field('name', $.word), field('status', $.word), field('ports', repeat1($.interface_name)), $._newline
+  // --- SHOW ENVIRONMENT ---
+  show_environment_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Ee]nvironment/i)), $._newline,
+    repeat(choice($.environment_info, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
+  ),
+  environment_info: $ => prec(100, seq(
+    field('sensor', alias(repeat1(choice($.word, $.number)), $.text)),
+    choice(
+      seq(prec(20, /[Ii][Ss]/i), field('state', $.word)),
+      seq(prec(20, /:/), field('value', alias($.text_line, $.text)))
+    ),
+    $._newline
   )),
 
-  // --- SHOW IP ARP CONTENTS ---
-  arp_entry: $ => prec.dynamic(100, seq(
-    field('protocol', $.word), field('ip_address', $.ipv4_address), field('age', choice($.number, /-/)), field('mac_address', $.mac_address), field('type', $.word), optional(field('interface', $.interface_name)), $._newline
+  // --- SHOW CDP NEIGHBORS ---
+  show_cdp_neighbors_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Cc][Dd][Pp]/i, /[Nn]eighbors/i)), $._newline,
+    repeat(choice(
+        seq(/[Cc]apability/i, /[Cc]odes:/i, alias($.text_line, $.text), $._newline),
+        $.cdp_header,
+        $.cdp_neighbor_entry,
+        $._newline,
+        prec.dynamic(-1000, alias($._line_content, $.unknown_line))
+    ))
+  ),
+  cdp_header: $ => prec(200, seq(/[Dd]evice/i, /ID/i, /[Ll]ocal/i, /[Ii]ntrfce/i, /[Hh]oldtme/i, /[Cc]apability/i, /[Pp]latform/i, /[Pp]ort/i, /ID/i, $._newline)),
+  cdp_neighbor_entry: $ => prec(100, seq(
+    field('neighbor_id', $.word),
+    field('local_interface', $.interface_name),
+    field('holdtime', $.number),
+    field('capabilities', alias(repeat1($.word), $.text)),
+    field('platform', $.word),
+    field('remote_interface', $.interface_name),
+    $._newline
   )),
 
-  // --- SHOW IP BGP SUMMARY CONTENTS ---
-  bgp_summary_entry: $ => prec.dynamic(100, seq(
-    field('neighbor', choice($.ipv4_address, $.ipv6_address)), field('version', $.number), field('remote_as', $.number), field('msg_rcvd', $.number), field('msg_sent', $.number), field('tbl_ver', $.number), field('in_q', $.number), field('out_q', $.number), field('up_down', $.word), field('state_pfx', $.word), $._newline
+  // --- SHOW MAC ADDRESS-TABLE ---
+  show_mac_address_table_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Mm]ac/i, /[Aa]ddress-table/i)), $._newline,
+    repeat(choice(
+        seq(optional(/[Vv]lan/i), /[Mm]ac/i, /[Aa]ddress/i, /[Tt]able/i, $._newline),
+        $.mac_table_header,
+        $.mac_entry,
+        $._dashed_line,
+        $._newline,
+        prec.dynamic(-1000, alias($._line_content, $.unknown_line))
+    ))
+  ),
+  mac_table_header: $ => prec(200, seq(optional(/[Vv]lan/i), optional(/ID/i), /[Mm]ac/i, /[Aa]ddress/i, /[Tt]ype/i, choice(/[Pp]orts/i, /[Pp]ort/i), $._newline)),
+  mac_entry: $ => prec(100, seq(
+    optional(/\*/),
+    field('vlan', choice($.number, /[Aa]ll/i, /-/)),
+    field('mac_address', $.mac_address),
+    field('type', $.word),
+    field('port', choice($.interface_name, /CPU/i, /[Dd]rop/i, /-/)),
+    $._newline
   )),
 
-  // --- SHOW IP ROUTE CONTENTS ---
-  subnet_header: $ => prec.dynamic(100, seq(
-    field('network', $.ipv4_address), /\//i, field('prefix', $.number), /\s+is\s+subnetted.*/i, $._newline
-  )),
-  routing_entry: $ => prec.dynamic(100, seq(
-    field('protocol', $.word), optional($.word), field('network', $.ipv4_address), optional(seq(/\//i, field('prefix', $.number))), /\[/i, field('distance', $.number), /\//i, field('metric', $.number), /\]\s+via\s+/i, field('nexthop', choice($.ipv4_address, $.interface_name)), /[^\n\r]*/, $._newline
-  )),
-
-  // --- SHOW MAC ADDRESS-TABLE CONTENTS ---
-  mac_entry: $ => prec.dynamic(100, seq(
-    optional(/\*/), field('vlan', choice($.number, /all/i, /-/)), field('mac_address', $.mac_address), field('type', $.word), field('ports', $.word), $._newline
-  )),
-
-  // --- SHOW IP OSPF NEIGHBOR CONTENTS ---
-  ospf_neighbor_entry: $ => prec.dynamic(100, seq(
-    field('neighbor_id', $.ipv4_address), field('priority', $.number), field('state', $.word), field('dead_time', /[^ \n]+/), field('address', $.ipv4_address), field('interface', $.interface_name), $._newline
+  // --- SHOW IP ARP ---
+  show_ip_arp_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, optional(/[Ii][Pp]/i), /[Aa]rp/i)), $._newline,
+    repeat(choice($.arp_header, $.arp_entry, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
+  ),
+  arp_header: $ => prec(200, seq(/[Pp]rotocol/i, /[Aa]ddress/i, /[Aa]ge/i, optional(seq(/\(/, /[Mm]in/i, /\)/)), /[Hh]ardware/i, /[Aa]ddr/i, /[Tt]ype/i, /[Ii]nterface/i, $._newline)),
+  arp_entry: $ => prec(100, seq(
+    field('protocol', $.word),
+    field('ip_address', $.ipv4_address),
+    field('age', $.word),
+    field('mac_address', $.mac_address),
+    field('type', $.word),
+    field('interface', $.interface_name),
+    $._newline
   )),
 
-  // --- SHOW IP BGP NEIGHBORS CONTENTS ---
-  bgp_neighbor_block: $ => prec.dynamic(100, seq(
-    /BGP\s+neighbor\s+is\s+/i, field('neighbor', $.ipv4_address), /,\s+remote\s+AS\s+/i, field('remote_as', $.number), /[^\n\r]*/, $._newline
-  ))
+  // --- SHOW IP ROUTE ---
+  show_ip_route_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Ii][Pp]/i, /[Rr]oute/i, optional(seq(/[Vv][Rr][Ff]/i, $.word)))), $._newline,
+    repeat(choice($._routing_generic_line, $.subnet_header, $.routing_entry, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
+  ),
+  _routing_generic_line: $ => prec(100, seq(choice(/Codes:/i, seq(/[Gg]ateway/i, /[Oo][Ff]/i, /[Ll]ast/i, /[Rr]esort/i, /[Ii][Ss]/i), /!/), optional(alias($.text_line, $.text)), $._newline)),
+  subnet_header: $ => prec(100, seq(field('network', $.ipv4_address), /\//i, field('prefix', $.number), /[Ii][Ss]/i, /[Ss]ubnetted/i, optional(alias($.text_line, $.text)), $._newline)),
+  routing_entry: $ => prec(100, seq(
+    field('protocol', alias(/[LCSRODBP* ]{1,3}/, $.word)),
+    field('network', $.ipv4_address),
+    optional(seq(/\//i, field('prefix', $.number))),
+    choice(
+        seq(/\[/i, field('distance', $.number), /\//i, field('metric', $.number), /\]/, /[Vv]ia/i, field('nexthop_ip', $.ipv4_address), optional(seq(/,/, field('nexthop_if', $.interface_name)))),
+        seq(/[Ii][Ss]/i, /[Dd]irectly/i, /[Cc]onnected/i, /,/, field('nexthop_if', $.interface_name))
+    ),
+    $._newline
+  )),
+
+  // --- SHOW IP BGP SUMMARY ---
+  show_ip_bgp_summary_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Ii][Pp]/i, /[Bb][Gg][Pp]/i, /[Ss]ummary/i)), $._newline,
+    repeat(choice($.bgp_summary_header, $.bgp_summary_entry, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
+  ),
+  bgp_summary_header: $ => prec(200, seq(/[Nn]eighbor/i, /V/i, /AS/i, /[Mm]sg[Rr]cvd/i, /[Mm]sg[Ss]ent/i, /[Tt]bl[Vv]er/i, /[Ii]n[Qq]/i, /[Oo]ut[Qq]/i, /[Uu]p\/[Dd]own/i, /[Ss]tate\/[Pp]fx[Rr]cd/i, $._newline)),
+  bgp_summary_entry: $ => prec(100, seq(
+    field('neighbor', choice($.ipv4_address, $.ipv6_address)),
+    field('version', $.number),
+    field('as', $.number),
+    field('msg_rcvd', $.number),
+    field('msg_sent', $.number),
+    field('tbl_ver', $.number),
+    field('in_q', $.number),
+    field('out_q', $.number),
+    field('up_down', $.word),
+    field('state_prefix', $.word),
+    $._newline
+  )),
+
+  // --- SHOW IP OSPF NEIGHBOR ---
+  show_ip_ospf_neighbor_block: $ => seq(
+    prec(100, seq(/[Ss]how/i, /[Ii][Pp]/i, /[Oo][Ss][Pp][Ff]/i, /[Nn]eighbor/i)), $._newline,
+    repeat(choice($.ospf_neighbor_header, $.ospf_neighbor_entry, $._dashed_line, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
+  ),
+  ospf_neighbor_header: $ => prec(200, seq(/[Nn]eighbor/i, /ID/i, /[Pp]ri/i, /[Ss]tate/i, /[Dd]ead/i, /[Tt]ime/i, /[Aa]ddress/i, /[Ii]nterface/i, $._newline)),
+  ospf_neighbor_entry: $ => prec(100, seq(
+    field('neighbor_id', $.ipv4_address),
+    field('priority', $.number),
+    field('state', $.word),
+    field('dead_time', $.word),
+    field('address', $.ipv4_address),
+    field('interface', $.interface_name),
+    $._newline
+  )),
+
+  interface_status_entry: $ => prec(100, seq(field('interface', $.interface_name), /[Ii][Ss]/i, field('status', alias(repeat1($.word), $.operational_status)), /,/, /[Ll]ine/i, /[Pp]rotocol/i, /[Ii][Ss]/i, field('protocol', alias($.word, $.operational_status)), $._newline)),
+  vlan_brief_entry: $ => prec(100, seq(field('id', $.number), field('name', $.word), field('status', $.word), field('ports', repeat1($.interface_name)), $._newline)),
+  bgp_neighbor_block: $ => prec(100, seq(/[Bb][Gg][Pp]/i, /[Nn]eighbor/i, /[Ii][Ss]/i, field('neighbor', $.ipv4_address), /,/, /[Rr]emote/i, /[Aa][Ss]/i, field('remote_as', $.number), /.*/, $._newline))
 };

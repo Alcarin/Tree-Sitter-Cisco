@@ -12,10 +12,20 @@ interface GigabitEthernet0/0
 ---
 
 (source_file
-  (command)
-  (command)
+  (interface_block
+    (interface_name)
+    (command
+      (word)
+      (word)
+      (ipv4_address)
+      (ipv4_address)))
   (comment)
-  (command)
-  (command)
-  (command)
+  (interface_block
+    (interface_name)
+    (command
+      (word)
+      (word))
+    (command
+      (word)
+      (number)))
   (comment))

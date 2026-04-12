@@ -29,14 +29,11 @@ router ospf 1
       interface: (interface_name))
     (comment)
     (bgp_address_family
-      afi: (word)
-      safi: (word)
       (bgp_network
         address: (ipv4_address)
         mask: (ipv4_address))
       (bgp_neighbor
-        address: (ipv4_address)))
-    (comment))
+        address: (ipv4_address))))
   (comment)
   (ospf_block
     process_id: (number)
@@ -47,5 +44,5 @@ router ospf 1
       wildcard: (wildcard)
       area: (number))
     (ospf_area
-      area: (number))
-    (comment)))
+      area: (number)))
+  (comment))

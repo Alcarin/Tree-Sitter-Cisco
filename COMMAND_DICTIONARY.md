@@ -62,7 +62,13 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
             - [x] `[RO | RW]` (Optional)
     - [x] `host`
         - [x] `<ipv4_address>`
+            - [x] `[version <word>]` (Optional: 2c, 3)
             - [x] `<word>` (Community string)
+    - [x] `enable traps`
+- [x] `vlan`
+    - [x] `<number>` (ID: 1-4094)
+        - [x] `name`
+            - [x] `<word>`
 - [x] `crypto`
     - [x] `key generate rsa`
         - [x] `general-keys`
@@ -96,7 +102,7 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
         - [x] `<number>` (1-4094)
     - [x] `trunk`
         - [x] `allowed vlan`
-            - [x] `<number_list>`
+            - [x] `<number_list>` | `<vlan_range>`
         - [x] `native vlan`
             - [x] `<number>`
     - [x] `port-security`
@@ -132,10 +138,11 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
 
 ### 3.1 Static Routes & Prefix Lists
 - [x] `ip route`
-    - [x] `<ipv4_address>` (Dest)
-        - [x] `<ipv4_address>` (Mask)
-            - [x] `<ipv4_address>` | `<interface_name>` (Next-hop)
-                - [x] `[<number>]` (Distance)
+    - [x] `[vrf <word>]` (Optional VRF)
+        - [x] `<ipv4_address>` (Dest)
+            - [x] `<ipv4_address>` (Mask)
+                - [x] `<ipv4_address>` | `<interface_name>` (Next-hop)
+                    - [x] `[<number>]` (Distance)
 - [x] `ip prefix-list`
     - [x] `<word>` (Name)
         - [x] `seq`
@@ -160,6 +167,7 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
                 - [x] `unicast` | `multicast`
 - [x] `router ospf`
     - [x] `<number>` (Process ID)
+        - [x] `[vrf <word>]` (Optional VRF)
         - [x] `router-id`
             - [x] `<ipv4_address>`
         - [x] `network`
@@ -169,6 +177,8 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
                         - [x] `<number>`
         - [x] `area <number>`
             - [x] `stub` | `nssa` | `range`
+            - [x] `interface <interface_name>` (XR-style nesting)
+                - [x] `cost <number>`
 
 ---
 
@@ -179,76 +189,85 @@ These nodes capture command outputs and map them to structured data fields.
 ### 4.1 System & Hardware
 - [x] `show version`
     - [x] Field: `version`
-        - [x] `<word>` (e.g., 15.2(4)M6a)
+        - [x] `<text>` (Full version string, e.g., 15.1(4)M4)
+    - [x] Field: `hostname`
+        - [x] `<word>` (Device name from uptime line)
     - [x] Field: `uptime`
-        - [x] `<word_sequence>` (e.g., 1 week, 3 days)
-    - [ ] Field: `hardware`
-        - [ ] `<word>` (e.g., CISCO2901/K9)
+        - [x] `<uptime>` (Parsed years, months, weeks, days, hours, mins)
+    - [x] Field: `hardware`
+        - [x] `<text>` (Platform info, e.g., Cisco C1941)
     - [x] Field: `serial`
-        - [x] `<word_list>` (e.g., FTX12345678)
-    - [ ] Field: `image_file`
-        - [ ] `<word>` (e.g., flash0:c2900.bin)
+        - [x] `<word>` (Processor board ID)
+    - [x] Field: `image_file`
+        - [x] `<string>` (Path to bin file)
 - [x] `show inventory`
     - [x] Field: `name`
-        - [x] `<word>` (e.g., Chassis)
-    - [ ] Field: `description`
-        - [ ] `<word_sequence>`
+        - [x] `<string>` (Entity name, e.g., "Chassis")
+    - [x] Field: `description`
+        - [x] `<string>` (Product description)
     - [x] Field: `pid`
         - [x] `<word>` (Product ID)
-    - [ ] Field: `vid`
-        - [ ] `<word>` (Version ID)
+    - [x] Field: `vid`
+        - [x] `<word>` (Version ID)
     - [x] Field: `sn`
         - [x] `<word>` (Serial Number)
-- [ ] `show clock`
-    - [ ] Field: `time`
-        - [ ] `<time_format>`
-    - [ ] Field: `timezone`
-        - [ ] `<word>`
-    - [ ] Field: `day`
-        - [ ] `<word>`
-    - [ ] Field: `month`
-        - [ ] `<word>`
-    - [ ] Field: `year`
-        - [ ] `<number>`
-- [ ] `show environment`
-    - [ ] `power` | `temperature`
-        - [ ] Field: `sensor`, `state`, `value`
+- [x] `show clock`
+    - [x] Field: `time`
+        - [x] `<word>` (e.g., 12:34:56.789)
+    - [x] Field: `timezone`
+        - [x] `<word>` (e.g., UTC)
+    - [x] Field: `day`
+        - [x] `<word>` (e.g., Sun)
+    - [x] Field: `month`
+        - [x] `<word>` (e.g., Apr)
+    - [x] Field: `day_of_month`
+        - [x] `<number>`
+    - [x] Field: `year`
+        - [x] `<number>`
+- [x] `show environment`
+    - [x] Field: `sensor`
+        - [x] `<text>` (e.g., Fan 1, Temperature)
+    - [x] Field: `state`
+        - [x] `<word>` (e.g., OK)
+    - [x] Field: `value`
+        - [x] `<text>` (e.g., 35C)
 
 ### 4.2 L2 & L3 Connectivity
-- [ ] `show cdp neighbors`
-    - [ ] `detail`
-        - [ ] Field: `neighbor_id`
-            - [ ] `<word>` (Hostname)
-        - [ ] Field: `local_interface`
-            - [ ] `<interface_name>`
-        - [ ] Field: `remote_interface`
-            - [ ] `<interface_name>`
-        - [ ] Field: `platform`
-            - [ ] `<word>`
-        - [ ] Field: `capabilities`
-            - [ ] `<word_list>`
-- [ ] `show mac address-table`
-    - [ ] Field: `vlan`
-        - [ ] `<number>`
-    - [ ] Field: `mac_address`
-        - [ ] `<mac_address>`
-    - [ ] Field: `type`
-        - [ ] `STATIC | DYNAMIC`
-    - [ ] Field: `port`
-        - [ ] `<interface_name>`
-- [ ] `show arp`
-    - [ ] Field: `protocol`
-        - [ ] `Internet | AppleTalk | ...`
-    - [ ] Field: `address`
-        - [ ] `<ipv4_address>`
-    - [ ] Field: `age`
-        - [ ] `<number>`
-    - [ ] Field: `mac`
-        - [ ] `<mac_address>`
-    - [ ] Field: `type`
-        - [ ] `ARPA | SNAP | ...`
-    - [ ] Field: `interface`
-        - [ ] `<interface_name>`
+- [x] `show cdp neighbors`
+    - [x] Field: `neighbor_id`
+        - [x] `<word>` (Neighbor hostname)
+    - [x] Field: `local_interface`
+        - [x] `<interface_name>`
+    - [x] Field: `holdtime`
+        - [x] `<number>`
+    - [x] Field: `capabilities`
+        - [x] `<text>` (Capability codes, e.g., R S I)
+    - [x] Field: `platform`
+        - [x] `<word>` (e.g., 2901)
+    - [x] Field: `remote_interface`
+        - [x] `<interface_name>`
+- [x] `show mac address-table`
+    - [x] Field: `vlan`
+        - [x] `<number>` | `all`
+    - [x] Field: `mac_address`
+        - [x] `<mac_address>` (Dotted or Colon format)
+    - [x] Field: `type`
+        - [x] `DYNAMIC | STATIC`
+    - [x] Field: `port`
+        - [x] `<interface_name> | CPU | Drop`
+- [x] `show arp`
+    - [x] Field: `protocol`
+        - [x] `Internet | AppleTalk | ...`
+    - [x] Field: `ip_address`
+        - [x] `<ipv4_address>`
+    - [x] Field: `age`
+        - [x] `<word>` (Number or '-')
+    - [x] Field: `mac_address`
+        - [x] `<mac_address>`
+    - [x] Field: `type`
+        - [x] `ARPA | SNAP | ...`
+    - [x] Field: `interface`
+        - [x] `<interface_name>`
 - [x] `show ip interface brief`
     - [x] Field: `interface`
         - [x] `<interface_name>`
@@ -262,39 +281,56 @@ These nodes capture command outputs and map them to structured data fields.
         - [x] `up | down | administratively down`
     - [x] Field: `protocol`
         - [x] `up | down`
+- [x] `show ip interface <name>`
+    - [x] Field: `interface`
+        - [x] `<interface_name>`
+    - [x] Field: `status`
+        - [x] `up | down`
+    - [x] Field: `protocol`
+        - [x] `up | down`
 
 ### 4.3 Routing & BGP State
-- [/] `show ip route`
-    - [ ] Field: `protocol`
-        - [ ] `L | C | S | R | B | D | O` (Route codes)
-    - [ ] Field: `network`
-        - [ ] `<ipv4_address>`
-    - [ ] Field: `mask`
-        - [ ] `<ipv4_address> | /<number>`
-    - [ ] Field: `nexthop_ip`
-        - [ ] `<ipv4_address>`
-    - [ ] Field: `nexthop_if`
-        - [ ] `<interface_name>`
-- [/] `show ip bgp summary`
-    - [ ] Field: `neighbor`
-        - [ ] `<ipv4_address>`
-    - [ ] Field: `as`
-        - [ ] `<number>`
-    - [ ] Field: `up_down`
-        - [ ] `<word>` (Uptime/Downtime)
-    - [ ] Field: `state_prefix`
-        - [ ] `<word> | <number>` (State or Prefix count)
-- [/] `show ip ospf neighbor`
-    - [ ] Field: `neighbor_id`
-        - [ ] `<ipv4_address>` (Router ID)
-    - [ ] Field: `priority`
-        - [ ] `<number>`
-    - [ ] Field: `state`
-        - [ ] `FULL/DR | FULL/BDR | 2WAY/DROTHER | ...`
-    - [ ] Field: `address`
-        - [ ] `<ipv4_address>`
-    - [ ] Field: `interface`
-        - [ ] `<interface_name>`
+- [x] `show ip route [vrf <word>]`
+    - [x] Field: `protocol`
+        - [x] `<word>` (e.g., L, C, S, R, B)
+    - [x] Field: `network`
+        - [x] `<ipv4_address>`
+    - [x] Field: `prefix`
+        - [x] `<number>` (Mask length)
+    - [x] Field: `distance`
+        - [x] `<number>`
+    - [x] Field: `metric`
+        - [x] `<number>`
+    - [x] Field: `nexthop_ip`
+        - [x] `<ipv4_address>`
+    - [x] Field: `nexthop_if`
+        - [x] `<interface_name>`
+- [x] `show ip bgp summary`
+    - [x] Field: `neighbor`
+        - [x] `<ipv4_address> | <ipv6_address>`
+    - [x] Field: `version`
+        - [x] `<number>`
+    - [x] Field: `as`
+        - [x] `<number>`
+    - [x] Field: `msg_rcvd` | `msg_sent` | `tbl_ver` | `in_q` | `out_q`
+        - [x] `<number>`
+    - [x] Field: `up_down`
+        - [x] `<word>` (e.g., 01:23:45)
+    - [x] Field: `state_prefix`
+        - [x] `<word>` (State name or prefix count)
+- [x] `show ip ospf neighbor`
+    - [x] Field: `neighbor_id`
+        - [x] `<ipv4_address>`
+    - [x] Field: `priority`
+        - [x] `<number>`
+    - [x] Field: `state`
+        - [x] `<word>` (e.g., FULL/DR)
+    - [x] Field: `dead_time`
+        - [x] `<word>` (e.g., 00:00:35)
+    - [x] Field: `address`
+        - [x] `<ipv4_address>`
+    - [x] Field: `interface`
+        - [x] `<interface_name>`
 
 ---
 

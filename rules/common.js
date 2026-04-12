@@ -22,6 +22,7 @@ module.exports = {
     /(Ethernet|GigabitEthernet|TenGigabitEthernet|FastEthernet|FourtyGigabitEthernet|HundredGigabitEthernet)\d+([./]\d+)*/,
     /(Vlan|Port-channel|Loopback|Tunnel|BVI|Dialer|Embedded-Service-Engine|Group-Async|MFR|Multilink|Serial|Virtual-Template|Virtual-TokenRing)\d+/,
     /Management\d+([./]\d+)*/,
+    /(Eth|Gi|Te|Fa|Gig)\s*\d+([./]\d+)*/,
     /Eth\d+([./]\d+)*/,
     /Gi\d+([./]\d+)*/,
     /Te\d+([./]\d+)*/,
@@ -38,10 +39,22 @@ module.exports = {
   
   number: $ => token(prec(1, /\d+/)),
   
-  uptime: $ => token(prec(1, /\d+\s+(weeks?|days?|hours?|minutes?|seconds?)(,\s+\d+\s+(weeks?|days?|hours?|minutes?|seconds?))*/)),
+  uptime: $ => seq(
+    $.number,
+    choice(/years?/, /months?/, /weeks?/, /days?/, /hours?/, /minutes?/, /seconds?/),
+    repeat(seq(
+      optional(','),
+      $.number,
+      choice(/years?/, /months?/, /weeks?/, /days?/, /hours?/, /minutes?/, /seconds?/)
+    ))
+  ),
   
   // Word ora è più inclusivo per catturare hostname, maschere /, liste e versioni con parentesi
-  word: $ => token(prec(-1, /[a-zA-Z0-9._\/!@#$%\-:,/()+]+/)),
+  word: $ => token(prec(-1, /[a-zA-Z0-9._\/!@#$%\-:/()+~*=&?|]+/)),
+
+  // Contenuto generico per campi che possono contenere spazi, punteggiatura e numeri
+  _field_content: $ => repeat1(choice($.word, $.punctuation, $.number)),
+
   
   wildcard: $ => token(prec(2, /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/)),
   
@@ -51,5 +64,6 @@ module.exports = {
   )),
   
   punctuation: $ => token(/[.,:;]/),
+  text: $ => token(prec(1, /[a-zA-Z0-9._\/!@#$%\-:/()+]+/)),
   operator: $ => token(/[<>=]/)
 };

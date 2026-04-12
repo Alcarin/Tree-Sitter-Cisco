@@ -9,7 +9,8 @@ enum TokenType {
   FIELD_SEPARATOR,
   DASHED_LINE,
   CONSOLE_PROMPT,
-  WHITESPACE
+  WHITESPACE,
+  LINE_CONTENT
 };
 
 #define MAX_INDENT_STACK 100
@@ -50,15 +51,17 @@ void tree_sitter_cisco_external_scanner_deserialize(void *payload, const char *b
 
 static bool scan_dashed_line(TSLexer *lexer) {
   uint32_t count = 0;
-  uint32_t c = lexer->lookahead;
-  if (c != '-' && c != '=') return false;
+  bool has_dash = false;
   
-  while (lexer->lookahead == c) {
+  while (lexer->lookahead == '-' || lexer->lookahead == '=' || lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+    if (lexer->lookahead == '-' || lexer->lookahead == '=') {
+      has_dash = true;
+      count++;
+    }
     lexer->advance(lexer, false);
-    count++;
   }
   
-  return count >= 3;
+  return has_dash && count >= 3;
 }
 
 static bool scan_console_prompt(TSLexer *lexer) {
@@ -147,12 +150,12 @@ bool tree_sitter_cisco_external_scanner_scan(void *payload, TSLexer *lexer, cons
     }
   }
 
-  // 5. INDENT / DEDENT (Column is already updated after WHITESPACE/FIELD_SEPARATOR)
+  // 5. INDENT / DEDENT
   if (valid_symbols[INDENT] || valid_symbols[DEDENT]) {
     uint16_t current_indent = (uint16_t)lexer->get_column(lexer);
 
     // Skip blank lines or comments for indent calculation
-    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || false) {
+    if (lexer->lookahead == '\n' || lexer->lookahead == '\r') {
       return false;
     }
 
@@ -167,6 +170,19 @@ bool tree_sitter_cisco_external_scanner_scan(void *payload, TSLexer *lexer, cons
     if (valid_symbols[DEDENT] && current_indent < last_indent) {
       scanner->indent_count--;
       lexer->result_symbol = DEDENT;
+      return true;
+    }
+  }
+
+  // 6. LINE_CONTENT (Very Low Priority fallback)
+  if (valid_symbols[LINE_CONTENT]) {
+    bool has_content = false;
+    while (lexer->lookahead != '\n' && lexer->lookahead != '\r' && !lexer->eof(lexer)) {
+      has_content = true;
+      lexer->advance(lexer, false);
+    }
+    if (has_content) {
+      lexer->result_symbol = LINE_CONTENT;
       return true;
     }
   }

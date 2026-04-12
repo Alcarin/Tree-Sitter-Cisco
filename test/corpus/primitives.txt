@@ -12,28 +12,18 @@ interface Vlan100
 ---
 
 (source_file
-  (generic_block
-    (command
-      (word)
-      (interface_name))
-    (command
-      (word)
-      (word)
+  (interface_block
+    (interface_name)
+    (ipv6_address_config
       (ipv6_address))
     (command
       (word)
       (mac_address))
-    (command
-      (word)
-      (word)
-      (word)
-      (word)
+    (switchport_config
       (vlan_range)))
   (comment)
-  (generic_block
-    (command
-      (word)
-      (interface_name))
-    (ip_address_assignment
-      (address)
-      (mask))))
+  (interface_block
+    (interface_name)
+    (ip_address_config
+      (ipv4_address)
+      (ipv4_address))))

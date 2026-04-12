@@ -53,7 +53,7 @@ module.exports = {
 
   vlan_block: $ => seq(
     $._kw_vlan, field('id', $.number), $._newline,
-    $._indent, repeat($._vlan_statement), $._dedent
+    optional(seq($._indent, repeat($._vlan_statement), $._dedent))
   ),
 
   line_block: $ => seq(
@@ -90,6 +90,7 @@ module.exports = {
     $.crypto_config,
     $.prefix_list,
     $.static_route,
+    $.vrf_definition,
     $.vrf_definition_block
   ),
 
@@ -97,7 +98,7 @@ module.exports = {
     $._kw_ntp, 
     choice(
       seq(choice(/server/i, /peer/i), field('address', choice($.ipv4_address, $.word))),
-      seq(/source/i, field('interface', $.interface_name))
+      seq(/source/i, field('interface', choice($.interface_name, $.word)))
     ),
     $._newline
   ),
@@ -113,14 +114,14 @@ module.exports = {
   ),
 
   snmp_config: $ => seq(
-    $._kw_snmp, 
+    $._kw_snmp,
     choice(
       seq(/community/i, field('name', $.word), optional(choice(/RO/i, /RW/i))),
-      seq(/host/i, field('address', $.ipv4_address), field('community', $.word))
+      seq(/host/i, field('address', $.ipv4_address), optional(seq(/version/i, $.word)), field('community', $.word)),
+      seq(/enable/i, /traps/i, optional(repeat($.word)))
     ),
     $._newline
   ),
-
   aaa_config: $ => seq(
     $._kw_aaa, 
     choice(
@@ -161,6 +162,8 @@ module.exports = {
     $._newline
   ),
 
+  vlan_definition: $ => seq($._kw_vlan, field('id', $.number), $._newline),
+
   static_route: $ => seq(
     $._kw_ip, /route/i, optional(seq(/vrf/i, field('vrf', $.word))), 
     field('destination', $.ipv4_address), field('mask', $.ipv4_address), 
@@ -196,6 +199,7 @@ module.exports = {
     seq(/service-policy/i, choice(/input/i, /output/i), $.word, $._newline),
     seq($._kw_spanning_tree, repeat1($.word), $._newline),
     $.comment,
+    $.command,
     $._newline
   ),
 
@@ -208,7 +212,9 @@ module.exports = {
   ),
 
   ipv6_address_config: $ => prec(5, seq(
-    $._kw_ipv6, $._kw_address, field('address', $.ipv6_address), $._newline
+    $._kw_ipv6, $._kw_address, field('address', $.ipv6_address), 
+    optional(choice(/link-local/i, /anycast/i)),
+    $._newline
   )),
 
   interface_shutdown: $ => seq(optional(/no/i), $._kw_shutdown, $._newline),
@@ -222,7 +228,7 @@ module.exports = {
     choice(
       seq(/mode/i, field('mode', $.switchport_mode)),
       seq(/access/i, /vlan/i, field('vlan_id', $.number)),
-      seq(/trunk/i, /allowed/i, /vlan/i, field('vlan_list', $.word)),
+      seq(/trunk/i, /allowed/i, /vlan/i, field('vlan_list', choice($.word, $.vlan_range))),
       seq(/trunk/i, /native/i, /vlan/i, field('vlan_id', $.number)),
       $.port_security_config,
       prec(-1, repeat1($.word))
@@ -248,6 +254,7 @@ module.exports = {
     $.bgp_network,
     seq(/exit-address-family/i, $._newline),
     $.comment,
+    $.command,
     $._newline
   ),
 
@@ -279,6 +286,7 @@ module.exports = {
     $.bgp_neighbor,
     seq(/exit-address-family/i, $._newline),
     $.comment,
+    $.command,
     $._newline
   ),
 
@@ -293,7 +301,9 @@ module.exports = {
     $.ospf_router_id,
     $.ospf_network,
     $.ospf_area,
+    $.ospf_area_block,
     $.comment,
+    $.command,
     $._newline
   ),
 
@@ -307,11 +317,35 @@ module.exports = {
 
   ospf_area: $ => seq(
     /area/i, field('area', $.number),
-    choice(
+    optional(choice(
       /stub/i,
       seq(/nssa/i, optional(/no-summary/i)),
       seq(/range/i, $.ipv4_address, $.ipv4_address)
-    ),
+    )),
+    $._newline
+  ),
+
+  ospf_area_block: $ => seq(
+    /area/i, field('area', $.number), $._newline,
+    $._indent, repeat($._ospf_area_statement), $._dedent
+  ),
+
+  _ospf_area_statement: $ => choice(
+    $.ospf_interface_block,
+    $.comment,
+    $.command,
+    $._newline
+  ),
+
+  ospf_interface_block: $ => seq(
+    $._kw_interface, field('name', $.interface_name), $._newline,
+    $._indent, repeat($._ospf_int_statement), $._dedent
+  ),
+
+  _ospf_int_statement: $ => choice(
+    seq(/cost/i, field('cost', $.number), $._newline),
+    $.comment,
+    $.command,
     $._newline
   ),
 
@@ -319,6 +353,7 @@ module.exports = {
   _vlan_statement: $ => choice(
     seq(/name/i, $.word, $._newline),
     $.comment,
+    $.command,
     $._newline
   ),
 
@@ -327,6 +362,7 @@ module.exports = {
     $.vrf_address_family,
     $.vrf_exit_address_family,
     $.comment,
+    $.command,
     $._newline
   ),
 
@@ -338,6 +374,7 @@ module.exports = {
     seq(/login/i, optional(/local/i), $._newline),
     seq(/transport/i, choice(/input/i, /output/i), repeat1($.word), $._newline),
     $.comment,
+    $.command,
     $._newline
   ),
 
@@ -347,18 +384,20 @@ module.exports = {
     seq(/priority/i, choice(/percent/i, $.number), optional($.number), $._newline),
     seq(/fair-queue/i, $._newline),
     $.comment,
+    $.command,
     $._newline
   ),
 
   _acl_statement: $ => choice(
     $.acl_rule,
     $.comment,
+    $.command,
     $._newline
   ),
 
   acl_rule: $ => seq(
     field('action', $.acl_action), 
-    repeat1(choice($.word, $.number, $.ipv4_address, $.ipv6_address)), 
+    repeat1(choice($.word, $.number, $.ipv4_address, $.ipv6_address, $.vlan_range)), 
     $._newline
   ),
 
@@ -366,7 +405,7 @@ module.exports = {
 
   // COMANDO GENERICO (Bassa priorità, fallback dinamico)
   command: $ => prec.dynamic(-10, prec(-1, seq(
-    repeat1(choice($.word, $.number, $.ipv4_address, $.interface_name, $.mac_address, $.punctuation)),
+    repeat1(choice($.word, $.number, $.ipv4_address, $.ipv6_address, $.interface_name, $.mac_address, $.vlan_range, $.punctuation)),
     $._newline
   )))
 };

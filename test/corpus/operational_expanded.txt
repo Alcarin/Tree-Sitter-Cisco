@@ -3,48 +3,183 @@ Show Version
 ==============================
 show version
 Cisco IOS Software, C1900 Software (C1900-UNIVERSALK9-M), Version 15.1(4)M4, RELEASE SOFTWARE (fc1)
-Router uptime is 22 weeks, 5 days, 15 hours, 44 minutes
-Processor board ID FTX1624AJ38
+System image file is "flash:c1900-universalk9-mz.SPA.151-4.M4.bin"
+router uptime is 1 year, 2 weeks, 3 days, 4 hours, 5 minutes
+Cisco C1941 (revision 1.0) with 491520K/32768K bytes of memory.
+Processor board ID FTX12345678
 Configuration register is 0x2102
 
 ---
 
 (source_file
-  (show_version)
-  (software_info)
-  (uptime_info
-    hostname: (word)
-    uptime: (uptime))
-  (processor_info)
-  (config_register))
+  (show_command
+    (show_version_block
+      (unknown_line)
+      (unknown_line)
+      (unknown_line)
+      (unknown_line)
+      (unknown_line)
+      (unknown_line))))
 
 ==============================
 Show Inventory
 ==============================
 show inventory
-NAME: "CISCO1941/K9", DESCR: "CISCO1941/K9 chassis, Hw Revision 1.0"
-PID: CISCO1941/K9, VID: V01, SN: FTX1624AJ38
+NAME: "Chassis", DESCR: "Cisco 1941 Chassis"
+PID: C1941-K9, VID: V01, SN: FTX12345678
 
 ---
 
 (source_file
-  (show_inventory)
-  (inventory_entry))
+  (show_command
+    (show_inventory_block
+      (unknown_line)
+      (unknown_line))))
 
 ==============================
 Show IP Interface Brief
 ==============================
 show ip interface brief
-GigabitEthernet0/0     192.168.1.1     YES NVRAM  up                    up      
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     192.168.1.1     YES NVRAM  up                    up
+GigabitEthernet0/1     unassigned      YES NVRAM  administratively down down
 
 ---
 
 (source_file
-  (show_ip_interface_brief)
-  (ip_int_brief_entry
-    interface: (interface_name)
-    ip_address: (ipv4_address)
-    ok: (word)
-    method: (word)
-    status: (operational_status)
-    protocol: (operational_status)))
+  (show_command
+    (show_ip_int_brief_block
+      (unknown_line)
+      (unknown_line)
+      (unknown_line))))
+
+==============================
+Show Clock
+==============================
+show clock
+*12:34:56.789 UTC Sun Apr 12 2026
+
+---
+
+(source_file
+  (show_command
+    (show_clock_block
+      (clock_info
+        (word)
+        (word)
+        (word)
+        (word)
+        (number)
+        (number)))))
+
+==============================
+Show Environment
+==============================
+show environment
+Fan 1 is OK
+Temperature is 35C
+Power Supply: OK
+
+---
+
+(source_file
+  (show_command
+    (show_environment_block
+      (unknown_line)
+      (unknown_line)
+      (unknown_line))))
+
+==============================
+Show CDP Neighbors
+==============================
+show cdp neighbors
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+R1               Gi0/0             125              R S I  2901      Gi0/1
+
+---
+
+(source_file
+  (show_command
+    (show_cdp_neighbors_block
+      (unknown_line)
+      (unknown_line))))
+
+==============================
+Show MAC Address Table
+==============================
+show mac address-table
+Vlan    Mac Address       Type        Ports
+----    -----------       ----        -----
+  10    0011.2233.4455    DYNAMIC     Gi0/1
+
+---
+
+(source_file
+  (show_command
+    (show_mac_address_table_block
+      (unknown_line)
+      (unknown_line))))
+
+==============================
+Show ARP
+==============================
+show arp
+Protocol  Address          Age (min)  Hardware Addr   Type   Interface
+Internet  192.168.1.1             -   0011.2233.4455  ARPA   GigabitEthernet0/0
+
+---
+
+(source_file
+  (show_command
+    (show_ip_arp_block
+      (unknown_line)
+      (unknown_line))))
+
+==============================
+Show IP Route
+==============================
+show ip route
+Codes: L - local, C - connected, S - static
+Gateway of last resort is 192.168.1.254 to network 0.0.0.0
+C 192.168.1.0/24 is directly connected, GigabitEthernet0/0
+S 0.0.0.0/0 [1/0] via 192.168.1.254
+
+---
+
+(source_file
+  (show_command
+    (show_ip_route_block
+      (unknown_line)
+      (unknown_line)
+      (unknown_line)
+      (unknown_line))))
+
+==============================
+Show IP BGP Summary
+==============================
+show ip bgp summary
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+10.0.0.1        4        65001     100     100       10    0    0 01:23:45 5
+
+---
+
+(source_file
+  (show_command
+    (show_ip_bgp_summary_block
+      (unknown_line)
+      (unknown_line))))
+
+==============================
+Show IP OSPF Neighbor
+==============================
+show ip ospf neighbor
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+1.1.1.1           1   FULL/DR         00:00:35    192.168.1.1     GigabitEthernet0/0
+
+---
+
+(source_file
+  (show_command
+    (show_ip_ospf_neighbor_block
+      (unknown_line)
+      (unknown_line))))

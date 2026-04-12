@@ -12,27 +12,18 @@ router ospf 1
 ---
 
 (source_file
-  (block
-    (command
-      (word)
-      (word)
-      (number))
-    (indented_command
-      (block
+  (ospf_block
+    (number)
+    (ospf_area_block
+      (number)
+      (ospf_interface_block
+        (interface_name)
         (command
           (word)
-          (number))
-        (indented_command
-          (block
-            (command
-              (interface_name))
-            (indented_command
-              (command
-                (word)
-                (word))))
-          (comment))
-        (comment)))
+          (word)))
+      (comment))
     (comment))
+  (comment))
 
 ==============================
 Banner with delimiters
