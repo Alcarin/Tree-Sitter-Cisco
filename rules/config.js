@@ -85,6 +85,7 @@ module.exports = {
     $.ntp_config,
     $.logging_config,
     $.snmp_config,
+    $.ssh_config,
     $.aaa_config,
     $.boot_config,
     $.crypto_config,
@@ -98,7 +99,8 @@ module.exports = {
     $._kw_ntp, 
     choice(
       seq(choice(/server/i, /peer/i), field('address', choice($.ipv4_address, $.word))),
-      seq(/source/i, field('interface', choice($.interface_name, $.word)))
+      seq(/source/i, field('interface', choice($.interface_name, $.word))),
+      seq(/master/i, optional(field('priority', $.number)))
     ),
     $._newline
   ),
@@ -118,7 +120,19 @@ module.exports = {
     choice(
       seq(/community/i, field('name', $.word), optional(choice(/RO/i, /RW/i))),
       seq(/host/i, field('address', $.ipv4_address), optional(seq(/version/i, $.word)), field('community', $.word)),
-      seq(/enable/i, /traps/i, optional(repeat($.word)))
+      seq(/enable/i, /traps/i, optional(repeat($.word))),
+      seq(/location/i, field('location', repeat1($.word))),
+      seq(/contact/i, field('contact', repeat1($.word)))
+    ),
+    $._newline
+  ),
+
+  ssh_config: $ => seq(
+    $._kw_ip, /ssh/i,
+    choice(
+      seq(/version/i, field('version', $.number)),
+      seq(/authentication-retries/i, field('retries', $.number)),
+      seq(/time-out/i, field('timeout', $.number))
     ),
     $._newline
   ),

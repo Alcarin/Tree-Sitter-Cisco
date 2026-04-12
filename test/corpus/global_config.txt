@@ -60,3 +60,41 @@ crypto key generate rsa modulus 2048
     (crypto_config
       bits: (number)))
   (comment))
+
+
+==============================
+NTP, SNMP and SSH Extensions
+==============================
+ntp master 5
+snmp-server location Data Center Room 1
+snmp-server contact admin@example.com
+ip ssh version 2
+ip ssh authentication-retries 3
+ip ssh time-out 60
+!
+
+---
+
+(source_file
+  (system_config
+    (ntp_config
+      priority: (number)))
+  (system_config
+    (snmp_config
+      location: (word)
+      location: (word)
+      location: (word)
+      location: (word)))
+  (system_config
+    (snmp_config
+      contact: (word)))
+  (system_config
+    (ssh_config
+      version: (number)))
+  (system_config
+    (ssh_config
+      retries: (number)))
+  (system_config
+    (ssh_config
+      timeout: (number)))
+  (comment))

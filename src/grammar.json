@@ -1401,6 +1401,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "ssh_config"
+        },
+        {
+          "type": "SYMBOL",
           "name": "aaa_config"
         },
         {
@@ -1500,6 +1504,32 @@
                       }
                     ]
                   }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "master",
+                  "flags": "i"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "FIELD",
+                      "name": "priority",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "number"
+                      }
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 }
               ]
             }
@@ -1718,6 +1748,125 @@
                       "type": "BLANK"
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "location",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "location",
+                  "content": {
+                    "type": "REPEAT1",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "word"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "contact",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "contact",
+                  "content": {
+                    "type": "REPEAT1",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "word"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "ssh_config": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_kw_ip"
+        },
+        {
+          "type": "PATTERN",
+          "value": "ssh",
+          "flags": "i"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "version",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "version",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "authentication-retries",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "retries",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "PATTERN",
+                  "value": "time-out",
+                  "flags": "i"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "timeout",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  }
                 }
               ]
             }

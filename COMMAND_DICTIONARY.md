@@ -49,7 +49,7 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
         - [x] `<ipv4_address>` | `<word>`
     - [x] `source`
         - [x] `<interface_name>`
-    - [ ] `master [<number>]`
+    - [x] `master [<number>]`
 - [x] `logging` / `log`
     - [x] `host`
         - [x] `<ipv4_address>` (Syslog host)
@@ -66,8 +66,8 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
             - [x] `[version <word>]` (Optional: 2c, 3)
             - [x] `<word>` (Community string)
     - [x] `enable traps`
-    - [ ] `location <string>`
-    - [ ] `contact <string>`
+    - [x] `location <string>`
+    - [x] `contact <string>`
 - [x] `vlan`
     - [x] `<number>` (ID: 1-4094)
         - [x] `name`
@@ -77,10 +77,10 @@ This document maps the hierarchical structure of Cisco commands (IOS, XE, XR, NX
         - [x] `general-keys`
             - [x] `modulus`
                 - [x] `<number>` (Bits: 1024, 2048, 4096)
-- [ ] `ip ssh`
-- [ ] `version <1|2>`
-- [ ] `authentication-retries <number>`
-- [ ] `time-out <number>`
+- [x] `ip ssh`
+    - [x] `version <1|2>`
+    - [x] `authentication-retries <number>`
+    - [x] `time-out <number>`
 
 ---
 ## 🔌 2. Interface Configuration
