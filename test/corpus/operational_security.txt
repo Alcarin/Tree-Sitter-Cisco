@@ -10,9 +10,10 @@ Failover unit Primary
 (source_file
   (show_command
     (show_failover_block
-      (failover_line)
-      (failover_line status: (word))
-      (failover_line role: (word)))))
+      (failover_line
+        status: (word))
+      (failover_line
+        role: (word)))))
 
 ==============================
 Op SP
