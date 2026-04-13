@@ -1,0 +1,17 @@
+[package]
+name = "tree-sitter-cisco"
+version = "0.1.0"
+authors = ["Francesco Rubeo"]
+description = "Cisco configuration parser for tree-sitter"
+repository = "https://github.com/Alcarin/Tree-Sitter-Cisco"
+edition = "2021"
+license = "MIT"
+
+[lib]
+path = "bindings/rust/lib.rs"
+
+[dependencies]
+tree-sitter-language = "0.1"
+
+[build-dependencies]
+cc = "1.0"

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>TreeSitterCisco</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Alcarin</Authors>
+    <Description>Cisco configuration parser for tree-sitter</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TreeSitter" Version="0.1.0" />
+  </ItemGroup>
+</Project>

@@ -1,24 +1,48 @@
 {
   "name": "tree-sitter-cisco",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Cisco configuration parser for tree-sitter",
   "main": "index.js",
+  "types": "bindings/node/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install": "node-gyp-build",
+    "prebuildify": "prebuildify --napi --strip",
+    "test": "tree-sitter test",
+    "sync-metadata": "node scripts/sync-metadata.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Alcarin/Tree-Sitter-Cisco.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "tree-sitter",
+    "cisco",
+    "ios",
+    "nxos",
+    "asa"
+  ],
+  "author": "Francesco Rubeo",
+  "license": "MIT",
   "type": "commonjs",
+  "dependencies": {
+    "node-addon-api": "^8.0.0",
+    "node-gyp-build": "^4.8.0"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.23.0"
+  },
+  "peerDependenciesMeta": {
+    "tree-sitter": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "nan": "^2.20.0",
+    "prebuildify": "^6.0.0",
+    "tree-sitter-cli": "^0.26.8"
+  },
   "bugs": {
     "url": "https://github.com/Alcarin/Tree-Sitter-Cisco/issues"
   },
-  "homepage": "https://github.com/Alcarin/Tree-Sitter-Cisco#readme",
-  "devDependencies": {
-    "tree-sitter-cli": "^0.26.8"
-  }
+  "homepage": "https://github.com/Alcarin/Tree-Sitter-Cisco#readme"
 }
