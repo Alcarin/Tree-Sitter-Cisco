@@ -1,7 +1,11 @@
 package tree_sitter_cisco
 
-// #include "../../src/tree_sitter/parser.h"
-// TSLanguage *tree_sitter_cisco();
+/*
+#cgo CFLAGS: -I../../src
+#include "../../src/tree_sitter/parser.h"
+#include "../../src/parser.c"
+#include "../../src/scanner.c"
+*/
 import "C"
 
 import (

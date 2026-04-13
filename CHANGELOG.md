@@ -8,14 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - (New features and commands under development)
 
 ### Fixed
-- (Bug fixes under development)
+
+- **Go Bindings**: Added missing CGO directives to include `parser.c` and `scanner.c`, resolving "undefined reference" errors during link-time.
 
 ## [0.1.0] - 2026-04-13
 
 ### Added
+
 - **Language Bindings**: Full support for 11 languages (Node.js, Python, Rust, Go, Java, C#, Swift, Ruby, PHP, Perl, C/C++).
 - **Core Grammar**: Initial support for Cisco IOS, XE, XR, NX-OS, and ASA configuration dialects. The complete list of supported commands is available in the [COMMAND_DICTIONARY.md](COMMAND_DICTIONARY.md) file.
 - **Operational Data**: Extensive support for "show" commands including HSRP, Spanning-tree, IP SSH, NTP, and SNMP-server.
@@ -29,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Detailed grammar contribution guide (`CONTRIBUTING_GRAMMAR.md`).
 
 ### Fixed
+
 - Improved line termination handling in configuration blocks by removing mandatory trailing spaces.
 - Enhanced stability for complex tabular diagnostic output extraction.
 
