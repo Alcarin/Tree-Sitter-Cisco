@@ -1,4 +1,11 @@
-(interface_config) @fold
-(router_config) @fold
-(vlan_config) @fold
-(block) @fold
+(interface_block) @fold
+(ospf_block) @fold
+(bgp_block) @fold
+(vlan_block) @fold
+(line_block) @fold
+(qos_block) @fold
+(acl_block) @fold
+(vrf_definition_block) @fold
+(object_group_block) @fold
+(show_command) @fold
+(diagnostic_command) @fold

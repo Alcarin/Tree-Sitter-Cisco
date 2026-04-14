@@ -1,0 +1,39 @@
+==============================
+Show Interface Status
+==============================
+show interface status
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/1     CONNECTED_TO_SRV   connected    10         a-full  a-1000 10/100/1000BaseTX
+Gi0/2                        notconnect   1          auto    auto   10/100/1000BaseTX
+Gi0/3                        disabled     1          auto    auto   unknown
+
+---
+
+(source_file
+  (show_command
+    (show_interface_status_block
+      (unknown_line)))
+  (command
+    (interface_name)
+    (word)
+    (word)
+    (number)
+    (word)
+    (word)
+    (number)
+    (word))
+  (command
+    (interface_name)
+    (word)
+    (number)
+    (word)
+    (word)
+    (number)
+    (word))
+  (command
+    (interface_name)
+    (word)
+    (number)
+    (word)
+    (word)
+    (word)))

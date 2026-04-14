@@ -18,15 +18,20 @@ module.exports = {
     /::(\/\d+)?/
   ))),
 
+  prompt: $ => token(prec(20, seq(
+    /[a-zA-Z0-9][a-zA-Z0-9\-_.]*/, 
+    optional(seq('(', /[^)\n]+/, ')')), 
+    choice('#', '>')
+  ))),
+
   interface_name: $ => token(prec(2, choice(
-    /(Ethernet|GigabitEthernet|TenGigabitEthernet|FastEthernet|FourtyGigabitEthernet|HundredGigabitEthernet)\d+([./]\d+)*/,
-    /(Vlan|Port-channel|Loopback|Tunnel|BVI|Dialer|Embedded-Service-Engine|Group-Async|MFR|Multilink|Serial|Virtual-Template|Virtual-TokenRing)\d+/,
+    /(Ethernet|GigabitEthernet|TenGigabitEthernet|FastEthernet|FourtyGigabitEthernet|HundredGigabitEthernet|Serial|Tunnel|Loopback|Vlan|Port-channel|BVI|Dialer|Embedded-Service-Engine|Group-Async|MFR|Multilink|Virtual-Template|Virtual-TokenRing)\s*\d+([./]\d+)*/,
     /Management\d+([./]\d+)*/,
     /(Eth|Gi|Te|Fa|Gig)\s*\d+([./]\d+)*/,
-    /Eth\d+([./]\d+)*/,
-    /Gi\d+([./]\d+)*/,
-    /Te\d+([./]\d+)*/,
-    /Fa\d+([./]\d+)*/
+    /Eth\s*\d+([./]\d+)*/,
+    /Gi\s*\d+([./]\d+)*/,
+    /Te\s*\d+([./]\d+)*/,
+    /Fa\s*\d+([./]\d+)*/
   ))),
 
   mac_address: $ => token(prec(2, choice(

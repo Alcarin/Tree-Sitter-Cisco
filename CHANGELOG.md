@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- (New features and commands under development)
+- Structured support for `show interface status` operational command.
+- Structured support for `show interfaces` command with detailed counters (MTU, BW, Rates, Packets, Errors).
+- Renamed internal `interface_status_entry` to `interface_status_detail` for better naming consistency.
+- New test suite for operational interface commands and statistics.
 
 ### Fixed
 

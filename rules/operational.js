@@ -1,5 +1,5 @@
 /**
- * @file Operational commands for Cisco grammar - Bulletproof Version
+ * @file Operational commands for Cisco grammar - Final Stable Version
  */
 
 module.exports = {
@@ -17,18 +17,16 @@ module.exports = {
     $.show_ip_bgp_summary_block,
     $.show_ip_ospf_neighbor_block,
     $.show_ip_interface_block,
-    // --- Security ASA/FTD (4.4) ---
+    $.show_interfaces_block,
+    $.show_interface_status_block,
     $.show_crypto_ipsec_sa_block,
     $.show_crypto_ikev1_sa_block,
     $.show_failover_block,
     $.show_vpn_sessiondb_block,
-    // --- Service Provider (4.5) ---
     $.show_bgp_neighbors_block,
     $.show_mpls_ldp_neighbor_block,
-    // --- Data Center (4.6) ---
     $.show_vpc_block,
     $.show_fex_block,
-    // --- Advanced L2/L3 (4.7) ---
     $.show_etherchannel_summary_block,
     $.show_spanning_tree_block,
     $.show_standby_block
@@ -130,7 +128,8 @@ module.exports = {
 
   // --- SHOW VERSION ---
   show_version_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Vv]ersion/i, optional(/[ \t]+/)))), $._newline,
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Vv]ersion/i, optional(/[ \t]+/)))), $._newline,
     repeat(choice(
       $.software_info,
       $.system_image,
@@ -151,7 +150,8 @@ module.exports = {
 
   // --- SHOW INVENTORY ---
   show_inventory_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Ii]nventory/i, optional(/[ \t]+/)))), $._newline,
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Ii]nventory/i, optional(/[ \t]+/)))), $._newline,
     repeat(choice($.inventory_name_line, $.inventory_pid_line, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
   ),
   inventory_name_line: $ => prec(100, seq(/NAME:/i, field('name', choice($.string, alias($.text_line, $.text))), /,/, /DESCR:/i, field('description', choice($.string, alias($.text_line, $.text))), $._newline)),
@@ -159,7 +159,8 @@ module.exports = {
 
   // --- SHOW IP INTERFACE BRIEF ---
   show_ip_int_brief_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Ii][Pp]/i, /[ \t]+/i, /[Ii]nterface/i, /[ \t]+/i, /[Bb]rief/i, optional(/[ \t]+/)))), $._newline,
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Ii][Pp]/i, /\s+/, /[Ii]nterface/i, /\s+/, /[Bb]rief/i, optional(/[ \t]+/)))), $._newline,
     repeat(choice($.ip_int_brief_header, $.ip_int_brief_entry, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
   ),
   ip_int_brief_header: $ => prec(200, seq(/[Ii]nterface/i, /[Ii][Pp]-[Aa]ddress/i, /[Oo][Kk]\?/i, /[Mm]method/i, /[Ss]tatus/i, /[Pp]rotocol/i, $._newline)),
@@ -175,7 +176,8 @@ module.exports = {
 
   // --- SHOW IP INTERFACE ---
   show_ip_interface_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Ii][Pp]/i, /[ \t]+/i, /[Ii][Nn][Tt][Ee][Rr][Ff][Aa][Cc][Ee]/i, /[ \t]+/i))),
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Ii][Pp]/i, /\s+/, /[Ii]nterface/i, /\s+/))),
     field('interface', $.interface_name),
     optional(/[ \t]+/),
     $._newline,
@@ -184,7 +186,8 @@ module.exports = {
 
   // --- SHOW CLOCK ---
   show_clock_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Cc]lock/i, optional(/[ \t]+/)))), $._newline,
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Cc]lock/i, optional(/[ \t]+/)))), $._newline,
     $.clock_info
   ),
   clock_info: $ => prec(100, seq(
@@ -200,7 +203,8 @@ module.exports = {
 
   // --- SHOW ENVIRONMENT ---
   show_environment_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Ee]nvironment/i, optional(/[ \t]+/)))), $._newline,
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Ee]nvironment/i, optional(/[ \t]+/)))), $._newline,
     repeat(choice($.environment_info, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
   ),
   environment_info: $ => prec(100, seq(
@@ -214,7 +218,8 @@ module.exports = {
 
   // --- SHOW CDP NEIGHBORS ---
   show_cdp_neighbors_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Cc][Dd][Pp]/i, /[ \t]+/i, /[Nn]eighbors/i, optional(/[ \t]+/)))), $._newline,
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Cc][Dd][Pp]/i, /\s+/, /[Nn]eighbors/i, optional(/[ \t]+/)))), $._newline,
     repeat(choice(
         seq(/[Cc]apability/i, /[Cc]odes:/i, alias($.text_line, $.text), $._newline),
         $.cdp_header,
@@ -236,7 +241,8 @@ module.exports = {
 
   // --- SHOW MAC ADDRESS-TABLE ---
   show_mac_address_table_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Mm]ac/i, /[ \t]+/i, /[Aa]ddress-table/i, optional(/[ \t]+/)))), $._newline,
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Mm]ac/i, /\s+/, /[Aa]ddress-table/i, optional(/[ \t]+/)))), $._newline,
     repeat(choice(
         seq(optional(/[Vv]lan/i), /[Mm]ac/i, /[Aa]ddress/i, /[Tt]able/i, $._newline),
         $.mac_table_header,
@@ -258,7 +264,8 @@ module.exports = {
 
   // --- SHOW IP ARP ---
   show_ip_arp_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, optional(seq(/[Ii][Pp]/i, /[ \t]+/i)), /[Aa]rp/i, optional(/[ \t]+/)))), $._newline,
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, optional(seq(/[Ii][Pp]/i, /\s+/)), /[Aa]rp/i, optional(/[ \t]+/)))), $._newline,
     repeat(choice($.arp_header, $.arp_entry, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
   ),
   arp_header: $ => prec(200, seq(/[Pp]rotocol/i, /[Aa]ddress/i, /[Aa]ge/i, optional(seq(/\(/, /[Mm]in/i, /\)/)), /[Hh]ardware/i, /[Aa]ddr/i, /[Tt]ype/i, /[Ii]nterface/i, $._newline)),
@@ -274,8 +281,9 @@ module.exports = {
 
   // --- SHOW IP ROUTE ---
   show_ip_route_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Ii][Pp]/i, /[ \t]+/i, /[Rr]oute/i))),
-    optional(seq(/[ \t]+/i, /[Vv][Rr][Ff]/i, /[ \t]+/i, $.word)),
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Ii][Pp]/i, /\s+/, /[Rr]oute/i))),
+    optional(seq(/\s+/, /[Vv][Rr][Ff]/i, /\s+/, $.word)),
     optional(/[ \t]+/),
     $._newline,
     repeat(choice($._routing_generic_line, $.subnet_header, $.routing_entry, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
@@ -295,7 +303,8 @@ module.exports = {
 
   // --- SHOW IP BGP SUMMARY ---
   show_ip_bgp_summary_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Ii][Pp]/i, /[ \t]+/i, /[Bb][Gg][Pp]/i, /[ \t]+/i, /[Ss]ummary/i, optional(/[ \t]+/)))), $._newline,
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Ii][Pp]/i, /\s+/, /[Bb][Gg][Pp]/i, /\s+/, /[Ss]ummary/i, optional(/[ \t]+/)))), $._newline,
     repeat(choice($.bgp_summary_header, $.bgp_summary_entry, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
   ),
   bgp_summary_header: $ => prec(200, seq(/[Nn]eighbor/i, /V/i, /AS/i, /[Mm]sg[Rr]cvd/i, /[Mm]sg[Ss]ent/i, /[Tt]bl[Vv]er/i, /[Ii]n[Qq]/i, /[Oo]ut[Qq]/i, /[Uu]p\/[Dd]own/i, /[Ss]tate\/[Pp]fx[Rr]cd/i, $._newline)),
@@ -315,7 +324,8 @@ module.exports = {
 
   // --- SHOW IP OSPF NEIGHBOR ---
   show_ip_ospf_neighbor_block: $ => seq(
-    token(prec(100, seq(/[Ss]how/i, /[ \t]+/i, /[Ii][Pp]/i, /[ \t]+/i, /[Oo][Ss][Pp][Ff]/i, /[ \t]+/i, /[Nn]eighbor/i, optional(/[ \t]+/)))), $._newline,
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Ii][Pp]/i, /\s+/, /[Oo][Ss][Pp][Ff]/i, /\s+/, /[Nn]eighbor/i, optional(/[ \t]+/)))), $._newline,
     repeat(choice($.ospf_neighbor_header, $.ospf_neighbor_entry, $._dashed_line, $._newline, prec.dynamic(-1000, alias($._line_content, $.unknown_line))))
   ),
   ospf_neighbor_header: $ => prec(200, seq(/[Nn]eighbor/i, /ID/i, /[Pp]ri/i, /[Ss]tate/i, /[Dd]ead/i, /[Tt]ime/i, /[Aa]ddress/i, /[Ii]nterface/i, $._newline)),
@@ -329,7 +339,81 @@ module.exports = {
     $._newline
   )),
 
-  interface_status_entry: $ => prec(100, seq(field('interface', $.interface_name), /[Ii][Ss]/i, field('status', alias(repeat1($.word), $.operational_status)), /,/, /[Ll]ine/i, /[Pp]rotocol/i, /[Ii][Ss]/i, field('protocol', alias($.word, $.operational_status)), $._newline)),
+  // --- SHOW INTERFACES (Counters) ---
+  show_interfaces_block: $ => prec(200, seq(
+    optional($._console_prompt),
+    token(prec(200, seq(/[Ss]how/i, /\s+/, /[Ii]nterfaces/i))),
+    optional(field('interface', $.interface_name)),
+    optional(/[ \t]+/), $._newline,
+    repeat(choice(
+        $.interface_status_detail,
+        $.hardware_info,
+        $.interface_l3_info,
+        $.interface_metrics_line,
+        $.interface_encaps_line,
+        $.interface_arp_info,
+        $.interface_timestamp_line,
+        $.interface_queues_line,
+        $.input_rate_line,
+        $.output_rate_line,
+        $.input_counters,
+        $.broadcast_counters,
+        $.input_errors,
+        $.output_counters,
+        $.output_errors,
+        $._newline,
+        prec.dynamic(-1000, alias($._line_content, $.unknown_line))
+    ))
+  )),
+  interface_status_detail: $ => seq(
+    field('interface', $.interface_name), 
+    /[Ii][Ss]/i, 
+    field('status', alias($.word, $.operational_status)), 
+    /,/, 
+    /[Ll]ine/i, 
+    /[Pp]rotocol/i, 
+    /[Ii][Ss]/i, 
+    field('protocol', alias($.word, $.operational_status)), 
+    $._newline
+  ),
+  interface_l3_info: $ => seq(/[Ii][Pp]/i, /[Aa]ddress/i, /[Ii][Ss]/i, field('ip_address', $.ipv4_address), optional(seq(/,/, /[Ss]ubnet/i, /[Mm]ask/i, /[Ii][Ss]/i, field('subnet_mask', $.ipv4_address))), $._newline),
+  interface_metrics_line: $ => seq(/MTU/i, field('mtu', $.number), /bytes/i, /,/, /BW/i, field('bw', $.number), /Kbit/i, /,/, /DLY/i, field('delay', $.number), /usec/i, /,/, /reliability/i, field('reliability', $.number), /\/255/, /,/, /txload/i, field('txload', $.number), /\/255/, /.*/, $._newline),
+  interface_encaps_line: $ => seq(/[Ee]ncapsulation/i, field('encapsulation', $.word), /.*/, $._newline),
+  interface_arp_info: $ => seq(/ARP/i, /type:/i, field('arp_type', $.word), /,/, /ARP/i, /Timeout/i, field('arp_timeout', $.word), $._newline),
+  interface_timestamp_line: $ => seq(alias(repeat1($.word), $.text), $._newline),
+  interface_queues_line: $ => seq(field('out_queue_size', $.number), /\//, field('out_queue_max', $.number), /\//, field('out_drops', $.number), /.*/, field('in_queue_size', $.number), /\//, field('in_queue_max', $.number), /\//, field('in_drops', $.number), /.*/, $._newline),
+  input_rate_line: $ => seq(field('interval', alias(repeat1($.word), $.text)), /[Ii]nput/i, /[Rr]ate/i, field('rate_bits', $.number), /bits\/sec/, /,/, field('rate_pkts', $.number), /packets\/sec/, $._newline),
+  output_rate_line: $ => seq(field('interval', alias(repeat1($.word), $.text)), /[Oo]utput/i, /[Rr]ate/i, field('rate_bits', $.number), /bits\/sec/, /,/, field('rate_pkts', $.number), /packets\/sec/, $._newline),
+  input_counters: $ => seq(field('packets', $.number), /packets/i, /input/i, /,/, field('bytes', $.number), /bytes/i, /,/, field('no_buffer', $.number), /no/i, /buffer/i, $._newline),
+  broadcast_counters: $ => seq(/Received/i, field('broadcasts', $.number), /broadcasts/i, /,/, field('extra_val', $.number), field('extra_type', $.word), /,/, field('extra_val', $.number), field('extra_type', $.word), $._newline),
+  input_errors: $ => seq(field('errors', $.number), /input/i, /errors/i, /,/, field('val', $.number), field('type', $.word), /,/, field('val', $.number), field('type', $.word), /,/, field('val', $.number), field('type', $.word), /,/, field('val', $.number), field('type', $.word), /,/, field('val', $.number), field('type', $.word), $._newline),
+  output_counters: $ => seq(field('packets', $.number), /packets/i, /output/i, /,/, field('bytes', $.number), /bytes/i, /,/, field('underruns', $.number), /underruns/i, $._newline),
+  output_errors: $ => seq(field('errors', $.number), /output/i, /errors/i, /,/, field('val', $.number), field('type', $.word), /,/, field('val', $.number), field('type', $.word), /,/, field('val', $.number), field('type', $.word), $._newline),
+
+  // --- SHOW INTERFACE STATUS ---
+  show_interface_status_block: $ => prec(200, seq(
+    optional($._console_prompt),
+    token(prec(100, seq(/[Ss]how/i, /\s+/, /[Ii]nterface/i, /\s+/, /[Ss]tatus/i, optional(/[ \t]+/)))), $._newline,
+    repeat(choice(
+        $.interface_status_header,
+        $.interface_status_entry,
+        $._newline,
+        prec.dynamic(-1000, alias($._line_content, $.unknown_line))
+    ))
+  )),
+  interface_status_header: $ => seq(/[Pp]ort/i, /[Nn]ame/i, /[Ss]tatus/i, /[Vv]lan/i, /[Dd]uplex/i, /[Ss]peed/i, /[Tt]ype/i, $._newline),
+  interface_status_entry: $ => seq(
+    field('interface', $.interface_name),
+    optional(field('name', alias($.word, $.interface_name_label))),
+    field('status', alias($.word, $.interface_status_val)),
+    field('vlan', $.number),
+    field('duplex', $.word),
+    field('speed', $.word),
+    field('type', alias($.text_line, $.text)),
+    $._newline
+  ),
+
+  interface_status_entry_simple: $ => prec(100, seq(field('interface', $.interface_name), /[Ii][Ss]/i, field('status', alias(repeat1($.word), $.operational_status)), /,/, /[Ll]ine/i, /[Pp]rotocol/i, /[Ii][Ss]/i, field('protocol', alias($.word, $.operational_status)), $._newline)),
   vlan_brief_entry: $ => prec(100, seq(field('id', $.number), field('name', $.word), field('status', $.word), field('ports', repeat1($.interface_name)), $._newline)),
   bgp_neighbor_block: $ => prec(100, seq(/[Bb][Gg][Pp]/i, /[Nn]eighbor/i, /[Ii][Ss]/i, field('neighbor', $.ipv4_address), /,/, /[Rr]emote/i, /[Aa][Ss]/i, field('remote_as', $.number), /.*/, $._newline)),
 
@@ -406,14 +490,14 @@ module.exports = {
         $._newline
     ))
   ),
-  failover_line: $ => prec(150, seq(
+  failover_line: $ => seq(
     token(prec(150, /[Ff]ailover/i)),
     choice(
         seq($._whitespace, field('status', alias(choice(/[Oo]n/i, /[Oo]ff/i), $.word))),
         seq($._whitespace, /[Uu]nit/i, $._whitespace, field('role', $.word))
     ),
     $._newline
-  )),
+  ),
   failover_interface_line: $ => seq(
     field('interface_label', alias(repeat1($.word), $.text)),
     ':',
@@ -458,7 +542,7 @@ module.exports = {
 
   // --- SHOW MPLS LDP NEIGHBOR ---
   show_mpls_ldp_neighbor_block: $ => seq(
-    token(prec(120, seq(/[Ss]how\s+[Mm][Pp][Ll][Ss]\s+[Ll][Dd][Pp]\s+[Nn]eighbor/i, optional(/[Bb]rief/i), optional(/[ \t]+/)))), $._newline,
+    token(prec(120, seq(/[Ss]how\s+[Mm][Pp][Ll][Ss]\s+[Ll][Dd][Pp]\s+[Nn]eighbor/i, optional(choice(/[Bb]rief/i, /[Dd]etail/i)), optional(/[ \t]+/)))), $._newline,
     repeat(choice(
         $.mpls_ldp_neighbor_line,
         $._newline

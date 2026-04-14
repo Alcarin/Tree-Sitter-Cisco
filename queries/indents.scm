@@ -1,6 +1,11 @@
-(interface_config) @indent.begin
-(router_config) @indent.begin
-(vlan_config) @indent.begin
-(block) @indent.begin
-")" @indent.end
-"!" @indent.end
+(interface_block) @indent.begin
+(ospf_block) @indent.begin
+(bgp_block) @indent.begin
+(vlan_block) @indent.begin
+(line_block) @indent.begin
+(qos_block) @indent.begin
+(acl_block) @indent.begin
+(vrf_definition_block) @indent.begin
+(object_group_block) @indent.begin
+(show_command) @indent.begin
+(diagnostic_command) @indent.begin
