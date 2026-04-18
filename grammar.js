@@ -1,5 +1,5 @@
 /**
- * @file Cisco configuration grammar - High Precision Clean Version
+ * @file Cisco configuration grammar - Ultimate Context-Switching Architecture
  */
 
 const common = require('./rules/common');
@@ -19,7 +19,12 @@ module.exports = grammar({
     $._whitespace,
     $._line_content,
     $._prompt_exec,
-    $._prompt_config
+    $._prompt_config,
+    $._signal_ios_config,
+    $._signal_ios_exec,
+    $._signal_interface_start,
+    $._signal_router_start,
+    $._signal_vlan_start
   ],
 
   extras: $ => [
@@ -60,27 +65,55 @@ module.exports = grammar({
     [$.show_spanning_tree_block],
     [$.show_standby_block],
     [$.crypto_ipsec_sa_entry],
-    [$.interface_standby]
+    [$.interface_standby],
+    [$._exec_statement, $.show_command],
+    [$.ios_config_segment],
+    [$.ios_exec_segment]
   ],
 
   rules: {
-    source_file: $ => repeat($._statement),
+    source_file: $ => repeat($._context_block),
 
-    _statement: $ => choice(
+    _context_block: $ => choice(
+      $.ios_config_segment,
+      $.ios_exec_segment,
+      $._newline
+    ),
+
+    // Iniziamo il segmento con il segnale e permettiamo transizioni basate su prompt
+    ios_config_segment: $ => prec.left(20, seq(
+      $._signal_ios_config,
+      repeat1($._config_statement)
+    )),
+
+    _config_statement: $ => choice(
       $.comment,
       $.banner,
-      prec(100, $.interface_block),
-      prec(100, $.bgp_block),
-      prec(100, $.ospf_block),
-      prec(100, $.vlan_block),
-      prec(100, $.line_block),
-      prec(100, $.qos_block),
-      prec(100, $.acl_block),
-      prec(100, $.system_config),
-      prec(100, $.show_command),
-      prec(100, $.diagnostic_command),
-      
-      prec.dynamic(-10000, $.command),
+      $.interface_block,
+      $.bgp_block,
+      $.ospf_block,
+      $.vlan_block,
+      $.line_block,
+      $.qos_block,
+      $.acl_block,
+      $.system_config,
+      $._prompt_config, // Prompt nudo (es. fine configurazione)
+      prec.dynamic(-5000, $.command),
+      $._newline
+    ),
+
+    ios_exec_segment: $ => prec.left(20, seq(
+      $._signal_ios_exec,
+      repeat1($._exec_statement)
+    )),
+
+    _exec_statement: $ => choice(
+      $.comment,
+      $._prompt_exec,
+      $._prompt_config,
+      $.show_command,
+      $.diagnostic_command,
+      prec.dynamic(-5000, $.command),
       $._newline
     ),
 

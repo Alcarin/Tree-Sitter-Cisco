@@ -6,10 +6,47 @@
       "type": "REPEAT",
       "content": {
         "type": "SYMBOL",
-        "name": "_statement"
+        "name": "_context_block"
       }
     },
-    "_statement": {
+    "_context_block": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "ios_config_segment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ios_exec_segment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "ios_config_segment": {
+      "type": "PREC_LEFT",
+      "value": 20,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_signal_ios_config"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_config_statement"
+            }
+          }
+        ]
+      }
+    },
+    "_config_statement": {
       "type": "CHOICE",
       "members": [
         {
@@ -21,88 +58,101 @@
           "name": "banner"
         },
         {
-          "type": "PREC",
-          "value": 100,
-          "content": {
-            "type": "SYMBOL",
-            "name": "interface_block"
-          }
+          "type": "SYMBOL",
+          "name": "interface_block"
         },
         {
-          "type": "PREC",
-          "value": 100,
-          "content": {
-            "type": "SYMBOL",
-            "name": "bgp_block"
-          }
+          "type": "SYMBOL",
+          "name": "bgp_block"
         },
         {
-          "type": "PREC",
-          "value": 100,
-          "content": {
-            "type": "SYMBOL",
-            "name": "ospf_block"
-          }
+          "type": "SYMBOL",
+          "name": "ospf_block"
         },
         {
-          "type": "PREC",
-          "value": 100,
-          "content": {
-            "type": "SYMBOL",
-            "name": "vlan_block"
-          }
+          "type": "SYMBOL",
+          "name": "vlan_block"
         },
         {
-          "type": "PREC",
-          "value": 100,
-          "content": {
-            "type": "SYMBOL",
-            "name": "line_block"
-          }
+          "type": "SYMBOL",
+          "name": "line_block"
         },
         {
-          "type": "PREC",
-          "value": 100,
-          "content": {
-            "type": "SYMBOL",
-            "name": "qos_block"
-          }
+          "type": "SYMBOL",
+          "name": "qos_block"
         },
         {
-          "type": "PREC",
-          "value": 100,
-          "content": {
-            "type": "SYMBOL",
-            "name": "acl_block"
-          }
+          "type": "SYMBOL",
+          "name": "acl_block"
         },
         {
-          "type": "PREC",
-          "value": 100,
-          "content": {
-            "type": "SYMBOL",
-            "name": "system_config"
-          }
+          "type": "SYMBOL",
+          "name": "system_config"
         },
         {
-          "type": "PREC",
-          "value": 100,
-          "content": {
-            "type": "SYMBOL",
-            "name": "show_command"
-          }
-        },
-        {
-          "type": "PREC",
-          "value": 100,
-          "content": {
-            "type": "SYMBOL",
-            "name": "diagnostic_command"
-          }
+          "type": "SYMBOL",
+          "name": "_prompt_config"
         },
         {
           "type": "PREC_DYNAMIC",
-          "value": -10000,
+          "value": -5000,
+          "content": {
+            "type": "SYMBOL",
+            "name": "command"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
+    "ios_exec_segment": {
+      "type": "PREC_LEFT",
+      "value": 20,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_signal_ios_exec"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_exec_statement"
+            }
+          }
+        ]
+      }
+    },
+    "_exec_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_prompt_exec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_prompt_config"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "diagnostic_command"
+        },
+        {
+          "type": "PREC_DYNAMIC",
+          "value": -5000,
           "content": {
             "type": "SYMBOL",
             "name": "command"
@@ -781,32 +831,15 @@
                     "name": "_indent"
                   },
                   {
-                    "type": "REPEAT",
+                    "type": "REPEAT1",
                     "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_interface_statement"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_newline"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "_interface_statement"
                     }
                   },
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_dedent"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "_dedent"
                   }
                 ]
               },
@@ -855,32 +888,15 @@
                     "name": "_indent"
                   },
                   {
-                    "type": "REPEAT",
+                    "type": "REPEAT1",
                     "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_bgp_statement"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_newline"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "_bgp_statement"
                     }
                   },
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_dedent"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "_dedent"
                   }
                 ]
               },
@@ -954,32 +970,15 @@
                     "name": "_indent"
                   },
                   {
-                    "type": "REPEAT",
+                    "type": "REPEAT1",
                     "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_ospf_statement"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_newline"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "_ospf_statement"
                     }
                   },
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_dedent"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "_dedent"
                   }
                 ]
               },
@@ -1040,32 +1039,15 @@
                     "name": "_indent"
                   },
                   {
-                    "type": "REPEAT",
+                    "type": "REPEAT1",
                     "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_vlan_statement"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_newline"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "_vlan_statement"
                     }
                   },
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_dedent"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "_dedent"
                   }
                 ]
               },
@@ -1156,32 +1138,15 @@
                     "name": "_indent"
                   },
                   {
-                    "type": "REPEAT",
+                    "type": "REPEAT1",
                     "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_line_statement"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_newline"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "_line_statement"
                     }
                   },
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_dedent"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "_dedent"
                   }
                 ]
               },
@@ -1274,32 +1239,15 @@
                     "name": "_indent"
                   },
                   {
-                    "type": "REPEAT",
+                    "type": "REPEAT1",
                     "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_qos_statement"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_newline"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "_qos_statement"
                     }
                   },
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_dedent"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "_dedent"
                   }
                 ]
               },
@@ -1361,32 +1309,15 @@
                     "name": "_indent"
                   },
                   {
-                    "type": "REPEAT",
+                    "type": "REPEAT1",
                     "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "_acl_statement"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "_newline"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "_acl_statement"
                     }
                   },
                   {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_dedent"
-                      },
-                      {
-                        "type": "BLANK"
-                      }
-                    ]
+                    "type": "SYMBOL",
+                    "name": "_dedent"
                   }
                 ]
               },
@@ -1705,6 +1636,10 @@
         {
           "type": "SYMBOL",
           "name": "command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         }
       ]
     },
@@ -1885,6 +1820,10 @@
         {
           "type": "SYMBOL",
           "name": "command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         }
       ]
     },
@@ -1898,6 +1837,10 @@
         {
           "type": "SYMBOL",
           "name": "command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         }
       ]
     },
@@ -1911,6 +1854,10 @@
         {
           "type": "SYMBOL",
           "name": "command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         }
       ]
     },
@@ -1924,6 +1871,10 @@
         {
           "type": "SYMBOL",
           "name": "command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         }
       ]
     },
@@ -1937,6 +1888,10 @@
         {
           "type": "SYMBOL",
           "name": "command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         }
       ]
     },
@@ -1954,6 +1909,10 @@
         {
           "type": "SYMBOL",
           "name": "command"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
         }
       ]
     },
@@ -9935,6 +9894,16 @@
     ],
     [
       "interface_standby"
+    ],
+    [
+      "_exec_statement",
+      "show_command"
+    ],
+    [
+      "ios_config_segment"
+    ],
+    [
+      "ios_exec_segment"
     ]
   ],
   "precedences": [],
@@ -9978,6 +9947,26 @@
     {
       "type": "SYMBOL",
       "name": "_prompt_config"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_signal_ios_config"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_signal_ios_exec"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_signal_interface_start"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_signal_router_start"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_signal_vlan_start"
     }
   ],
   "inline": [],

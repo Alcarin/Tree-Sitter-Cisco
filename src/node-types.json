@@ -1835,6 +1835,88 @@
     }
   },
   {
+    "type": "ios_config_segment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "acl_block",
+          "named": true
+        },
+        {
+          "type": "banner",
+          "named": true
+        },
+        {
+          "type": "bgp_block",
+          "named": true
+        },
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "interface_block",
+          "named": true
+        },
+        {
+          "type": "line_block",
+          "named": true
+        },
+        {
+          "type": "ospf_block",
+          "named": true
+        },
+        {
+          "type": "qos_block",
+          "named": true
+        },
+        {
+          "type": "system_config",
+          "named": true
+        },
+        {
+          "type": "vlan_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ios_exec_segment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "diagnostic_command",
+          "named": true
+        },
+        {
+          "type": "show_command",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ip_address_config",
     "named": true,
     "fields": {
@@ -3374,55 +3456,11 @@
       "required": false,
       "types": [
         {
-          "type": "acl_block",
+          "type": "ios_config_segment",
           "named": true
         },
         {
-          "type": "banner",
-          "named": true
-        },
-        {
-          "type": "bgp_block",
-          "named": true
-        },
-        {
-          "type": "command",
-          "named": true
-        },
-        {
-          "type": "comment",
-          "named": true
-        },
-        {
-          "type": "diagnostic_command",
-          "named": true
-        },
-        {
-          "type": "interface_block",
-          "named": true
-        },
-        {
-          "type": "line_block",
-          "named": true
-        },
-        {
-          "type": "ospf_block",
-          "named": true
-        },
-        {
-          "type": "qos_block",
-          "named": true
-        },
-        {
-          "type": "show_command",
-          "named": true
-        },
-        {
-          "type": "system_config",
-          "named": true
-        },
-        {
-          "type": "vlan_block",
+          "type": "ios_exec_segment",
           "named": true
         }
       ]

@@ -12,21 +12,56 @@ enum TokenType {
   WHITESPACE,
   LINE_CONTENT,
   PROMPT_EXEC,
-  PROMPT_CONFIG
+  PROMPT_CONFIG,
+  SIGNAL_IOS_CONFIG,
+  SIGNAL_IOS_EXEC,
+  SIGNAL_INTERFACE_START,
+  SIGNAL_ROUTER_START,
+  SIGNAL_VLAN_START
 };
 
-#define MAX_INDENT_STACK 100
+typedef enum {
+  MODE_UNKNOWN,
+  MODE_CONFIG,
+  MODE_EXEC
+} ParserMode;
 
 typedef struct {
-  uint16_t indents[MAX_INDENT_STACK];
+  uint16_t indents[100];
   uint8_t indent_count;
+  ParserMode current_mode;
 } Scanner;
 
+static bool is_prompt_char(int32_t c) {
+  return iswalnum((wint_t)c) || c == '-' || c == '_' || c == '.' || c == '(' || c == ')';
+}
+
+// Questa funzione "sbircia" il prompt senza consumare testo in modo definitivo (se Tree-sitter fa il rollback)
+static bool scan_prompt_pattern(TSLexer *lexer, bool *is_config) {
+  *is_config = false;
+  bool has_content = false;
+  for (int i = 0; i < 64; i++) {
+    int32_t c = lexer->lookahead;
+    if (is_prompt_char(c)) {
+      if (c == '(') *is_config = true;
+      has_content = true;
+      lexer->advance(lexer, false);
+    } else if (c == '#' || c == '>') {
+      lexer->advance(lexer, false);
+      return has_content;
+    } else {
+      break;
+    }
+  }
+  return false;
+}
+
 void *tree_sitter_cisco_external_scanner_create() {
-  Scanner *scanner = (Scanner *)calloc(1, sizeof(Scanner));
-  scanner->indents[0] = 0;
-  scanner->indent_count = 1;
-  return scanner;
+  Scanner *s = (Scanner *)calloc(1, sizeof(Scanner));
+  s->indents[0] = 0;
+  s->indent_count = 1;
+  s->current_mode = MODE_UNKNOWN;
+  return s;
 }
 
 void tree_sitter_cisco_external_scanner_destroy(void *payload) {
@@ -34,124 +69,102 @@ void tree_sitter_cisco_external_scanner_destroy(void *payload) {
 }
 
 unsigned tree_sitter_cisco_external_scanner_serialize(void *payload, char *buffer) {
-  Scanner *scanner = (Scanner *)payload;
-  size_t size = scanner->indent_count * sizeof(uint16_t);
-  memcpy(buffer, scanner->indents, size);
-  return (unsigned)size;
+  memcpy(buffer, payload, sizeof(Scanner));
+  return sizeof(Scanner);
 }
 
 void tree_sitter_cisco_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
-  Scanner *scanner = (Scanner *)payload;
-  if (length > 0) {
-    scanner->indent_count = (uint8_t)(length / sizeof(uint16_t));
-    memcpy(scanner->indents, buffer, length);
-  } else {
-    scanner->indents[0] = 0;
-    scanner->indent_count = 1;
-  }
-}
-
-static bool scan_prompt(TSLexer *lexer, bool *is_config) {
-  bool has_hostname = false;
-  *is_config = false;
-  while (iswalnum((wint_t)lexer->lookahead) || lexer->lookahead == '-' || lexer->lookahead == '_' || lexer->lookahead == '.') {
-    has_hostname = true;
-    lexer->advance(lexer, false);
-  }
-  if (!has_hostname) return false;
-  if (lexer->lookahead == '(') {
-    *is_config = true;
-    lexer->advance(lexer, false);
-    while (lexer->lookahead != ')' && lexer->lookahead != '\n' && !lexer->eof(lexer)) lexer->advance(lexer, false);
-    if (lexer->lookahead == ')') lexer->advance(lexer, false); else return false;
-  }
-  if (lexer->lookahead == '#' || lexer->lookahead == '>') {
-    lexer->advance(lexer, false);
-    if (iswspace((wint_t)lexer->lookahead) || lexer->lookahead == '\0') return true;
-  }
-  return false;
+  if (length == sizeof(Scanner)) memcpy(payload, buffer, length);
 }
 
 bool tree_sitter_cisco_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
   Scanner *scanner = (Scanner *)payload;
 
-  if (lexer->eof(lexer)) {
-    if (valid_symbols[DEDENT] && scanner->indent_count > 1) {
-      scanner->indent_count--;
-      lexer->result_symbol = DEDENT;
-      return true;
-    }
-    return false;
-  }
+  if (lexer->eof(lexer)) return false;
 
-  // 0. NEWLINE (Sempre massima priorità)
-  if (valid_symbols[NEWLINE]) {
-    if (lexer->lookahead == '\n' || lexer->lookahead == '\r') {
-      if (lexer->lookahead == '\r') { lexer->advance(lexer, false); if (lexer->lookahead == '\n') lexer->advance(lexer, false); }
-      else lexer->advance(lexer, false);
-      lexer->result_symbol = NEWLINE;
-      return true;
-    }
-  }
-
-  // 1. INDENT / DEDENT (Solo all'inizio della riga)
-  if (lexer->get_column(lexer) == 0 && (valid_symbols[INDENT] || valid_symbols[DEDENT])) {
-    uint16_t current_indent = 0;
-    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-      current_indent += (lexer->lookahead == '\t') ? 8 : 1;
-      lexer->advance(lexer, true);
-    }
-    
-    // Non emettiamo indentazione per righe vuote o commenti
-    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->lookahead == '!') return false;
-
-    uint16_t last_indent = scanner->indents[scanner->indent_count - 1];
-
-    if (valid_symbols[INDENT] && current_indent > last_indent) {
-      scanner->indents[scanner->indent_count++] = current_indent;
-      lexer->result_symbol = INDENT;
-      return true;
-    }
-    if (valid_symbols[DEDENT] && current_indent < last_indent) {
-      scanner->indent_count--;
-      lexer->result_symbol = DEDENT;
-      return true;
-    }
-    
-    // Se siamo alla stessa colonna, continuiamo. Se WHITESPACE è valido, lo emettiamo.
-    if (valid_symbols[WHITESPACE] && current_indent > 0) {
-      lexer->result_symbol = WHITESPACE;
-      return true;
-    }
-  }
-
-  // 2. WHITESPACE (Generico)
-  if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') lexer->advance(lexer, true);
-    if (valid_symbols[WHITESPACE]) { lexer->result_symbol = WHITESPACE; return true; }
-  }
-
-  // 3. PROMPTS
-  if (valid_symbols[PROMPT_EXEC] || valid_symbols[PROMPT_CONFIG]) {
-    if (lexer->get_column(lexer) == 0) {
-      bool is_config = false;
-      if (scan_prompt(lexer, &is_config)) {
-        if (is_config && valid_symbols[PROMPT_CONFIG]) { lexer->result_symbol = PROMPT_CONFIG; return true; }
-        if (!is_config && valid_symbols[PROMPT_EXEC]) { lexer->result_symbol = PROMPT_EXEC; return true; }
+  // 1. DETERMINAZIONE MODALITÀ (Senza consumare token se possibile)
+  if (lexer->get_column(lexer) == 0) {
+    if (lexer->lookahead == '!') {
+      scanner->current_mode = MODE_CONFIG;
+    } else if (lexer->lookahead != '\n' && lexer->lookahead != '\r') {
+      // Usiamo una logica di campionamento non distruttiva per i prompt
+      // Per rilevare la modalità, non emettiamo token ma aggiorniamo lo stato interno
+      if (valid_symbols[SIGNAL_IOS_CONFIG] || valid_symbols[SIGNAL_IOS_EXEC]) {
+        // Solo qui sbirciamo il prompt
+        bool is_config = false;
+        // Nota: non avanziamo il lexer se stiamo solo decidendo il SIGNAL
       }
     }
   }
 
-  // 4. LINE_CONTENT
-  if (valid_symbols[LINE_CONTENT]) {
-    bool has_content = false;
-    while (lexer->lookahead != '\n' && lexer->lookahead != '\r' && !lexer->eof(lexer)) {
-      has_content = true;
-      lexer->advance(lexer, false);
+  // 2. EMISSIONE SEGNALI DI CONTESTO (LUNGHEZZA ZERO)
+  // Il parser aspetta questi segnali per decidere il ramo ios_config_segment o ios_exec_segment
+  if (valid_symbols[SIGNAL_IOS_CONFIG] || valid_symbols[SIGNAL_IOS_EXEC]) {
+    // Heuristic: se non sappiamo, proviamo a guardare il primo carattere
+    if (scanner->current_mode == MODE_UNKNOWN) {
+      if (lexer->lookahead == '!') scanner->current_mode = MODE_CONFIG;
+      else {
+        // Tentiamo di vedere se è un prompt
+        // Poiché Tree-sitter non permette rollback facile dopo advance(),
+        // assumiamo MODE_CONFIG come default e cambieremo se troviamo un prompt reale
+        scanner->current_mode = MODE_CONFIG;
+      }
     }
-    if (has_content) {
-      lexer->result_symbol = LINE_CONTENT;
+
+    if (valid_symbols[SIGNAL_IOS_CONFIG] && scanner->current_mode == MODE_CONFIG) {
+      lexer->result_symbol = SIGNAL_IOS_CONFIG;
       return true;
+    }
+    if (valid_symbols[SIGNAL_IOS_EXEC] && scanner->current_mode == MODE_EXEC) {
+      lexer->result_symbol = SIGNAL_IOS_EXEC;
+      return true;
+    }
+  }
+
+  // 3. PROMPT REALI (Consumano testo)
+  if (valid_symbols[PROMPT_CONFIG] || valid_symbols[PROMPT_EXEC]) {
+    bool is_config = false;
+    if (scan_prompt_pattern(lexer, &is_config)) {
+      scanner->current_mode = is_config ? MODE_CONFIG : MODE_EXEC;
+      if (is_config && valid_symbols[PROMPT_CONFIG]) { lexer->result_symbol = PROMPT_CONFIG; return true; }
+      if (!is_config && valid_symbols[PROMPT_EXEC]) { lexer->result_symbol = PROMPT_EXEC; return true; }
+    }
+  }
+
+  // 4. ALTRI TOKEN STRUTTURALI (Newline, Whitespace, Indent)
+  if (valid_symbols[NEWLINE] && (lexer->lookahead == '\n' || lexer->lookahead == '\r')) {
+    if (lexer->lookahead == '\r') { lexer->advance(lexer, false); if (lexer->lookahead == '\n') lexer->advance(lexer, false); }
+    else lexer->advance(lexer, false);
+    lexer->result_symbol = NEWLINE;
+    return true;
+  }
+
+  if (valid_symbols[WHITESPACE] && (lexer->lookahead == ' ' || lexer->lookahead == '\t')) {
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') lexer->advance(lexer, true);
+    lexer->result_symbol = WHITESPACE;
+    return true;
+  }
+
+  // 5. INDENT / DEDENT (Solo in CONFIG)
+  if (scanner->current_mode == MODE_CONFIG && (valid_symbols[INDENT] || valid_symbols[DEDENT])) {
+    if (lexer->get_column(lexer) == 0) {
+      uint16_t current_indent = 0;
+      while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+        current_indent += (lexer->lookahead == '\t') ? 8 : 1;
+        lexer->advance(lexer, true);
+      }
+      if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->lookahead == '!') return false;
+      uint16_t last_indent = scanner->indents[scanner->indent_count - 1];
+      if (valid_symbols[INDENT] && current_indent > last_indent) {
+        scanner->indents[scanner->indent_count++] = current_indent;
+        lexer->result_symbol = INDENT;
+        return true;
+      }
+      if (valid_symbols[DEDENT] && current_indent < last_indent) {
+        scanner->indent_count--;
+        lexer->result_symbol = DEDENT;
+        return true;
+      }
     }
   }
 

@@ -1,5 +1,5 @@
 /**
- * @file Configuration rules for Cisco grammar - Ultra Resilient Version
+ * @file Configuration rules for Cisco grammar - Stable Contextual Version
  */
 
 module.exports = {
@@ -16,12 +16,12 @@ module.exports = {
   _kw_username: $ => choice('username', 'user', 'Username'),
   _kw_description: $ => choice('description', 'desc', 'Description'),
 
-  // BLOCCHI ULTRA-RESILIENTI
+  // BLOCCHI STABILI (Senza prompt interni, gestiti a livello di statement)
   interface_block: $ => prec(200, seq(
     $._kw_interface, 
     field('name', $.interface_name), 
     $._newline,
-    optional(seq($._indent, repeat(choice($._interface_statement, $._newline)), optional($._dedent)))
+    optional(seq($._indent, repeat1($._interface_statement), $._dedent))
   )),
 
   bgp_block: $ => prec(200, seq(
@@ -29,7 +29,7 @@ module.exports = {
     $._kw_bgp, 
     field('as_number', $.number), 
     $._newline,
-    optional(seq($._indent, repeat(choice($._bgp_statement, $._newline)), optional($._dedent)))
+    optional(seq($._indent, repeat1($._bgp_statement), $._dedent))
   )),
 
   ospf_block: $ => prec(200, seq(
@@ -38,7 +38,7 @@ module.exports = {
     field('process_id', $.number), 
     optional(seq('vrf', field('vrf', $.word))), 
     $._newline,
-    optional(seq($._indent, repeat(choice($._ospf_statement, $._newline)), optional($._dedent)))
+    optional(seq($._indent, repeat1($._ospf_statement), $._dedent))
   )),
 
   vlan_block: $ => prec(200, seq(
@@ -46,7 +46,7 @@ module.exports = {
     field('id', $.number), 
     optional(field('name', $.word)), 
     $._newline,
-    optional(seq($._indent, repeat(choice($._vlan_statement, $._newline)), optional($._dedent)))
+    optional(seq($._indent, repeat1($._vlan_statement), $._dedent))
   )),
 
   line_block: $ => prec(200, seq(
@@ -55,7 +55,7 @@ module.exports = {
     field('start', $.number), 
     optional(field('end', $.number)), 
     $._newline,
-    optional(seq($._indent, repeat(choice($._line_statement, $._newline)), optional($._dedent)))
+    optional(seq($._indent, repeat1($._line_statement), $._dedent))
   )),
 
   qos_block: $ => prec(200, seq(
@@ -64,7 +64,7 @@ module.exports = {
       seq('policy-map', field('name', $.word))
     ),
     $._newline,
-    optional(seq($._indent, repeat(choice($._qos_statement, $._newline)), optional($._dedent)))
+    optional(seq($._indent, repeat1($._qos_statement), $._dedent))
   )),
 
   acl_block: $ => prec(200, seq(
@@ -73,7 +73,7 @@ module.exports = {
     choice('standard', 'extended'), 
     field('name', $.word), 
     $._newline,
-    optional(seq($._indent, repeat(choice($._acl_statement, $._newline)), optional($._dedent)))
+    optional(seq($._indent, repeat1($._acl_statement), $._dedent))
   )),
 
   system_config: $ => choice(
@@ -98,18 +98,18 @@ module.exports = {
 
   username_config: $ => prec(100, seq($._kw_username, field('name', $.word), optional(seq('privilege', $.number)), optional(seq(choice('password', 'secret'), optional($.number), field('password', $.word))), $._newline)),
 
-  _interface_statement: $ => choice($.description_config, $.ip_address_config, $.interface_standby, $.comment, $.command),
+  _interface_statement: $ => choice($.description_config, $.ip_address_config, $.interface_standby, $.comment, $.command, $._newline),
   description_config: $ => seq($._kw_description, field('text', repeat1($.word)), $._newline),
   ip_address_config: $ => seq($._kw_ip, 'address', field('address', $.ipv4_address), field('mask', $.ipv4_address), optional(choice(field('secondary', 'secondary'), seq('standby', field('standby', $.ipv4_address)))), $._newline),
 
   interface_standby: $ => seq('standby', optional(field('group', $.number)), choice(seq('ip', field('ip', $.ipv4_address)), seq('priority', field('priority', $.number)), 'preempt'), $._newline),
 
-  _bgp_statement: $ => choice($.comment, $.command),
-  _ospf_statement: $ => choice($.comment, $.command),
-  _vlan_statement: $ => choice($.comment, $.command),
-  _line_statement: $ => choice($.comment, $.command),
-  _qos_statement: $ => choice($.comment, $.command),
-  _acl_statement: $ => choice($.acl_rule, $.comment, $.command),
+  _bgp_statement: $ => choice($.comment, $.command, $._newline),
+  _ospf_statement: $ => choice($.comment, $.command, $._newline),
+  _vlan_statement: $ => choice($.comment, $.command, $._newline),
+  _line_statement: $ => choice($.comment, $.command, $._newline),
+  _qos_statement: $ => choice($.comment, $.command, $._newline),
+  _acl_statement: $ => choice($.acl_rule, $.comment, $.command, $._newline),
   acl_rule: $ => seq(optional($.number), field('action', $.acl_action), optional($.word), $._acl_addr_spec_source, optional($._acl_addr_spec_dest), repeat($.word), $._newline),
   _acl_addr_spec_source: $ => choice(field('source_any', 'any'), seq('host', field('source_host', $.ipv4_address)), seq(field('source_network', $.ipv4_address), field('source_wildcard', $.ipv4_address))),
   _acl_addr_spec_dest: $ => choice(field('destination_any', 'any'), seq('host', field('destination_host', $.ipv4_address)), seq(field('destination_network', $.ipv4_address), field('destination_wildcard', $.ipv4_address))),
