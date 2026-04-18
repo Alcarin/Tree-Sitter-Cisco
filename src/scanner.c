@@ -10,7 +10,9 @@ enum TokenType {
   DASHED_LINE,
   CONSOLE_PROMPT,
   WHITESPACE,
-  LINE_CONTENT
+  LINE_CONTENT,
+  PROMPT_EXEC,
+  PROMPT_CONFIG
 };
 
 #define MAX_INDENT_STACK 100
@@ -49,41 +51,23 @@ void tree_sitter_cisco_external_scanner_deserialize(void *payload, const char *b
   }
 }
 
-static bool scan_dashed_line(TSLexer *lexer) {
-  uint32_t count = 0;
-  bool has_dash = false;
-  
-  while (lexer->lookahead == '-' || lexer->lookahead == '=' || lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-    if (lexer->lookahead == '-' || lexer->lookahead == '=') {
-      has_dash = true;
-      count++;
-    }
+static bool scan_prompt(TSLexer *lexer, bool *is_config) {
+  bool has_hostname = false;
+  *is_config = false;
+  while (iswalnum((wint_t)lexer->lookahead) || lexer->lookahead == '-' || lexer->lookahead == '_' || lexer->lookahead == '.') {
+    has_hostname = true;
     lexer->advance(lexer, false);
   }
-  
-  return has_dash && count >= 3;
-}
-
-static bool scan_console_prompt(TSLexer *lexer) {
-  if (lexer->lookahead == '-') {
+  if (!has_hostname) return false;
+  if (lexer->lookahead == '(') {
+    *is_config = true;
     lexer->advance(lexer, false);
-    if (lexer->lookahead == '-') {
-      lexer->advance(lexer, false);
-      const char *more = "More--";
-      for (int i = 0; more[i] != '\0'; i++) {
-        if (lexer->lookahead != more[i]) return false;
-        lexer->advance(lexer, false);
-      }
-      return true;
-    }
-  } else if (lexer->lookahead == '[') {
+    while (lexer->lookahead != ')' && lexer->lookahead != '\n' && !lexer->eof(lexer)) lexer->advance(lexer, false);
+    if (lexer->lookahead == ')') lexer->advance(lexer, false); else return false;
+  }
+  if (lexer->lookahead == '#' || lexer->lookahead == '>') {
     lexer->advance(lexer, false);
-    const char *confirm = "confirm]";
-    for (int i = 0; confirm[i] != '\0'; i++) {
-      if (lexer->lookahead != confirm[i]) return false;
-      lexer->advance(lexer, false);
-    }
-    return true;
+    if (iswspace((wint_t)lexer->lookahead) || lexer->lookahead == '\0') return true;
   }
   return false;
 }
@@ -91,7 +75,6 @@ static bool scan_console_prompt(TSLexer *lexer) {
 bool tree_sitter_cisco_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
   Scanner *scanner = (Scanner *)payload;
 
-  // Handle EOF
   if (lexer->eof(lexer)) {
     if (valid_symbols[DEDENT] && scanner->indent_count > 1) {
       scanner->indent_count--;
@@ -101,63 +84,26 @@ bool tree_sitter_cisco_external_scanner_scan(void *payload, TSLexer *lexer, cons
     return false;
   }
 
-  // 1. CONSOLE_PROMPT (High Priority)
-  if (valid_symbols[CONSOLE_PROMPT]) {
-    if (scan_console_prompt(lexer)) {
-      lexer->result_symbol = CONSOLE_PROMPT;
-      return true;
-    }
-  }
-
-  // 2. DASHED_LINE
-  if (valid_symbols[DASHED_LINE]) {
-    if (scan_dashed_line(lexer)) {
-      lexer->result_symbol = DASHED_LINE;
-      return true;
-    }
-  }
-
-  // 3. WHITESPACE & FIELD_SEPARATOR
-  if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-    uint32_t space_count = 0;
-    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-      lexer->advance(lexer, true);
-      space_count++;
-    }
-
-    if (valid_symbols[FIELD_SEPARATOR] && space_count >= 2 && lexer->get_column(lexer) > space_count) {
-      lexer->result_symbol = FIELD_SEPARATOR;
-      return true;
-    }
-
-    if (valid_symbols[WHITESPACE]) {
-      lexer->result_symbol = WHITESPACE;
-      return true;
-    }
-  }
-
-  // 4. NEWLINE (Must consume trailing whitespace)
+  // 0. NEWLINE (Sempre massima priorità)
   if (valid_symbols[NEWLINE]) {
     if (lexer->lookahead == '\n' || lexer->lookahead == '\r') {
-      if (lexer->lookahead == '\r') {
-        lexer->advance(lexer, false);
-        if (lexer->lookahead == '\n') lexer->advance(lexer, false);
-      } else {
-        lexer->advance(lexer, false);
-      }
+      if (lexer->lookahead == '\r') { lexer->advance(lexer, false); if (lexer->lookahead == '\n') lexer->advance(lexer, false); }
+      else lexer->advance(lexer, false);
       lexer->result_symbol = NEWLINE;
       return true;
     }
   }
 
-  // 5. INDENT / DEDENT
-  if (valid_symbols[INDENT] || valid_symbols[DEDENT]) {
-    uint16_t current_indent = (uint16_t)lexer->get_column(lexer);
-
-    // Skip blank lines or comments for indent calculation
-    if (lexer->lookahead == '\n' || lexer->lookahead == '\r') {
-      return false;
+  // 1. INDENT / DEDENT (Solo all'inizio della riga)
+  if (lexer->get_column(lexer) == 0 && (valid_symbols[INDENT] || valid_symbols[DEDENT])) {
+    uint16_t current_indent = 0;
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+      current_indent += (lexer->lookahead == '\t') ? 8 : 1;
+      lexer->advance(lexer, true);
     }
+    
+    // Non emettiamo indentazione per righe vuote o commenti
+    if (lexer->lookahead == '\n' || lexer->lookahead == '\r' || lexer->lookahead == '!') return false;
 
     uint16_t last_indent = scanner->indents[scanner->indent_count - 1];
 
@@ -166,15 +112,37 @@ bool tree_sitter_cisco_external_scanner_scan(void *payload, TSLexer *lexer, cons
       lexer->result_symbol = INDENT;
       return true;
     }
-
     if (valid_symbols[DEDENT] && current_indent < last_indent) {
       scanner->indent_count--;
       lexer->result_symbol = DEDENT;
       return true;
     }
+    
+    // Se siamo alla stessa colonna, continuiamo. Se WHITESPACE è valido, lo emettiamo.
+    if (valid_symbols[WHITESPACE] && current_indent > 0) {
+      lexer->result_symbol = WHITESPACE;
+      return true;
+    }
   }
 
-  // 6. LINE_CONTENT (Very Low Priority fallback)
+  // 2. WHITESPACE (Generico)
+  if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+    while (lexer->lookahead == ' ' || lexer->lookahead == '\t') lexer->advance(lexer, true);
+    if (valid_symbols[WHITESPACE]) { lexer->result_symbol = WHITESPACE; return true; }
+  }
+
+  // 3. PROMPTS
+  if (valid_symbols[PROMPT_EXEC] || valid_symbols[PROMPT_CONFIG]) {
+    if (lexer->get_column(lexer) == 0) {
+      bool is_config = false;
+      if (scan_prompt(lexer, &is_config)) {
+        if (is_config && valid_symbols[PROMPT_CONFIG]) { lexer->result_symbol = PROMPT_CONFIG; return true; }
+        if (!is_config && valid_symbols[PROMPT_EXEC]) { lexer->result_symbol = PROMPT_EXEC; return true; }
+      }
+    }
+  }
+
+  // 4. LINE_CONTENT
   if (valid_symbols[LINE_CONTENT]) {
     bool has_content = false;
     while (lexer->lookahead != '\n' && lexer->lookahead != '\r' && !lexer->eof(lexer)) {

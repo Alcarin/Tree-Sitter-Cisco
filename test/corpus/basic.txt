@@ -1,21 +1,16 @@
-==============================
-Basic Configuration
-==============================
-! comment
-hostname myrouter
+hostname Router
 !
-interface GigabitEthernet0/0
- description LAN
- ip address 10.0.0.1 255.255.255.0
+interface GigabitEthernet0/1
+ description Customer Link
+ ip address 192.168.1.1 255.255.255.0
 !
 router ospf 1
- network 10.0.0.0 0.0.0.255 area 0
+ network 192.168.1.0 0.0.0.255 area 0
 !
 
 ---
 
 (source_file
-  (comment)
   (system_config
     name: (word))
   (comment)

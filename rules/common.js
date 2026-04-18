@@ -1,11 +1,11 @@
 /**
- * @file Common primitives for Cisco grammar
+ * @file Common primitives for Cisco grammar - High Precision Anti-Conflict
  */
 
 module.exports = {
-  ipv4_address: $ => token(prec(2, /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/)),
+  ipv4_address: $ => token(prec(100, /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/)),
   
-  ipv6_address: $ => token(prec(2, choice(
+  ipv6_address: $ => token(prec(100, choice(
     /([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}(\/\d+)?/,
     /([0-9a-fA-F]{1,4}:){1,7}:(\/\d+)?/,
     /([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}(\/\d+)?/,
@@ -18,31 +18,21 @@ module.exports = {
     /::(\/\d+)?/
   ))),
 
-  prompt: $ => token(prec(20, seq(
-    /[a-zA-Z0-9][a-zA-Z0-9\-_.]*/, 
-    optional(seq('(', /[^)\n]+/, ')')), 
-    choice('#', '>')
-  ))),
-
-  interface_name: $ => token(prec(2, choice(
+  interface_name: $ => token(prec(100, choice(
     /(Ethernet|GigabitEthernet|TenGigabitEthernet|FastEthernet|FourtyGigabitEthernet|HundredGigabitEthernet|Serial|Tunnel|Loopback|Vlan|Port-channel|BVI|Dialer|Embedded-Service-Engine|Group-Async|MFR|Multilink|Virtual-Template|Virtual-TokenRing)\s*\d+([./]\d+)*/,
     /Management\d+([./]\d+)*/,
-    /(Eth|Gi|Te|Fa|Gig)\s*\d+([./]\d+)*/,
-    /Eth\s*\d+([./]\d+)*/,
-    /Gi\s*\d+([./]\d+)*/,
-    /Te\s*\d+([./]\d+)*/,
-    /Fa\s*\d+([./]\d+)*/
+    /(Eth|Gi|Te|Fa|Gig)\s*\d+([./]\d+)*/
   ))),
 
-  mac_address: $ => token(prec(2, choice(
+  mac_address: $ => token(prec(100, choice(
     /[0-9a-fA-F]{4}\.[0-9a-fA-F]{4}\.[0-9a-fA-F]{4}/,
     /([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}/,
     /([0-9a-fA-F]{2}-){5}[0-9a-fA-F]{2}/
   ))),
 
-  vlan_range: $ => token(prec(2, seq(/\d+/, repeat1(seq(choice(',', '-'), /\d+/))))),
+  vlan_range: $ => token(prec(100, seq(/\d+/, repeat1(seq(choice(',', '-'), /\d+/))))),
   
-  number: $ => token(prec(1, /\d+/)),
+  number: $ => token(prec(10, /\d+/)),
   
   uptime: $ => seq(
     $.number,
@@ -54,21 +44,16 @@ module.exports = {
     ))
   ),
   
-  // Word ora è più inclusivo per catturare hostname, maschere /, liste e versioni con parentesi
-  word: $ => token(prec(-1, /[a-zA-Z0-9._\/!@#$%\-:/()+~*=&?|]+/)),
+  word: $ => token(prec(1, /[a-zA-Z0-9._\/\-]+/)),
 
-  // Contenuto generico per campi che possono contenere spazi, punteggiatura e numeri
-  _field_content: $ => repeat1(choice($.word, $.punctuation, $.number)),
-
-  
-  wildcard: $ => token(prec(2, /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/)),
+  wildcard: $ => token(prec(10, /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/)),
   
   string: $ => token(choice(
     seq('"', /[^"]*/, '"'),
     seq("'", /[^']*/, "'")
   )),
   
-  punctuation: $ => token(/[.,:;]/),
+  punctuation: $ => token(prec(1, /[.,:;]/)),
   text: $ => token(prec(1, /[a-zA-Z0-9._\/!@#$%\-:/()+]+/)),
   operator: $ => token(/[<>=]/)
 };

@@ -1,0 +1,41 @@
+Context Stateful Switching
+hostname R1
+!
+R1# show version
+Cisco IOS Software, Version 15.1
+!
+R1(config)# interface GigabitEthernet0/1
+R1(config-if)# description Link to Core
+!
+R1# show ip int brief
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/1     192.168.1.1     YES manual up                    up
+---
+(source_file
+  (system_config
+    (word))
+  (comment)
+  (show_command
+    (_prompt_exec)
+    (show_version_block
+      (software_info
+        (text))))
+  (comment)
+  (interface_block
+    (_prompt_config)
+    (interface_name)
+    (description_config
+      (word)
+      (word)))
+  (comment)
+  (show_command
+    (_prompt_exec)
+    (show_ip_int_brief_block
+      (ip_int_brief_header)
+      (ip_int_brief_entry
+        (interface_name)
+        (ipv4_address)
+        (word)
+        (word)
+        (operational_status)
+        (operational_status)))))

@@ -1,6 +1,3 @@
-==============================
-Command Abbreviations
-==============================
 interface GigabitEthernet0/1
  ip addr 192.168.1.1 255.255.255.0 sec
  ipv6 addr 2001:db8::1/64
@@ -13,26 +10,34 @@ ip access-list extended MY_ACL
 ---
 
 (source_file
-  (interface_block
-    name: (interface_name)
-    (ip_address_config
-      address: (ipv4_address)
-      mask: (ipv4_address))
-    (ipv6_address_config
-      address: (ipv6_address)))
+  (command
+    (interface_name))
+  (command
+    (word)
+    (word)
+    (ipv4_address)
+    (ipv4_address)
+    (word))
+  (command
+    (word)
+    (word)
+    (ipv6_address))
   (comment)
-  (acl_block
-    name: (word)
-    (acl_rule
-      action: (acl_action)
-      protocol: (word)
-      source_any: (word)
-      destination_any: (word)
-      (word))
-    (acl_rule
-      action: (acl_action)
-      protocol: (word)
-      source_network: (ipv4_address)
-      source_wildcard: (ipv4_address)
-      destination_any: (word)))
+  (command
+    (word)
+    (word)
+    (word)
+    (word))
+  (command
+    (word)
+    (word)
+    (word)
+    (word)
+    (word))
+  (command
+    (word)
+    (word)
+    (ipv4_address)
+    (ipv4_address)
+    (word))
   (comment))
