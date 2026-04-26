@@ -1,0 +1,25 @@
+﻿==============================
+CFG: IOS-XR and ASA examples
+==============================
+interface GigabitEthernet0/0/0/0
+ ipv4 address 1.1.1.1 255.255.255.0
+!
+interface GigabitEthernet0/0
+ nameif inside
+ security-level 100
+!
+
+---
+
+(source_file
+  (ios_config_segment
+    (interface_block
+      name: (interface_name)
+      (command)
+      (comment)))
+  (ios_config_segment
+    (interface_block
+      name: (interface_name)
+      (command)
+      (command)
+      (comment))))

@@ -1,70 +1,111 @@
 ==============================
-Diagnostics and Utilities
+OP: Ping Diagnostics
 ==============================
-ping 10.0.0.1
+R1# ping 8.8.8.8
 !!!!!
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms
-traceroute 8.8.8.8
-  1 10.0.0.1 1 ms 1 ms 1 ms
-  2 8.8.8.8 2 ms 2 ms 2 ms
-dir flash:
-Directory of flash:/
-   1  -rw-    12345678  Jan 1 2026 12:34:56  ios.bin
-12345678 bytes total (87654321 bytes free)
-terminal length 0
-terminal width 512
+R1#
 
 ---
 
 (source_file
-  (diagnostic_command
-    (ping_block
+  (ios_exec_segment
+    (ping_command
+      execution: (kw_ping)
       destination: (ipv4_address)
-      (ping_stream_line
-        response_stream: (word))
-      (ping_stats_line
-        success_rate: (number)
-        success_qty: (number)
-        sent_qty: (number)
-        rtt_min: (number)
-        rtt_avg: (number)
-        rtt_max: (number))))
-  (diagnostic_command
-    (traceroute_block
+      output: (ping_output
+        (ping_stream_line)
+        (ping_summary
+          success_rate: (number)
+          success_qty: (number)
+          sent_qty: (number)
+          rtt_min: (number)
+          rtt_avg: (number)
+          rtt_max: (number)))))
+  (ios_exec_segment
+    (generic_exec_command)))
+
+==============================
+OP: Traceroute Diagnostics
+==============================
+R1# traceroute 8.8.8.8
+  1 192.168.1.1 1 ms 1 ms 1 ms
+  2 192.168.1.10 1 ms * 1 ms
+  3 *  *  * 
+  4 8.8.8.8 2 msec 2 msec 2 msec
+R1#
+
+---
+
+(source_file
+  (ios_exec_segment
+    (traceroute_command
+      execution: (kw_traceroute)
       destination: (ipv4_address)
-      (traceroute_hop_line
-        hop_number: (number)
-        hop_address: (ipv4_address)
-        rtt: (number)
-        rtt: (number)
-        rtt: (number))
-      (traceroute_hop_line
-        hop_number: (number)
-        hop_address: (ipv4_address)
-        rtt: (number)
-        rtt: (number)
-        rtt: (number))))
-  (diagnostic_command
-    (dir_block
-      filesystem: (word)
-      (dir_header
-        filesystem: (word))
-      (dir_entry
-        id: (number)
-        permissions: (word)
-        size: (number)
-        date_time: (text
-          (word)
-          (word)
-          (word)
-          (word))
-        file_name: (word))
-      (dir_summary
-        total_size: (number)
-        total_free: (number))))
-  (diagnostic_command
-    (terminal_command
-      length: (number)))
-  (diagnostic_command
-    (terminal_command
-      width: (number))))
+      output: (traceroute_output
+        (traceroute_hop_line
+          hop_number: (number)
+          hop_address: (ipv4_address)
+          rtt: (number)
+          rtt: (number)
+          rtt: (number))
+        (traceroute_hop_line
+          hop_number: (number)
+          hop_address: (ipv4_address)
+          rtt: (number)
+          timeout: (punctuation)
+          rtt: (number))
+        (traceroute_hop_line
+          hop_number: (number)
+          timeout: (punctuation)
+          timeout: (punctuation)
+          timeout: (punctuation))
+        (traceroute_hop_line
+          hop_number: (number)
+          hop_address: (ipv4_address)
+          rtt: (number)
+          rtt: (number)
+          rtt: (number)))))
+  (ios_exec_segment
+    (generic_exec_command)))
+
+==============================
+Directory Listing
+==============================
+R1# dir flash:
+Directory of flash:/
+  1  -rw-  12345678  Jan 1 2026 12:00:00  ios.bin
+12345678 bytes total (87654321 bytes free)
+R1#
+
+---
+
+(source_file
+  (ios_exec_segment
+    (dir_command
+      execution: (kw_dir)
+      output: (dir_output
+        (dir_header
+          filesystem: (text
+            (word)
+            (punctuation)
+            (punctuation)))
+        (dir_entry
+          id: (number)
+          permissions: (word)
+          size: (number)
+          file_info: (text
+            (word)
+            (word)
+            (word)
+            (word)
+            (punctuation)
+            (word)
+            (punctuation)
+            (word)
+            (word)))
+        (dir_summary
+          total_size: (number)
+          total_free: (number)))))
+  (ios_exec_segment
+    (generic_exec_command)))

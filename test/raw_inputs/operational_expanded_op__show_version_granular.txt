@@ -1,0 +1,4 @@
+R1# show version
+Cisco IOS Software, Version 15.1
+uptime is 1 week, 2 days, 3 hours, 45 minutes
+R1#

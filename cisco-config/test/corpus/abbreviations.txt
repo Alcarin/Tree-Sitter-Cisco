@@ -1,0 +1,27 @@
+﻿==============================
+CFG: Cisco CLI Abbreviations
+==============================
+interface GigabitEthernet0/1
+ ip addr 192.168.1.1 255.255.255.0 sec
+ ipv6 addr 2001:db8::1/64
+!
+ip access-list extended MY_ACL
+ perm tcp any any established
+ den ip 10.0.0.0 0.255.255.255 any
+!
+
+---
+
+(source_file
+  (ios_config_segment
+    (interface_block
+      name: (interface_name)
+      (command)
+      (command)
+      (comment)))
+  (ios_config_segment
+    (acl_block
+      name: (word)
+      (command)
+      (command)
+      (comment))))

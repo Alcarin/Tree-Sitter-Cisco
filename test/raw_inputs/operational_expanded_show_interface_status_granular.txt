@@ -1,0 +1,4 @@
+R1# show interfaces status
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/1     connected          10           full       1000    10/100/1000BaseTX
+R1#

@@ -1,0 +1,74 @@
+==============================
+CFG: IP Access Lists (Extended & Standard)
+==============================
+ip access-list extended ACL_WEB
+ permit tcp any host 10.1.1.1 eq 80
+ deny udp 192.168.1.0 0.0.0.255 any gt 1024
+ permit ip any any log
+!
+ip access-list standard ACL_MGT
+ permit 10.0.0.0 0.255.255.255
+ deny any
+!
+
+---
+
+(config_file
+  (acl_block
+    (word)
+    (acl_extended_rule
+      (acl_source)
+      (acl_destination
+        (ipv4_address))
+      (acl_operator_port
+        (word)))
+    (acl_extended_rule
+      (acl_source
+        (ipv4_address))
+      (acl_destination
+        (ipv4_address))
+      (word)
+      (acl_operator_port
+        (word)))
+    (acl_extended_rule
+      (acl_source)
+      (acl_destination))
+    (comment))
+  (acl_block
+    (word)
+    (acl_standard_rule
+      (ipv4_address)
+      (ipv4_address))
+    (acl_standard_rule)
+    (comment)))
+
+==============================
+CFG: ASA Object Groups (Network & Service)
+==============================
+object-group network WEB_SERVERS
+ network-object host 10.1.1.10
+ network-object 10.1.1.0 255.255.255.0
+!
+object-group service WEB_PORTS tcp
+ port-object eq 80
+ port-object eq 443
+!
+
+---
+
+(config_file
+  (object_group_block
+    (word)
+    (network_object
+      (ipv4_address))
+    (network_object
+      (ipv4_address)
+      (ipv4_address))
+    (comment))
+  (object_group_block
+    (word)
+    (port_object
+      (word))
+    (port_object
+      (word))
+    (comment)))

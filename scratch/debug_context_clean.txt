@@ -1,0 +1,9 @@
+R1# show version
+Cisco IOS Software, Version 15.1
+R1(config)# interface GigabitEthernet0/1
+R1(config-if)# description Link to Core
+R1(config-if)# end
+R1# show ip int brief
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/1     192.168.1.1     YES manual up                    up
+R1#

@@ -12,14 +12,19 @@ A high-performance, incremental Tree-sitter parser for Cisco network configurati
 - **Operational Data Parsing**: Granular mapping of `show` command outputs into record-based data nodes.
 - **Multi-OS Support**: Optimized for **IOS, IOS-XE, IOS-XR, NX-OS**, and **ASA**.
 
+### Parsing Modes
+
+The parser supports two distinct entry points optimized for different use cases:
+1. **Operational/Log Mode (`source_file`)**: The default mode. Best for SSH logs, terminal sessions, and syslog data. Handles interactive prompts and operational noise.
+2. **Deep Config Mode (`config_file`)**: Optimized for static backup files (`.cfg`). Extremely fast and ignores all interactive prompt tokens for maximum precision.
+
 ---
 
 ## ✨ Features
 
 - **Incremental Parsing**: Ideal for real-time configuration editors or massive log analysis.
 - **Robustness**: Handles common CLI abbreviations (e.g., `int` vs `interface`) and complex unquoted strings.
-- **Modular Architecture**: Built with a modular JavaScript grammar for easy extension to new OS variants.
-- **High Performance**: Optimized to resolve complex CLI ambiguities with minimal memory footprint during compilation.
+- **Modular Architecture**: Built with a highly modular JavaScript grammar for easy extension to new OS variants.
 
 ---
 
@@ -40,6 +45,7 @@ A high-performance, incremental Tree-sitter parser for Cisco network configurati
 - `show ip route`, `show ip arp`, `show mac address-table`
 - `show ip ospf neighbor`, `show ip bgp summary`
 - `show spanning-tree`, `show vlan brief`
+- `ping`, `traceroute`, `dir`
 
 ---
 
@@ -52,7 +58,8 @@ The grammar is divided into logical modules for better maintainability:
 │   ├── common.js       # Base primitives (IPs, MACs, Interface names)
 │   ├── config.js       # Hierarchical configuration blocks
 │   └── operational.js  # Diagnostic "show" command logic
-├── grammar.js          # Entry point and conflict resolution
+├── grammar.js          # Entry point and global conflict resolution
+├── src/scanner.c       # Custom C scanner for indent tracking and tabular data
 └── test/corpus/        # Extensive test suites for each OS variant
 ```
 

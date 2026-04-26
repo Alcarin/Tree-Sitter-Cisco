@@ -1,0 +1,39 @@
+﻿==============================
+CFG: BGP and OSPF Routing
+==============================
+router bgp 65001
+ neighbor 10.1.1.1 remote-as 65002
+ neighbor 10.1.1.1 update-source Loopback0
+ !
+ address-family ipv4 unicast
+  network 192.168.1.0 mask 255.255.255.0
+  neighbor 10.1.1.1 activate
+ exit-address-family
+!
+router ospf 1
+ router-id 1.1.1.1
+ network 10.1.1.0 0.0.0.255 area 0
+ area 0 stub
+!
+
+---
+
+(config_file
+  (ios_config_segment
+    (bgp_block
+      asn: (number)
+      (command)
+      (command)
+      (comment)
+      (command)
+      (command)
+      (command)
+      (command)
+      (comment)))
+  (ios_config_segment
+    (ospf_block
+      process_id: (number)
+      (command)
+      (command)
+      (command)
+      (comment))))

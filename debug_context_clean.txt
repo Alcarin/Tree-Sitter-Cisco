@@ -1,0 +1,30 @@
+(source_file [0, 0] - [9, 0]
+  (ios_exec_segment [0, 0] - [2, 0]
+    execution: (interactive_command [0, 4] - [0, 16]
+      (show_branch [0, 4] - [0, 16]
+        (generic_output_line [0, 8] - [0, 16])))
+    output: (diagnostic_output [1, 0] - [2, 0]
+      (generic_output_line [1, 0] - [1, 32])))
+  (ios_config_segment [2, 0] - [3, 0]
+    execution: (command [2, 12] - [3, 0]
+      trigger: (word [2, 12] - [2, 21])
+      text: (generic_output_line [2, 21] - [2, 40])))
+  (ios_config_segment [3, 0] - [4, 0]
+    execution: (command [3, 15] - [4, 0]
+      trigger: (word [3, 15] - [3, 26])
+      text: (generic_output_line [3, 26] - [3, 39])))
+  (ios_config_segment [4, 0] - [5, 0]
+    execution: (command [4, 15] - [5, 0]
+      trigger: (word [4, 15] - [4, 18])))
+  (ios_exec_segment [5, 0] - [8, 0]
+    execution: (interactive_command [5, 4] - [5, 21]
+      (show_branch [5, 4] - [5, 21]
+        (show_ip_branch [5, 8] - [5, 21]
+          (show_ip_int_brief_leaf [5, 12] - [5, 21]))))
+    output: (diagnostic_output [6, 0] - [8, 0]
+      (ERROR [6, 0] - [7, 18]
+        (ip_int_brief_header [6, 0] - [7, 0])
+        (interface_name [7, 0] - [7, 18]))
+      (generic_output_line [7, 18] - [7, 74])))
+  (ERROR [8, 0] - [8, 3]))
+.\scratch\debug_context_clean.txt	Parse:  106.24 ms	     3 bytes/ms	(ERROR [6, 0] - [7, 18])

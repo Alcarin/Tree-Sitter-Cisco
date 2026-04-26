@@ -1,196 +1,124 @@
+﻿==============================
+OP: Show Interface Stats (Counters)
 ==============================
-Show Interface Stats (Counters)
-==============================
-show interfaces Ethernet 0
-  Ethernet 0 is up, line protocol is up
-  Hardware is MCI Ethernet, address is 0000.0c00.750c (bia 0000.0c00.750c)
-  Internet address is 131.108.28.8, subnet mask is 255.255.255.0
-  MTU 1500 bytes, BW 10000 Kbit, DLY 100000 usec, rely 255/255, load 1/255
-  Encapsulation ARPA, loopback not set, keepalive set (10 sec)
-  ARP type: ARPA, ARP Timeout 4:00:00
-  Last input 0:00:00, output 0:00:00, output hang never
-  Output queue 0/40/0 drops; input queue 0/75/0 drops
-  Five minute input rate 0 bits/sec, 0 packets/sec
-  Five minute output rate 2000 bits/sec, 4 packets/sec
-     1127576 packets input, 447251251 bytes, 0 no buffer
-     Received 354125 broadcasts, 0 runts, 0 giants
-     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
-     5332142 packets output, 496316039 bytes, 0 underruns
-     0 output errors, 432 collisions, 0 interface resets, 0 restarts
+R1# show interfaces GigabitEthernet0/1
+GigabitEthernet0/1 is up, line protocol is up 
+  Hardware is Gigabit Ethernet, address is aaaa.bbbb.cccc (bia aaaa.bbbb.cccc)
+  Internet address is 192.168.1.1/24
+  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec, 
+     reliability 255/255, txload 1/255, rxload 1/255
+  Encapsulation ARPA, loopback not set
+  Keepalive set (10 sec)
+  Full-duplex, 1000Mb/s, media type is 10/100/1000BaseTX
+  input flow-control is off, output flow-control is unsupported 
+  ARP type: ARPA, ARP Timeout 04:00:00
+  Last input 00:00:01, output 00:00:00, output hang never
 
 ---
 
 (source_file
-  (show_command
-    (show_interfaces_block
-      interface: (interface_name)
-      (unknown_line)))
-  (command
-    (word)
-    (word)
-    (word)
-    (word)
-    (punctuation)
-    (word)
-    (word)
-    (mac_address)
-    (word)
-    (mac_address)
-    (word))
-  (command
-    (word)
-    (word)
-    (word)
-    (ipv4_address)
-    (punctuation)
-    (word)
-    (word)
-    (word)
-    (ipv4_address))
-  (command
-    (word)
-    (number)
-    (word)
-    (punctuation)
-    (word)
-    (number)
-    (word)
-    (punctuation)
-    (word)
-    (number)
-    (word)
-    (punctuation)
-    (word)
-    (number)
-    (word)
-    (punctuation)
-    (word)
-    (number)
-    (word))
-  (command
-    (word)
-    (word)
-    (punctuation)
-    (word)
-    (word)
-    (word)
-    (punctuation)
-    (word)
-    (word)
-    (word)
-    (word))
-  (command
-    (word)
-    (word)
-    (word)
-    (punctuation)
-    (word)
-    (word)
-    (word))
-  (command
-    (word)
-    (word)
-    (word)
-    (punctuation)
-    (word)
-    (word)
-    (punctuation)
-    (word)
-    (word)
-    (word))
-  (command
-    (word)
-    (word)
-    (number)
-    (word)
-    (word)
-    (punctuation)
-    (word)
-    (word)
-    (number)
-    (word)
-    (word))
-  (command
-    (word)
-    (word)
-    (word)
-    (word)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word))
-  (command
-    (word)
-    (word)
-    (word)
-    (word)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word))
-  (command
-    (number)
-    (word)
-    (word)
-    (punctuation)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word)
-    (word))
-  (command
-    (word)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word))
-  (command
-    (number)
-    (word)
-    (word)
-    (punctuation)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word))
-  (command
-    (number)
-    (word)
-    (word)
-    (punctuation)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word))
-  (command
-    (number)
-    (word)
-    (word)
-    (punctuation)
-    (number)
-    (word)
-    (punctuation)
-    (number)
-    (word)
-    (word)
-    (punctuation)
-    (number)
-    (word)))
+  (ios_exec_segment
+    (show_command
+      (show_interfaces_block
+        (word)
+        interface: (interface_name)
+        (unknown_line
+          (interface_name)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)
+          (word)))))
+  (ios_exec_segment
+    (command
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (mac_address)
+      (word)
+      (mac_address)
+      (word)))
+  (ios_exec_segment
+    (command
+      (word)
+      (word)
+      (word)
+      (ipv4_address)
+      (word)))
+  (ios_exec_segment
+    (command
+      (word)
+      (number)
+      (word)
+      (word)
+      (number)
+      (word)
+      (word)
+      (number)
+      (word)))
+  (ios_exec_segment
+    (command
+      (word)
+      (number)
+      (word)
+      (word)
+      (number)
+      (word)
+      (word)
+      (number)
+      (word)))
+  (ios_exec_segment
+    (command
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
+  (ios_exec_segment
+    (command
+      (word)
+      (word)
+      (word)
+      (word)))
+  (ios_exec_segment
+    (command
+      (word)
+      (number)
+      (word)
+      (word)
+      (word)
+      (word)
+      (number)
+      (word)))
+  (ios_exec_segment
+    (command
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
+  (ios_exec_segment
+    (command
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
+  (ios_exec_segment
+    (command
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)
+      (word))))

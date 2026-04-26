@@ -1,0 +1,4136 @@
+[
+  {
+    "type": "aaa_config",
+    "named": true,
+    "fields": {
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "subtype": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "acl_block",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "extended",
+            "named": false
+          },
+          {
+            "type": "standard",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "acl_extended_rule",
+          "named": true
+        },
+        {
+          "type": "acl_remark_rule",
+          "named": true
+        },
+        {
+          "type": "acl_standard_rule",
+          "named": true
+        },
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "acl_destination",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "any",
+            "named": false
+          }
+        ]
+      },
+      "destination_host": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "destination_host_kw": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "host",
+            "named": false
+          }
+        ]
+      },
+      "destination_network": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "destination_object_group": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "destination_object_group_kw": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "object-group",
+            "named": false
+          }
+        ]
+      },
+      "destination_wildcard": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "subnet_mask",
+            "named": true
+          },
+          {
+            "type": "wildcard_mask",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "acl_extended_rule",
+    "named": true,
+    "fields": {
+      "action": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "den",
+            "named": false
+          },
+          {
+            "type": "deny",
+            "named": false
+          },
+          {
+            "type": "perm",
+            "named": false
+          },
+          {
+            "type": "permit",
+            "named": false
+          }
+        ]
+      },
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "dscp",
+            "named": false
+          },
+          {
+            "type": "established",
+            "named": false
+          },
+          {
+            "type": "log",
+            "named": false
+          },
+          {
+            "type": "log-input",
+            "named": false
+          },
+          {
+            "type": "precedence",
+            "named": false
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "protocol": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ah",
+            "named": false
+          },
+          {
+            "type": "eigrp",
+            "named": false
+          },
+          {
+            "type": "esp",
+            "named": false
+          },
+          {
+            "type": "gre",
+            "named": false
+          },
+          {
+            "type": "icmp",
+            "named": false
+          },
+          {
+            "type": "igmp",
+            "named": false
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "ospf",
+            "named": false
+          },
+          {
+            "type": "tcp",
+            "named": false
+          },
+          {
+            "type": "udp",
+            "named": false
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "sequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "acl_destination",
+          "named": true
+        },
+        {
+          "type": "acl_operator_port",
+          "named": true
+        },
+        {
+          "type": "acl_source",
+          "named": true
+        },
+        {
+          "type": "acl_src_operator_port",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "acl_numbered",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "acl_extended_rule",
+          "named": true
+        },
+        {
+          "type": "acl_remark_rule",
+          "named": true
+        },
+        {
+          "type": "acl_standard_rule",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "acl_operator_port",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "eq",
+            "named": false
+          },
+          {
+            "type": "gt",
+            "named": false
+          },
+          {
+            "type": "lt",
+            "named": false
+          },
+          {
+            "type": "neq",
+            "named": false
+          },
+          {
+            "type": "range",
+            "named": false
+          }
+        ]
+      },
+      "port": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "acl_remark_rule",
+    "named": true,
+    "fields": {
+      "action": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "remark",
+            "named": false
+          }
+        ]
+      },
+      "remark_text": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "text",
+            "named": true
+          }
+        ]
+      },
+      "sequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "acl_source",
+    "named": true,
+    "fields": {
+      "source": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "any",
+            "named": false
+          }
+        ]
+      },
+      "source_host": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "source_host_kw": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "host",
+            "named": false
+          }
+        ]
+      },
+      "source_network": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "source_object_group": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "source_object_group_kw": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "object-group",
+            "named": false
+          }
+        ]
+      },
+      "source_wildcard": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "subnet_mask",
+            "named": true
+          },
+          {
+            "type": "wildcard_mask",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "acl_src_operator_port",
+    "named": true,
+    "fields": {
+      "src_operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "eq",
+            "named": false
+          },
+          {
+            "type": "gt",
+            "named": false
+          },
+          {
+            "type": "lt",
+            "named": false
+          },
+          {
+            "type": "neq",
+            "named": false
+          },
+          {
+            "type": "range",
+            "named": false
+          }
+        ]
+      },
+      "src_port": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "acl_standard_rule",
+    "named": true,
+    "fields": {
+      "action": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "den",
+            "named": false
+          },
+          {
+            "type": "deny",
+            "named": false
+          },
+          {
+            "type": "perm",
+            "named": false
+          },
+          {
+            "type": "permit",
+            "named": false
+          }
+        ]
+      },
+      "log": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "log",
+            "named": false
+          },
+          {
+            "type": "log-input",
+            "named": false
+          }
+        ]
+      },
+      "sequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "any",
+            "named": false
+          }
+        ]
+      },
+      "source_host": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "source_host_kw": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "host",
+            "named": false
+          }
+        ]
+      },
+      "source_network": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "source_wildcard": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "subnet_mask",
+            "named": true
+          },
+          {
+            "type": "wildcard_mask",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "banner_config",
+    "named": true,
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "banner_text",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "exec",
+            "named": false
+          },
+          {
+            "type": "login",
+            "named": false
+          },
+          {
+            "type": "motd",
+            "named": false
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bgp_address_family",
+    "named": true,
+    "fields": {
+      "proto": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4",
+            "named": false
+          },
+          {
+            "type": "ipv6",
+            "named": false
+          },
+          {
+            "type": "l2vpn",
+            "named": false
+          },
+          {
+            "type": "vpnv4",
+            "named": false
+          },
+          {
+            "type": "vpnv6",
+            "named": false
+          }
+        ]
+      },
+      "subproto": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "flowspec",
+            "named": false
+          },
+          {
+            "type": "multicast",
+            "named": false
+          },
+          {
+            "type": "unicast",
+            "named": false
+          }
+        ]
+      },
+      "vrf": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "bgp_neighbor",
+          "named": true
+        },
+        {
+          "type": "bgp_network",
+          "named": true
+        },
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bgp_block",
+    "named": true,
+    "fields": {
+      "asn": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "bgp_address_family",
+          "named": true
+        },
+        {
+          "type": "bgp_neighbor",
+          "named": true
+        },
+        {
+          "type": "bgp_network",
+          "named": true
+        },
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bgp_neighbor",
+    "named": true,
+    "fields": {
+      "neighbor": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "remote_as": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "update_source": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bgp_network",
+    "named": true,
+    "fields": {
+      "mask": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "subnet_mask",
+            "named": true
+          }
+        ]
+      },
+      "network": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "route_map": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "boot_config",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "punctuation",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "command",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "generic_output_line",
+            "named": true
+          }
+        ]
+      },
+      "trigger": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "punctuation",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "config_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "acl_block",
+          "named": true
+        },
+        {
+          "type": "acl_numbered",
+          "named": true
+        },
+        {
+          "type": "bgp_block",
+          "named": true
+        },
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "eigrp_block",
+          "named": true
+        },
+        {
+          "type": "interface_block",
+          "named": true
+        },
+        {
+          "type": "line_block",
+          "named": true
+        },
+        {
+          "type": "object_group_block",
+          "named": true
+        },
+        {
+          "type": "ospf_block",
+          "named": true
+        },
+        {
+          "type": "qos_block",
+          "named": true
+        },
+        {
+          "type": "system_config",
+          "named": true
+        },
+        {
+          "type": "vlan_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "crypto_config",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "punctuation",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "description_config",
+    "named": true,
+    "fields": {
+      "text": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "eigrp_address_family",
+    "named": true,
+    "fields": {
+      "asn": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "proto": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4",
+            "named": false
+          },
+          {
+            "type": "ipv6",
+            "named": false
+          }
+        ]
+      },
+      "vrf": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "eigrp_af_interface",
+          "named": true
+        },
+        {
+          "type": "eigrp_network",
+          "named": true
+        },
+        {
+          "type": "eigrp_topology",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "eigrp_af_interface",
+    "named": true,
+    "fields": {
+      "interface": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "interface_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "eigrp_af_interface_option",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "eigrp_af_interface_option",
+    "named": true,
+    "fields": {
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "punctuation",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "eigrp_block",
+    "named": true,
+    "fields": {
+      "as_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "eigrp_address_family",
+          "named": true
+        },
+        {
+          "type": "eigrp_network",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "eigrp_network",
+    "named": true,
+    "fields": {
+      "network": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "wildcard": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "subnet_mask",
+            "named": true
+          },
+          {
+            "type": "wildcard_mask",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "eigrp_topology",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "base",
+            "named": false
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "paths": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "protocol": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "variance": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "hostname_config",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_bandwidth",
+    "named": true,
+    "fields": {
+      "bandwidth": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_block",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "description_config",
+          "named": true
+        },
+        {
+          "type": "interface_bandwidth",
+          "named": true
+        },
+        {
+          "type": "interface_channel_group",
+          "named": true
+        },
+        {
+          "type": "interface_duplex",
+          "named": true
+        },
+        {
+          "type": "interface_helper_address",
+          "named": true
+        },
+        {
+          "type": "interface_ip_generic",
+          "named": true
+        },
+        {
+          "type": "interface_mtu",
+          "named": true
+        },
+        {
+          "type": "interface_nameif",
+          "named": true
+        },
+        {
+          "type": "interface_security_level",
+          "named": true
+        },
+        {
+          "type": "interface_shutdown",
+          "named": true
+        },
+        {
+          "type": "interface_spanning_tree",
+          "named": true
+        },
+        {
+          "type": "interface_speed",
+          "named": true
+        },
+        {
+          "type": "interface_standby",
+          "named": true
+        },
+        {
+          "type": "interface_vrf_forwarding",
+          "named": true
+        },
+        {
+          "type": "ip_address_config",
+          "named": true
+        },
+        {
+          "type": "ipv6_address_config",
+          "named": true
+        },
+        {
+          "type": "switchport_config",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interface_channel_group",
+    "named": true,
+    "fields": {
+      "group": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "mode": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_duplex",
+    "named": true,
+    "fields": {
+      "duplex": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_helper_address",
+    "named": true,
+    "fields": {
+      "address": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_ip_generic",
+    "named": true,
+    "fields": {
+      "feature": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "access-group",
+            "named": false
+          },
+          {
+            "type": "auth-proxy",
+            "named": false
+          },
+          {
+            "type": "eigrp",
+            "named": false
+          },
+          {
+            "type": "flow",
+            "named": false
+          },
+          {
+            "type": "igrp",
+            "named": false
+          },
+          {
+            "type": "inspect",
+            "named": false
+          },
+          {
+            "type": "ips",
+            "named": false
+          },
+          {
+            "type": "ospf",
+            "named": false
+          },
+          {
+            "type": "policy-map",
+            "named": false
+          },
+          {
+            "type": "rip",
+            "named": false
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "punctuation",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_mtu",
+    "named": true,
+    "fields": {
+      "mtu": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_nameif",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_security_level",
+    "named": true,
+    "fields": {
+      "level": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_shutdown",
+    "named": true,
+    "fields": {
+      "negated": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "no",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_spanning_tree",
+    "named": true,
+    "fields": {
+      "option": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_speed",
+    "named": true,
+    "fields": {
+      "speed": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_standby",
+    "named": true,
+    "fields": {
+      "feature": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "delay",
+            "named": false
+          },
+          {
+            "type": "ip",
+            "named": false
+          },
+          {
+            "type": "ipv6",
+            "named": false
+          },
+          {
+            "type": "preempt",
+            "named": false
+          },
+          {
+            "type": "priority",
+            "named": false
+          },
+          {
+            "type": "timers",
+            "named": false
+          },
+          {
+            "type": "track",
+            "named": false
+          },
+          {
+            "type": "use-bia",
+            "named": false
+          },
+          {
+            "type": "version",
+            "named": false
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "group": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "punctuation",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "interface_vrf_forwarding",
+    "named": true,
+    "fields": {
+      "vrf": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ip_address_config",
+    "named": true,
+    "fields": {
+      "address": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "mask": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "subnet_mask",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "secondary": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "secondary",
+            "named": false
+          }
+        ]
+      },
+      "standby_ip": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "standby_kw": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "standby",
+            "named": false
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ipv6_address_config",
+    "named": true,
+    "fields": {
+      "address": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "prefix": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "line_block",
+    "named": true,
+    "fields": {
+      "end": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "start": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "line_exec_timeout",
+          "named": true
+        },
+        {
+          "type": "line_login",
+          "named": true
+        },
+        {
+          "type": "line_password",
+          "named": true
+        },
+        {
+          "type": "line_transport",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "line_exec_timeout",
+    "named": true,
+    "fields": {
+      "minutes": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "seconds": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "line_login",
+    "named": true,
+    "fields": {
+      "method": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "line_password",
+    "named": true,
+    "fields": {
+      "encryption_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "password": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "line_transport",
+    "named": true,
+    "fields": {
+      "direction": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "input",
+            "named": false
+          },
+          {
+            "type": "output",
+            "named": false
+          },
+          {
+            "type": "preferred",
+            "named": false
+          }
+        ]
+      },
+      "protocol": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "all",
+            "named": false
+          },
+          {
+            "type": "none",
+            "named": false
+          },
+          {
+            "type": "ssh",
+            "named": false
+          },
+          {
+            "type": "telnet",
+            "named": false
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "logging_config",
+    "named": true,
+    "fields": {
+      "host": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "level": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "network_object",
+    "named": true,
+    "fields": {
+      "address": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "host_kw": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "host",
+            "named": false
+          }
+        ]
+      },
+      "mask": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "subnet_mask",
+            "named": true
+          },
+          {
+            "type": "wildcard_mask",
+            "named": true
+          }
+        ]
+      },
+      "object": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "any",
+            "named": false
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ntp_config",
+    "named": true,
+    "fields": {
+      "address": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "object_group_block",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "protocol": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "tcp",
+            "named": false
+          },
+          {
+            "type": "tcp-udp",
+            "named": false
+          },
+          {
+            "type": "udp",
+            "named": false
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "icmp-type",
+            "named": false
+          },
+          {
+            "type": "network",
+            "named": false
+          },
+          {
+            "type": "protocol",
+            "named": false
+          },
+          {
+            "type": "service",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "network_object",
+          "named": true
+        },
+        {
+          "type": "port_object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ospf_area_block",
+    "named": true,
+    "fields": {
+      "area_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "ospf_interface_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ospf_block",
+    "named": true,
+    "fields": {
+      "process_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "vrf": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "ospf_area_block",
+          "named": true
+        },
+        {
+          "type": "ospf_interface_block",
+          "named": true
+        },
+        {
+          "type": "ospf_network",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ospf_interface_block",
+    "named": true,
+    "fields": {
+      "interface": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ospf_network",
+    "named": true,
+    "fields": {
+      "area": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "network": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "wildcard": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "subnet_mask",
+            "named": true
+          },
+          {
+            "type": "wildcard_mask",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "port_object",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "eq",
+            "named": false
+          },
+          {
+            "type": "gt",
+            "named": false
+          },
+          {
+            "type": "lt",
+            "named": false
+          },
+          {
+            "type": "neq",
+            "named": false
+          },
+          {
+            "type": "range",
+            "named": false
+          }
+        ]
+      },
+      "port": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "prefix_list",
+    "named": true,
+    "fields": {
+      "action": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "acl_action",
+            "named": true
+          }
+        ]
+      },
+      "ge": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "le": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "length": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "prefix": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          }
+        ]
+      },
+      "sequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "qos_block",
+    "named": true,
+    "fields": {
+      "match_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "match-all",
+            "named": false
+          },
+          {
+            "type": "match-any",
+            "named": false
+          }
+        ]
+      },
+      "match_val": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "generic_output_line",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "class-map",
+            "named": false
+          },
+          {
+            "type": "policy-map",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "qos_policy_class",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "qos_policy_class",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "val": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "generic_output_line",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "snmp_config",
+    "named": true,
+    "fields": {
+      "feature": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "punctuation",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ssh_config",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "static_route",
+    "named": true,
+    "fields": {
+      "destination": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "distance": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "interface": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          }
+        ]
+      },
+      "mask": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "subnet_mask",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "next_hop": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4_address",
+            "named": true
+          },
+          {
+            "type": "ipv6_address",
+            "named": true
+          }
+        ]
+      },
+      "permanent": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "permanent",
+            "named": false
+          }
+        ]
+      },
+      "tag": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "track": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "vrf": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "switchport_config",
+    "named": true,
+    "fields": {
+      "allowed_vlans": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "vlan_list",
+            "named": true
+          }
+        ]
+      },
+      "encapsulation": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "mac": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "mac_address",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "max_mac": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "mode": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "native_vlan": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "sticky": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sticky",
+            "named": false
+          }
+        ]
+      },
+      "violation": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "vlan": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "system_config",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "aaa_config",
+          "named": true
+        },
+        {
+          "type": "banner_config",
+          "named": true
+        },
+        {
+          "type": "boot_config",
+          "named": true
+        },
+        {
+          "type": "crypto_config",
+          "named": true
+        },
+        {
+          "type": "hostname_config",
+          "named": true
+        },
+        {
+          "type": "logging_config",
+          "named": true
+        },
+        {
+          "type": "ntp_config",
+          "named": true
+        },
+        {
+          "type": "prefix_list",
+          "named": true
+        },
+        {
+          "type": "snmp_config",
+          "named": true
+        },
+        {
+          "type": "ssh_config",
+          "named": true
+        },
+        {
+          "type": "static_route",
+          "named": true
+        },
+        {
+          "type": "username_config",
+          "named": true
+        },
+        {
+          "type": "vrf_definition_block",
+          "named": true
+        },
+        {
+          "type": "vrf_definition_legacy",
+          "named": true
+        },
+        {
+          "type": "vtp_config",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "text",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "interface_name",
+          "named": true
+        },
+        {
+          "type": "ipv4_address",
+          "named": true
+        },
+        {
+          "type": "ipv6_address",
+          "named": true
+        },
+        {
+          "type": "mac_address",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "punctuation",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "username_config",
+    "named": true,
+    "fields": {
+      "description": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "encryption_type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "password": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "privilege": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vlan_block",
+    "named": true,
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vrf_definition_block",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "proto": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ipv4",
+            "named": false
+          },
+          {
+            "type": "ipv6",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "command",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "vrf_rd",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vrf_definition_legacy",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "vrf_rd",
+    "named": true,
+    "fields": {
+      "rd": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "vtp_config",
+    "named": true,
+    "fields": {
+      "feature": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "option": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "\n",
+    "named": false
+  },
+  {
+    "type": "\r\n",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "aaa",
+    "named": false
+  },
+  {
+    "type": "access",
+    "named": false
+  },
+  {
+    "type": "access-group",
+    "named": false
+  },
+  {
+    "type": "access-list",
+    "named": false
+  },
+  {
+    "type": "acl_action",
+    "named": true
+  },
+  {
+    "type": "activate",
+    "named": false
+  },
+  {
+    "type": "address",
+    "named": false
+  },
+  {
+    "type": "address-family",
+    "named": false
+  },
+  {
+    "type": "af-interface",
+    "named": false
+  },
+  {
+    "type": "ah",
+    "named": false
+  },
+  {
+    "type": "all",
+    "named": false
+  },
+  {
+    "type": "allowed",
+    "named": false
+  },
+  {
+    "type": "any",
+    "named": false
+  },
+  {
+    "type": "area",
+    "named": false
+  },
+  {
+    "type": "auth-proxy",
+    "named": false
+  },
+  {
+    "type": "authentication",
+    "named": false
+  },
+  {
+    "type": "autonomous-system",
+    "named": false
+  },
+  {
+    "type": "bandwidth",
+    "named": false
+  },
+  {
+    "type": "bandwidth-percent",
+    "named": false
+  },
+  {
+    "type": "banner",
+    "named": false
+  },
+  {
+    "type": "banner_text",
+    "named": true
+  },
+  {
+    "type": "base",
+    "named": false
+  },
+  {
+    "type": "boot",
+    "named": false
+  },
+  {
+    "type": "channel-group",
+    "named": false
+  },
+  {
+    "type": "class",
+    "named": false
+  },
+  {
+    "type": "class-map",
+    "named": false
+  },
+  {
+    "type": "crypto",
+    "named": false
+  },
+  {
+    "type": "default",
+    "named": false
+  },
+  {
+    "type": "definition",
+    "named": false
+  },
+  {
+    "type": "delay",
+    "named": false
+  },
+  {
+    "type": "den",
+    "named": false
+  },
+  {
+    "type": "deny",
+    "named": false
+  },
+  {
+    "type": "description",
+    "named": false
+  },
+  {
+    "type": "dscp",
+    "named": false
+  },
+  {
+    "type": "duplex",
+    "named": false
+  },
+  {
+    "type": "eigrp",
+    "named": false
+  },
+  {
+    "type": "encapsulation",
+    "named": false
+  },
+  {
+    "type": "eq",
+    "named": false
+  },
+  {
+    "type": "esp",
+    "named": false
+  },
+  {
+    "type": "established",
+    "named": false
+  },
+  {
+    "type": "exec",
+    "named": false
+  },
+  {
+    "type": "exec-timeout",
+    "named": false
+  },
+  {
+    "type": "exit-address-family",
+    "named": false
+  },
+  {
+    "type": "exit-af-interface",
+    "named": false
+  },
+  {
+    "type": "exit-af-topology",
+    "named": false
+  },
+  {
+    "type": "extended",
+    "named": false
+  },
+  {
+    "type": "flow",
+    "named": false
+  },
+  {
+    "type": "flowspec",
+    "named": false
+  },
+  {
+    "type": "forwarding",
+    "named": false
+  },
+  {
+    "type": "ge",
+    "named": false
+  },
+  {
+    "type": "generic_output_line",
+    "named": true
+  },
+  {
+    "type": "gre",
+    "named": false
+  },
+  {
+    "type": "gt",
+    "named": false
+  },
+  {
+    "type": "hello-interval",
+    "named": false
+  },
+  {
+    "type": "helper-address",
+    "named": false
+  },
+  {
+    "type": "hold-time",
+    "named": false
+  },
+  {
+    "type": "host",
+    "named": false
+  },
+  {
+    "type": "icmp",
+    "named": false
+  },
+  {
+    "type": "icmp-type",
+    "named": false
+  },
+  {
+    "type": "igmp",
+    "named": false
+  },
+  {
+    "type": "igrp",
+    "named": false
+  },
+  {
+    "type": "input",
+    "named": false
+  },
+  {
+    "type": "inspect",
+    "named": false
+  },
+  {
+    "type": "interface",
+    "named": false
+  },
+  {
+    "type": "interface_name",
+    "named": true
+  },
+  {
+    "type": "ip",
+    "named": false
+  },
+  {
+    "type": "ips",
+    "named": false
+  },
+  {
+    "type": "ipv4",
+    "named": false
+  },
+  {
+    "type": "ipv4_address",
+    "named": true
+  },
+  {
+    "type": "ipv6",
+    "named": false
+  },
+  {
+    "type": "ipv6_address",
+    "named": true
+  },
+  {
+    "type": "l2vpn",
+    "named": false
+  },
+  {
+    "type": "le",
+    "named": false
+  },
+  {
+    "type": "log",
+    "named": false
+  },
+  {
+    "type": "log-input",
+    "named": false
+  },
+  {
+    "type": "logging",
+    "named": false
+  },
+  {
+    "type": "login",
+    "named": false
+  },
+  {
+    "type": "lt",
+    "named": false
+  },
+  {
+    "type": "mac-address",
+    "named": false
+  },
+  {
+    "type": "mac_address",
+    "named": true
+  },
+  {
+    "type": "mask",
+    "named": false
+  },
+  {
+    "type": "match",
+    "named": false
+  },
+  {
+    "type": "match-all",
+    "named": false
+  },
+  {
+    "type": "match-any",
+    "named": false
+  },
+  {
+    "type": "maximum",
+    "named": false
+  },
+  {
+    "type": "maximum-paths",
+    "named": false
+  },
+  {
+    "type": "mode",
+    "named": false
+  },
+  {
+    "type": "motd",
+    "named": false
+  },
+  {
+    "type": "mtu",
+    "named": false
+  },
+  {
+    "type": "multicast",
+    "named": false
+  },
+  {
+    "type": "name",
+    "named": false
+  },
+  {
+    "type": "nameif",
+    "named": false
+  },
+  {
+    "type": "native",
+    "named": false
+  },
+  {
+    "type": "neq",
+    "named": false
+  },
+  {
+    "type": "network",
+    "named": false
+  },
+  {
+    "type": "network-object",
+    "named": false
+  },
+  {
+    "type": "no",
+    "named": false
+  },
+  {
+    "type": "none",
+    "named": false
+  },
+  {
+    "type": "ntp",
+    "named": false
+  },
+  {
+    "type": "number",
+    "named": true
+  },
+  {
+    "type": "object-group",
+    "named": false
+  },
+  {
+    "type": "ospf",
+    "named": false
+  },
+  {
+    "type": "output",
+    "named": false
+  },
+  {
+    "type": "passive-interface",
+    "named": false
+  },
+  {
+    "type": "password",
+    "named": false
+  },
+  {
+    "type": "perm",
+    "named": false
+  },
+  {
+    "type": "permanent",
+    "named": false
+  },
+  {
+    "type": "permit",
+    "named": false
+  },
+  {
+    "type": "police",
+    "named": false
+  },
+  {
+    "type": "policy-map",
+    "named": false
+  },
+  {
+    "type": "port-object",
+    "named": false
+  },
+  {
+    "type": "port-security",
+    "named": false
+  },
+  {
+    "type": "precedence",
+    "named": false
+  },
+  {
+    "type": "preempt",
+    "named": false
+  },
+  {
+    "type": "preferred",
+    "named": false
+  },
+  {
+    "type": "prefix-list",
+    "named": false
+  },
+  {
+    "type": "priority",
+    "named": false
+  },
+  {
+    "type": "privilege",
+    "named": false
+  },
+  {
+    "type": "protocol",
+    "named": false
+  },
+  {
+    "type": "punctuation",
+    "named": true
+  },
+  {
+    "type": "range",
+    "named": false
+  },
+  {
+    "type": "rd",
+    "named": false
+  },
+  {
+    "type": "redistribute",
+    "named": false
+  },
+  {
+    "type": "remark",
+    "named": false
+  },
+  {
+    "type": "remote-as",
+    "named": false
+  },
+  {
+    "type": "rip",
+    "named": false
+  },
+  {
+    "type": "route",
+    "named": false
+  },
+  {
+    "type": "route-map",
+    "named": false
+  },
+  {
+    "type": "secondary",
+    "named": false
+  },
+  {
+    "type": "secret",
+    "named": false
+  },
+  {
+    "type": "security-level",
+    "named": false
+  },
+  {
+    "type": "seq",
+    "named": false
+  },
+  {
+    "type": "service",
+    "named": false
+  },
+  {
+    "type": "service-policy",
+    "named": false
+  },
+  {
+    "type": "shape",
+    "named": false
+  },
+  {
+    "type": "shutdown",
+    "named": false
+  },
+  {
+    "type": "snmp-server",
+    "named": false
+  },
+  {
+    "type": "spanning-tree",
+    "named": false
+  },
+  {
+    "type": "speed",
+    "named": false
+  },
+  {
+    "type": "split-horizon",
+    "named": false
+  },
+  {
+    "type": "ssh",
+    "named": false
+  },
+  {
+    "type": "standard",
+    "named": false
+  },
+  {
+    "type": "standby",
+    "named": false
+  },
+  {
+    "type": "sticky",
+    "named": false
+  },
+  {
+    "type": "subnet_mask",
+    "named": true
+  },
+  {
+    "type": "summary-address",
+    "named": false
+  },
+  {
+    "type": "switchport",
+    "named": false
+  },
+  {
+    "type": "tag",
+    "named": false
+  },
+  {
+    "type": "tcp",
+    "named": false
+  },
+  {
+    "type": "tcp-udp",
+    "named": false
+  },
+  {
+    "type": "telnet",
+    "named": false
+  },
+  {
+    "type": "timers",
+    "named": false
+  },
+  {
+    "type": "topology",
+    "named": false
+  },
+  {
+    "type": "track",
+    "named": false
+  },
+  {
+    "type": "transport",
+    "named": false
+  },
+  {
+    "type": "trap",
+    "named": false
+  },
+  {
+    "type": "trunk",
+    "named": false
+  },
+  {
+    "type": "udp",
+    "named": false
+  },
+  {
+    "type": "unicast",
+    "named": false
+  },
+  {
+    "type": "update-source",
+    "named": false
+  },
+  {
+    "type": "use-bia",
+    "named": false
+  },
+  {
+    "type": "variance",
+    "named": false
+  },
+  {
+    "type": "version",
+    "named": false
+  },
+  {
+    "type": "violation",
+    "named": false
+  },
+  {
+    "type": "vlan",
+    "named": false
+  },
+  {
+    "type": "vlan_list",
+    "named": true
+  },
+  {
+    "type": "vpnv4",
+    "named": false
+  },
+  {
+    "type": "vpnv6",
+    "named": false
+  },
+  {
+    "type": "vrf",
+    "named": false
+  },
+  {
+    "type": "vtp",
+    "named": false
+  },
+  {
+    "type": "wildcard_mask",
+    "named": true
+  },
+  {
+    "type": "word",
+    "named": true
+  }
+]

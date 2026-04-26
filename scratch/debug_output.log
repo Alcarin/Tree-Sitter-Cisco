@@ -1,0 +1,1405 @@
+﻿node.exe : new_parse
+In riga:1 car:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Users\franc\AppData\Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (new_parse:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+process version:0, version_count:1, state:1, row:0, col:0
+lex_external state:2, row:0, column:0
+[SCANNER] Enter scan: col=0, lookahead='R' (82)
+[SCANNER] Valid symbols: 2 4 5 7 8 
+  consume character:'R'
+  consume character:'1'
+  consume character:'#'
+[SCANNER] Emitting PROMPT_EXEC
+lexed_lookahead sym:_prompt_exec, size:3
+shift state:4
+process version:0, version_count:1, state:4, row:0, col:3
+lex_external state:3, row:0, column:3
+[SCANNER] Enter scan: col=3, lookahead=' ' (32)
+[SCANNER] Valid symbols: 8 
+lex_internal state:123, row:0, column:3
+  consume character:' '
+  consume character:'s'
+  consume character:'h'
+  consume character:'o'
+  consume character:'w'
+  consume character:' '
+  consume character:'i'
+  consume character:'p'
+  consume character:' '
+  consume character:'i'
+  consume character:'n'
+  consume character:'t'
+  consume character:' '
+  consume character:'b'
+  consume character:'r'
+  consume character:'i'
+  consume character:'e'
+  consume character:'f'
+lexed_lookahead sym:generic_output_line, size:18
+shift state:49
+process version:0, version_count:1, state:49, row:0, col:21
+lex_external state:5, row:0, column:21
+[SCANNER] Enter scan: col=21, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 8 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+shift state:8
+process version:0, version_count:1, state:8, row:1, col:0
+lex_external state:4, row:1, column:0
+[SCANNER] Enter scan: col=0, lookahead='I' (73)
+[SCANNER] Valid symbols: 2 4 5 7 8 13 16 
+  consume character:'I'
+  consume character:'n'
+  consume character:'t'
+  consume character:'e'
+  consume character:'r'
+  consume character:'f'
+  consume character:'a'
+  consume character:'c'
+  consume character:'e'
+lex_internal state:0, row:1, column:0
+  consume character:'I'
+  consume character:'n'
+  consume character:'t'
+  consume character:'e'
+  consume character:'r'
+  consume character:'f'
+  consume character:'a'
+  consume character:'c'
+  consume character:'e'
+lexed_lookahead sym:show_ip_int_brief_leaf_token1, size:9
+detect_error lookahead:show_ip_int_brief_leaf_token1
+resume version:0
+skip_token symbol:show_ip_int_brief_leaf_token1
+process version:0, version_count:1, state:0, row:1, col:9
+lex_external state:1, row:1, column:9
+[SCANNER] Enter scan: col=9, lookahead=' ' (32)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:1, column:9
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  consume character:'I'
+  consume character:'P'
+lexed_lookahead sym:show_ip_int_brief_segment_token1, size:16
+skip_token symbol:show_ip_int_brief_segment_token1
+process version:0, version_count:1, state:0, row:1, col:25
+lex_external state:1, row:1, column:25
+[SCANNER] Enter scan: col=25, lookahead='-' (45)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+  consume character:'-'
+lex_internal state:0, row:1, column:25
+  consume character:'-'
+lexed_lookahead sym:punctuation, size:1
+recover_to_previous state:4, depth:4
+skip_token symbol:punctuation
+process version:1, version_count:2, state:4, row:1, col:25
+lex_external state:3, row:1, column:25
+[SCANNER] Enter scan: col=25, lookahead='-' (45)
+[SCANNER] Valid symbols: 8 
+  consume character:'-'
+lex_internal state:123, row:1, column:25
+  consume character:'-'
+  consume character:'A'
+  consume character:'d'
+  consume character:'d'
+  consume character:'r'
+  consume character:'e'
+  consume character:'s'
+  consume character:'s'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'O'
+  consume character:'K'
+  consume character:'?'
+  consume character:' '
+  consume character:' '
+  consume character:'M'
+  consume character:'e'
+  consume character:'t'
+  consume character:'h'
+  consume character:'o'
+  consume character:'d'
+  consume character:' '
+  consume character:' '
+  consume character:'S'
+  consume character:'t'
+  consume character:'a'
+  consume character:'t'
+  consume character:'u'
+  consume character:'s'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'P'
+  consume character:'r'
+  consume character:'o'
+  consume character:'t'
+  consume character:'o'
+  consume character:'c'
+  consume character:'o'
+  consume character:'l'
+lexed_lookahead sym:generic_output_line, size:57
+shift state:49
+condense
+process version:0, version_count:2, state:49, row:1, col:82
+lex_external state:5, row:1, column:82
+[SCANNER] Enter scan: col=82, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 8 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+shift state:8
+process version:1, version_count:2, state:0, row:1, col:26
+lex_external state:1, row:1, column:26
+[SCANNER] Enter scan: col=26, lookahead='A' (65)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:1, column:26
+  consume character:'A'
+  consume character:'d'
+  consume character:'d'
+  consume character:'r'
+  consume character:'e'
+  consume character:'s'
+  consume character:'s'
+lexed_lookahead sym:word, size:7
+recover_to_previous state:4, depth:4
+skip_token symbol:word
+process version:1, version_count:3, state:0, row:1, col:33
+lex_external state:1, row:1, column:33
+[SCANNER] Enter scan: col=33, lookahead=' ' (32)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:1, column:33
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  consume character:'O'
+  consume character:'K'
+lexed_lookahead sym:word, size:8
+recover_to_previous state:4, depth:4
+skip_token symbol:word
+process version:1, version_count:4, state:0, row:1, col:41
+lex_external state:1, row:1, column:41
+[SCANNER] Enter scan: col=41, lookahead='?' (63)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:1, column:41
+  consume character:'?'
+lexed_lookahead sym:ping_stream_line_token1, size:1
+skip_token symbol:ping_stream_line_token1
+process version:1, version_count:4, state:0, row:1, col:42
+lex_external state:1, row:1, column:42
+[SCANNER] Enter scan: col=42, lookahead=' ' (32)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:1, column:42
+  skip character:' '
+  skip character:' '
+  consume character:'M'
+lexed_lookahead sym:ping_stream_line_token1, size:3
+skip_token symbol:ping_stream_line_token1
+process version:1, version_count:4, state:0, row:1, col:45
+lex_external state:1, row:1, column:45
+[SCANNER] Enter scan: col=45, lookahead='e' (101)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:1, column:45
+  consume character:'e'
+  consume character:'t'
+  consume character:'h'
+  consume character:'o'
+  consume character:'d'
+lexed_lookahead sym:word, size:5
+recover_to_previous state:4, depth:4
+skip_token symbol:word
+process version:1, version_count:5, state:0, row:1, col:50
+lex_external state:1, row:1, column:50
+[SCANNER] Enter scan: col=50, lookahead=' ' (32)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:1, column:50
+  skip character:' '
+  skip character:' '
+  consume character:'S'
+  consume character:'t'
+  consume character:'a'
+  consume character:'t'
+  consume character:'u'
+  consume character:'s'
+lexed_lookahead sym:word, size:8
+skip_token symbol:word
+process version:1, version_count:5, state:0, row:1, col:58
+lex_external state:1, row:1, column:58
+[SCANNER] Enter scan: col=58, lookahead=' ' (32)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:1, column:58
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  consume character:'P'
+  consume character:'r'
+  consume character:'o'
+  consume character:'t'
+  consume character:'o'
+  consume character:'c'
+  consume character:'o'
+  consume character:'l'
+lexed_lookahead sym:word, size:24
+recover_to_previous state:4, depth:4
+skip_token symbol:word
+process version:1, version_count:6, state:0, row:1, col:82
+lex_external state:1, row:1, column:82
+[SCANNER] Enter scan: col=82, lookahead='.' (13)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+recover_to_previous state:8, depth:2
+removed paused version:7
+process version:2, version_count:7, state:4, row:1, col:26
+lex_external state:3, row:1, column:26
+[SCANNER] Enter scan: col=26, lookahead='A' (65)
+[SCANNER] Valid symbols: 8 
+lex_internal state:123, row:1, column:26
+  consume character:'A'
+  consume character:'d'
+  consume character:'d'
+  consume character:'r'
+  consume character:'e'
+  consume character:'s'
+  consume character:'s'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'O'
+  consume character:'K'
+  consume character:'?'
+  consume character:' '
+  consume character:' '
+  consume character:'M'
+  consume character:'e'
+  consume character:'t'
+  consume character:'h'
+  consume character:'o'
+  consume character:'d'
+  consume character:' '
+  consume character:' '
+  consume character:'S'
+  consume character:'t'
+  consume character:'a'
+  consume character:'t'
+  consume character:'u'
+  consume character:'s'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'P'
+  consume character:'r'
+  consume character:'o'
+  consume character:'t'
+  consume character:'o'
+  consume character:'c'
+  consume character:'o'
+  consume character:'l'
+lexed_lookahead sym:generic_output_line, size:56
+shift state:49
+process version:2, version_count:7, state:49, row:1, col:82
+lex_external state:5, row:1, column:82
+[SCANNER] Enter scan: col=82, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 8 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+shift state:8
+process version:3, version_count:7, state:4, row:1, col:33
+lex_external state:3, row:1, column:33
+[SCANNER] Enter scan: col=33, lookahead=' ' (32)
+[SCANNER] Valid symbols: 8 
+lex_internal state:123, row:1, column:33
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'O'
+  consume character:'K'
+  consume character:'?'
+  consume character:' '
+  consume character:' '
+  consume character:'M'
+  consume character:'e'
+  consume character:'t'
+  consume character:'h'
+  consume character:'o'
+  consume character:'d'
+  consume character:' '
+  consume character:' '
+  consume character:'S'
+  consume character:'t'
+  consume character:'a'
+  consume character:'t'
+  consume character:'u'
+  consume character:'s'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'P'
+  consume character:'r'
+  consume character:'o'
+  consume character:'t'
+  consume character:'o'
+  consume character:'c'
+  consume character:'o'
+  consume character:'l'
+lexed_lookahead sym:generic_output_line, size:49
+shift state:49
+process version:3, version_count:7, state:49, row:1, col:82
+lex_external state:5, row:1, column:82
+[SCANNER] Enter scan: col=82, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 8 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+shift state:8
+process version:4, version_count:7, state:4, row:1, col:45
+lex_external state:3, row:1, column:45
+[SCANNER] Enter scan: col=45, lookahead='e' (101)
+[SCANNER] Valid symbols: 8 
+lex_internal state:123, row:1, column:45
+  consume character:'e'
+  consume character:'t'
+  consume character:'h'
+  consume character:'o'
+  consume character:'d'
+  consume character:' '
+  consume character:' '
+  consume character:'S'
+  consume character:'t'
+  consume character:'a'
+  consume character:'t'
+  consume character:'u'
+  consume character:'s'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'P'
+  consume character:'r'
+  consume character:'o'
+  consume character:'t'
+  consume character:'o'
+  consume character:'c'
+  consume character:'o'
+  consume character:'l'
+lexed_lookahead sym:generic_output_line, size:37
+shift state:49
+process version:4, version_count:7, state:49, row:1, col:82
+lex_external state:5, row:1, column:82
+[SCANNER] Enter scan: col=82, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 8 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+shift state:8
+process version:5, version_count:7, state:4, row:1, col:58
+lex_external state:3, row:1, column:58
+[SCANNER] Enter scan: col=58, lookahead=' ' (32)
+[SCANNER] Valid symbols: 8 
+lex_internal state:123, row:1, column:58
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'P'
+  consume character:'r'
+  consume character:'o'
+  consume character:'t'
+  consume character:'o'
+  consume character:'c'
+  consume character:'o'
+  consume character:'l'
+lexed_lookahead sym:generic_output_line, size:24
+shift state:49
+process version:5, version_count:7, state:49, row:1, col:82
+lex_external state:5, row:1, column:82
+[SCANNER] Enter scan: col=82, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 8 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+shift state:8
+process version:6, version_count:7, state:8, row:1, col:82
+lex_external state:4, row:1, column:82
+[SCANNER] Enter scan: col=82, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 4 5 7 8 13 16 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+reduce sym:generic_exec_segment, child_count:3
+shift state:2
+condense
+process version:0, version_count:6, state:8, row:2, col:0
+lex_external state:4, row:2, column:0
+[SCANNER] Enter scan: col=0, lookahead='G' (71)
+[SCANNER] Valid symbols: 2 4 5 7 8 13 16 
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+lex_internal state:0, row:2, column:0
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+  consume character:'/'
+  consume character:'1'
+lexed_lookahead sym:interface_name, size:18
+detect_error lookahead:interface_name
+process version:1, version_count:6, state:8, row:2, col:0
+lex_external state:4, row:2, column:0
+[SCANNER] Enter scan: col=0, lookahead='G' (71)
+[SCANNER] Valid symbols: 2 4 5 7 8 13 16 
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+lex_internal state:0, row:2, column:0
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+  consume character:'/'
+  consume character:'1'
+lexed_lookahead sym:interface_name, size:18
+detect_error lookahead:interface_name
+process version:2, version_count:6, state:8, row:2, col:0
+lex_external state:4, row:2, column:0
+[SCANNER] Enter scan: col=0, lookahead='G' (71)
+[SCANNER] Valid symbols: 2 4 5 7 8 13 16 
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+lex_internal state:0, row:2, column:0
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+  consume character:'/'
+  consume character:'1'
+lexed_lookahead sym:interface_name, size:18
+detect_error lookahead:interface_name
+process version:3, version_count:6, state:8, row:2, col:0
+lex_external state:4, row:2, column:0
+[SCANNER] Enter scan: col=0, lookahead='G' (71)
+[SCANNER] Valid symbols: 2 4 5 7 8 13 16 
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+lex_internal state:0, row:2, column:0
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+  consume character:'/'
+  consume character:'1'
+lexed_lookahead sym:interface_name, size:18
+detect_error lookahead:interface_name
+process version:4, version_count:6, state:2, row:2, col:0
+lex_external state:2, row:2, column:0
+[SCANNER] Enter scan: col=0, lookahead='G' (71)
+[SCANNER] Valid symbols: 2 4 5 7 8 
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+lex_internal state:0, row:2, column:0
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+  consume character:'/'
+  consume character:'1'
+lexed_lookahead sym:interface_name, size:18
+detect_error lookahead:interface_name
+process version:5, version_count:6, state:8, row:2, col:0
+lex_external state:4, row:2, column:0
+[SCANNER] Enter scan: col=0, lookahead='G' (71)
+[SCANNER] Valid symbols: 2 4 5 7 8 13 16 
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+lex_internal state:0, row:2, column:0
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+  consume character:'/'
+  consume character:'1'
+lexed_lookahead sym:interface_name, size:18
+detect_error lookahead:interface_name
+resume version:0
+recover_to_previous state:4, depth:3
+condense
+process version:1, version_count:2, state:4, row:2, col:0
+lex_external state:3, row:2, column:0
+[SCANNER] Enter scan: col=0, lookahead='G' (71)
+[SCANNER] Valid symbols: 8 
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+lex_internal state:123, row:2, column:0
+  consume character:'G'
+  consume character:'i'
+  consume character:'g'
+  consume character:'a'
+  consume character:'b'
+  consume character:'i'
+  consume character:'t'
+  consume character:'E'
+  consume character:'t'
+  consume character:'h'
+  consume character:'e'
+  consume character:'r'
+  consume character:'n'
+  consume character:'e'
+  consume character:'t'
+  consume character:'0'
+  consume character:'/'
+  consume character:'1'
+lexed_lookahead sym:interface_name, size:18
+shift state:30
+process version:0, version_count:1, state:30, row:2, col:18
+lex_external state:5, row:2, column:18
+[SCANNER] Enter scan: col=18, lookahead=' ' (32)
+[SCANNER] Valid symbols: 2 8 
+lex_internal state:2, row:2, column:18
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'1'
+  consume character:'9'
+  consume character:'2'
+  consume character:'.'
+  consume character:'1'
+  consume character:'6'
+  consume character:'8'
+  consume character:'.'
+  consume character:'1'
+  consume character:'.'
+  consume character:'1'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'Y'
+  consume character:'E'
+  consume character:'S'
+  consume character:' '
+  consume character:' '
+  consume character:'m'
+  consume character:'a'
+  consume character:'n'
+  consume character:'u'
+  consume character:'a'
+  consume character:'l'
+  consume character:' '
+  consume character:' '
+  consume character:'u'
+  consume character:'p'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'u'
+  consume character:'p'
+lexed_lookahead sym:generic_output_line, size:58
+shift state:33
+process version:0, version_count:1, state:33, row:2, col:76
+lex_external state:5, row:2, column:76
+[SCANNER] Enter scan: col=76, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 8 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+shift state:65
+process version:0, version_count:1, state:65, row:3, col:0
+lex_external state:5, row:3, column:0
+[SCANNER] Enter scan: col=0, lookahead='L' (76)
+[SCANNER] Valid symbols: 2 8 
+  consume character:'L'
+  consume character:'o'
+  consume character:'o'
+  consume character:'p'
+  consume character:'b'
+  consume character:'a'
+  consume character:'c'
+  consume character:'k'
+  consume character:'0'
+lex_internal state:0, row:3, column:0
+  consume character:'L'
+  consume character:'o'
+  consume character:'o'
+  consume character:'p'
+  consume character:'b'
+  consume character:'a'
+  consume character:'c'
+  consume character:'k'
+  consume character:'0'
+lexed_lookahead sym:interface_name, size:9
+detect_error lookahead:interface_name
+resume version:0
+recover_to_previous state:4, depth:2
+skip_token symbol:interface_name
+process version:0, version_count:2, state:0, row:3, col:9
+lex_external state:1, row:3, column:9
+[SCANNER] Enter scan: col=9, lookahead=' ' (32)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:3, column:9
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  consume character:'1'
+  consume character:'0'
+  consume character:'.'
+  consume character:'1'
+  consume character:'.'
+  consume character:'1'
+  consume character:'.'
+  consume character:'1'
+lexed_lookahead sym:word, size:22
+recover_to_previous state:4, depth:3
+skip_token symbol:word
+process version:1, version_count:3, state:4, row:3, col:0
+lex_external state:3, row:3, column:0
+[SCANNER] Enter scan: col=0, lookahead='L' (76)
+[SCANNER] Valid symbols: 8 
+  consume character:'L'
+  consume character:'o'
+  consume character:'o'
+  consume character:'p'
+  consume character:'b'
+  consume character:'a'
+  consume character:'c'
+  consume character:'k'
+  consume character:'0'
+lex_internal state:123, row:3, column:0
+  consume character:'L'
+  consume character:'o'
+  consume character:'o'
+  consume character:'p'
+  consume character:'b'
+  consume character:'a'
+  consume character:'c'
+  consume character:'k'
+  consume character:'0'
+lexed_lookahead sym:interface_name, size:9
+shift state:30
+process version:1, version_count:3, state:30, row:3, col:9
+lex_external state:5, row:3, column:9
+[SCANNER] Enter scan: col=9, lookahead=' ' (32)
+[SCANNER] Valid symbols: 2 8 
+lex_internal state:2, row:3, column:9
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'1'
+  consume character:'0'
+  consume character:'.'
+  consume character:'1'
+  consume character:'.'
+  consume character:'1'
+  consume character:'.'
+  consume character:'1'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'Y'
+  consume character:'E'
+  consume character:'S'
+  consume character:' '
+  consume character:' '
+  consume character:'m'
+  consume character:'a'
+  consume character:'n'
+  consume character:'u'
+  consume character:'a'
+  consume character:'l'
+  consume character:' '
+  consume character:' '
+  consume character:'u'
+  consume character:'p'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'u'
+  consume character:'p'
+lexed_lookahead sym:generic_output_line, size:67
+shift state:33
+process version:2, version_count:3, state:4, row:3, col:9
+lex_external state:3, row:3, column:9
+[SCANNER] Enter scan: col=9, lookahead=' ' (32)
+[SCANNER] Valid symbols: 8 
+lex_internal state:123, row:3, column:9
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'1'
+  consume character:'0'
+  consume character:'.'
+  consume character:'1'
+  consume character:'.'
+  consume character:'1'
+  consume character:'.'
+  consume character:'1'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'Y'
+  consume character:'E'
+  consume character:'S'
+  consume character:' '
+  consume character:' '
+  consume character:'m'
+  consume character:'a'
+  consume character:'n'
+  consume character:'u'
+  consume character:'a'
+  consume character:'l'
+  consume character:' '
+  consume character:' '
+  consume character:'u'
+  consume character:'p'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'u'
+  consume character:'p'
+lexed_lookahead sym:generic_output_line, size:67
+shift state:49
+condense
+process version:0, version_count:2, state:33, row:3, col:76
+lex_external state:5, row:3, column:76
+[SCANNER] Enter scan: col=76, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 8 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+shift state:65
+process version:1, version_count:2, state:49, row:3, col:76
+shift state:8
+process version:0, version_count:2, state:65, row:4, col:0
+lex_external state:5, row:4, column:0
+[SCANNER] Enter scan: col=0, lookahead='V' (86)
+[SCANNER] Valid symbols: 2 8 
+  consume character:'V'
+  consume character:'l'
+  consume character:'a'
+  consume character:'n'
+  consume character:'1'
+  consume character:'0'
+  consume character:'0'
+lex_internal state:0, row:4, column:0
+  consume character:'V'
+  consume character:'l'
+  consume character:'a'
+  consume character:'n'
+  consume character:'1'
+  consume character:'0'
+  consume character:'0'
+lexed_lookahead sym:interface_name, size:7
+detect_error lookahead:interface_name
+process version:1, version_count:2, state:8, row:4, col:0
+lex_external state:4, row:4, column:0
+[SCANNER] Enter scan: col=0, lookahead='V' (86)
+[SCANNER] Valid symbols: 2 4 5 7 8 13 16 
+  consume character:'V'
+  consume character:'l'
+  consume character:'a'
+  consume character:'n'
+  consume character:'1'
+  consume character:'0'
+  consume character:'0'
+lex_internal state:0, row:4, column:0
+  consume character:'V'
+  consume character:'l'
+  consume character:'a'
+  consume character:'n'
+  consume character:'1'
+  consume character:'0'
+  consume character:'0'
+lexed_lookahead sym:interface_name, size:7
+detect_error lookahead:interface_name
+resume version:0
+recover_to_previous state:4, depth:2
+skip_token symbol:interface_name
+condense
+process version:0, version_count:2, state:0, row:4, col:7
+lex_external state:1, row:4, column:7
+[SCANNER] Enter scan: col=7, lookahead=' ' (32)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:4, column:7
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  skip character:' '
+  consume character:'u'
+  consume character:'n'
+  consume character:'a'
+  consume character:'s'
+  consume character:'s'
+  consume character:'i'
+  consume character:'g'
+  consume character:'n'
+  consume character:'e'
+  consume character:'d'
+lexed_lookahead sym:word, size:26
+skip_token symbol:word
+process version:1, version_count:2, state:4, row:4, col:0
+lex_external state:3, row:4, column:0
+[SCANNER] Enter scan: col=0, lookahead='V' (86)
+[SCANNER] Valid symbols: 8 
+  consume character:'V'
+  consume character:'l'
+  consume character:'a'
+  consume character:'n'
+  consume character:'1'
+  consume character:'0'
+  consume character:'0'
+lex_internal state:123, row:4, column:0
+  consume character:'V'
+  consume character:'l'
+  consume character:'a'
+  consume character:'n'
+  consume character:'1'
+  consume character:'0'
+  consume character:'0'
+lexed_lookahead sym:interface_name, size:7
+shift state:30
+process version:1, version_count:2, state:30, row:4, col:7
+lex_external state:5, row:4, column:7
+[SCANNER] Enter scan: col=7, lookahead=' ' (32)
+[SCANNER] Valid symbols: 2 8 
+lex_internal state:2, row:4, column:7
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'u'
+  consume character:'n'
+  consume character:'a'
+  consume character:'s'
+  consume character:'s'
+  consume character:'i'
+  consume character:'g'
+  consume character:'n'
+  consume character:'e'
+  consume character:'d'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'Y'
+  consume character:'E'
+  consume character:'S'
+  consume character:' '
+  consume character:' '
+  consume character:'u'
+  consume character:'n'
+  consume character:'s'
+  consume character:'e'
+  consume character:'t'
+  consume character:' '
+  consume character:' '
+  consume character:' '
+  consume character:'a'
+  consume character:'d'
+  consume character:'m'
+  consume character:'i'
+  consume character:'n'
+  consume character:'i'
+  consume character:'s'
+  consume character:'t'
+  consume character:'r'
+  consume character:'a'
+  consume character:'t'
+  consume character:'i'
+  consume character:'v'
+  consume character:'e'
+  consume character:'l'
+  consume character:'y'
+  consume character:' '
+  consume character:'d'
+  consume character:'o'
+  consume character:'w'
+  consume character:'n'
+  consume character:' '
+  consume character:' '
+  consume character:'d'
+  consume character:'o'
+  consume character:'w'
+  consume character:'n'
+lexed_lookahead sym:generic_output_line, size:72
+shift state:33
+condense
+process version:0, version_count:1, state:33, row:4, col:79
+lex_external state:5, row:4, column:79
+[SCANNER] Enter scan: col=79, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 8 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+shift state:65
+process version:0, version_count:1, state:65, row:5, col:0
+lex_external state:5, row:5, column:0
+[SCANNER] Enter scan: col=0, lookahead='R' (82)
+[SCANNER] Valid symbols: 2 8 
+  consume character:'R'
+  consume character:'1'
+  consume character:'#'
+lex_internal state:0, row:5, column:0
+  consume character:'R'
+  consume character:'1'
+lexed_lookahead sym:word, size:2
+detect_error lookahead:word
+resume version:0
+recover_to_previous state:4, depth:2
+skip_token symbol:word
+process version:0, version_count:2, state:0, row:5, col:2
+lex_external state:1, row:5, column:2
+[SCANNER] Enter scan: col=2, lookahead='#' (35)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+lex_internal state:0, row:5, column:2
+skip_unrecognized_character
+  consume character:'#'
+lex_external state:1, row:5, column:3
+[SCANNER] Enter scan: col=3, lookahead='.' (13)
+[SCANNER] Valid symbols: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:ERROR, size:1
+detect_error lookahead:ERROR
+process version:1, version_count:2, state:4, row:5, col:0
+lex_external state:3, row:5, column:0
+[SCANNER] Enter scan: col=0, lookahead='R' (82)
+[SCANNER] Valid symbols: 8 
+  consume character:'R'
+  consume character:'1'
+  consume character:'#'
+lex_internal state:123, row:5, column:0
+  consume character:'R'
+  consume character:'1'
+  consume character:'#'
+lexed_lookahead sym:generic_output_line, size:3
+shift state:49
+condense
+process version:0, version_count:1, state:49, row:5, col:3
+lex_external state:5, row:5, column:3
+[SCANNER] Enter scan: col=3, lookahead='.' (13)
+[SCANNER] Valid symbols: 2 8 
+  consume character:13
+  consume character:10
+[SCANNER] Emitting NEWLINE
+lexed_lookahead sym:_newline_ext, size:2
+shift state:8
+process version:0, version_count:1, state:8, row:6, col:0
+lex_external state:4, row:6, column:0
+[SCANNER] Enter scan: col=0, lookahead='.' (0)
+[SCANNER] Valid symbols: 2 4 5 7 8 13 16 
+lex_internal state:0, row:6, column:0
+lexed_lookahead sym:end, size:0
+reduce sym:generic_exec_segment, child_count:3
+reduce sym:source_file, child_count:1
+accept
+done

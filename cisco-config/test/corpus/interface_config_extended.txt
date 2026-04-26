@@ -1,0 +1,95 @@
+﻿==============================
+CFG: Interface Configuration Extended
+==============================
+vtp mode transparent
+vtp domain CISCO
+interface GigabitEthernet0/1
+ description Trunk_Port
+ speed 1000
+ duplex full
+ mtu 1500
+ bandwidth 1000000
+ switchport mode trunk
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30-40
+ switchport trunk native vlan 1
+ switchport port-security maximum 5
+ switchport port-security violation shutdown
+ switchport port-security
+ spanning-tree portfast edge
+ bpduguard enable
+ guard root
+ ip address 192.168.1.1 255.255.255.0
+ ip vrf forwarding TRUST
+ ip helper-address 10.10.10.10
+ ipv6 address 2001:db8::1/64
+ standby 1 ip 192.168.1.254
+ standby 1 priority 110
+ standby 1 preempt
+ standby 2 ip 192.168.1.253
+ standby 2 priority 100
+ standby 2 track GigabitEthernet0/2 20
+ standby 3 ip 192.168.1.252
+ standby 3 priority 90
+ standby 3 timers 3 10
+ channel-group 1 mode active
+!
+interface Vlan10
+ nameif INSIDE
+ security-level 100
+ ip address 10.1.1.1 255.255.255.0 standby 10.1.1.254
+!
+
+---
+
+(source_file
+  (ios_config_segment
+    (system_config
+      (vtp_config
+        feature: (word)
+        option: (word))))
+  (ios_config_segment
+    (system_config
+      (vtp_config
+        feature: (word)
+        option: (word))))
+  (ios_config_segment
+    (interface_block
+      name: (interface_name)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (command)
+      (comment)))
+  (ios_config_segment
+    (interface_block
+      name: (interface_name)
+      (command)
+      (command)
+      (command)
+      (comment))))

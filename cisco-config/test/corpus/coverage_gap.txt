@@ -1,0 +1,64 @@
+﻿==============================
+CFG: Missing Coverage Gaps
+==============================
+vlan 10
+ name SERVERS
+!
+snmp-server enable traps snmp authentication
+snmp-server host 10.1.1.1 version 2c public
+!
+interface GigabitEthernet0/1
+ ipv6 address 2001:db8:acad:1::1/64
+ ipv6 address FE80::1 link-local
+!
+ntp source Loopback0
+logging trap debugging
+!
+
+---
+
+(source_file
+  (ios_config_segment
+    (vlan_block
+      (number)
+      (command)
+      (comment)))
+  (ios_config_segment
+    (system_config
+      (snmp_config
+        (word)
+        (word)
+        (word)
+        (word))))
+  (ios_config_segment
+    (system_config
+      (snmp_config
+        (word)
+        (number)
+        (punctuation)
+        (number)
+        (punctuation)
+        (number)
+        (punctuation)
+        (number)
+        (word)
+        (number)
+        (word)
+        (word))))
+  (comment)
+  (ios_config_segment
+    (interface_block
+      (interface_name)
+      (command)
+      (command)
+      (comment)))
+  (ios_config_segment
+    (system_config
+      (ntp_config
+        (word)
+        (interface_name))))
+  (ios_config_segment
+    (system_config
+      (logging_config
+        (word))))
+  (comment))

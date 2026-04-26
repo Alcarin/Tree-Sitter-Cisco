@@ -1,0 +1,152 @@
+Processando: cisco-config\test\corpus\abbreviations.txt
+  Salvato: test_abbreviations_cfg__cisco_cli_abbreviations.txt
+Processando: cisco-config\test\corpus\advanced_config.txt
+  Salvato: test_advanced_config_cfg__advanced_interface_configuration.txt
+Processando: cisco-config\test\corpus\basic.txt
+  Salvato: test_basic_cfg__basic_configuration.txt
+Processando: cisco-config\test\corpus\coverage_gap.txt
+  Salvato: test_coverage_gap_cfg__missing_coverage_gaps.txt
+Processando: cisco-config\test\corpus\global_config.txt
+  Salvato: test_global_config_cfg__aaa_and_boot_system.txt
+  Salvato: test_global_config_cfg__ntp__snmp_and_ssh_extensions.txt
+Processando: cisco-config\test\corpus\hierarchy.txt
+  Salvato: test_hierarchy_cfg__banner_with_delimiters.txt
+Processando: cisco-config\test\corpus\interface_config_extended.txt
+  Salvato: test_interface_config_extended_cfg__interface_configuration_extended.txt
+Processando: cisco-config\test\corpus\primitives.txt
+  Salvato: test_primitives_cfg__advanced_primitives.txt
+Processando: cisco-config\test\corpus\resources.txt
+  Salvato: test_resources_cfg__layer_2_switching_details.txt
+Processando: cisco-config\test\corpus\routing.txt
+  Salvato: test_routing_cfg__bgp_and_ospf_routing.txt
+Processando: cisco-config\test\corpus\security_acl.txt
+  Salvato: test_security_acl_cfg__ip_access_lists__extended___standard_.txt
+  Salvato: test_security_acl_cfg__asa_object_groups__network___service_.txt
+Processando: cisco-config\test\corpus\xr_asa.txt
+  Salvato: test_xr_asa_cfg__ios_xr_and_asa_examples.txt
+Processando: references\tree-sitter-bash-master\test\corpus\commands.txt
+  Salvato: test_commands_commands.txt
+  Salvato: test_commands_commands_with_arguments.txt
+  Salvato: test_commands_quoted_command_names.txt
+  Salvato: test_commands_commands_with_numeric_arguments.txt
+  Salvato: test_commands_commands_with_environment_variables.txt
+  Salvato: test_commands_empty_environment_variables.txt
+  Salvato: test_commands_file_redirects.txt
+  Salvato: test_commands_file_redirects__noclobber_override_.txt
+  Salvato: test_commands_heredoc_redirects.txt
+  Salvato: test_commands_heredocs_with_variables.txt
+  Salvato: test_commands_heredocs_with_file_redirects.txt
+  Salvato: test_commands_heredocs_with_many_file_redirects.txt
+  Salvato: test_commands_heredocs_with_pipes.txt
+  Salvato: test_commands_heredocs_with_escaped_expansions.txt
+  Salvato: test_commands_quoted_heredocs.txt
+  Salvato: test_commands_heredocs_with_indented_closing_delimiters.txt
+  Salvato: test_commands_heredocs_with_empty_bodies.txt
+  Salvato: test_commands_heredocs_with_weird_characters.txt
+  Salvato: test_commands_heredocs_with_a_rhs_statement.txt
+  Salvato: test_commands_heredocs_with_a___that_is_not_an_expansion.txt
+  Salvato: test_commands_nested_heredocs.txt
+  Salvato: test_commands_herestrings.txt
+  Salvato: test_commands_subscripts.txt
+  Salvato: test_commands_bare__.txt
+  Salvato: test_commands_arithmetic_with_command_substitution.txt
+  Salvato: test_commands_ralative_path_without_dots.txt
+Processando: references\tree-sitter-bash-master\test\corpus\crlf.txt
+  Salvato: test_crlf_variables_with_crlf_line_endings.txt
+Processando: references\tree-sitter-bash-master\test\corpus\literals.txt
+  Salvato: test_literals_literal_words.txt
+  Salvato: test_literals_words_with_special_characters.txt
+  Salvato: test_literals_simple_variable_expansions.txt
+  Salvato: test_literals_special_variable_expansions.txt
+  Salvato: test_literals_variable_expansions.txt
+  Salvato: test_literals_variable_expansions_with_operators.txt
+  Salvato: test_literals_more_variable_expansions_with_operators.txt
+  Salvato: test_literals_variable_expansions_in_strings.txt
+  Salvato: test_literals_variable_expansions_with_regexes.txt
+  Salvato: test_literals_other_variable_expansion_operators.txt
+  Salvato: test_literals_variable_expansions__length.txt
+  Salvato: test_literals_variable_expansions_with_operators.txt
+  Salvato: test_literals_variable_expansions__bizarre_cases.txt
+  Salvato: test_literals_variable_expansions__weird_cases.txt
+  Salvato: test_literals_variable_expansions__regex.txt
+  Salvato: test_literals_words_ending_with____.txt
+  Salvato: test_literals_command_substitutions.txt
+  Salvato: test_literals_process_substitutions.txt
+  Salvato: test_literals_single_quoted_strings.txt
+  Salvato: test_literals_double_quoted_strings.txt
+  Salvato: test_literals_strings_containing_command_substitutions.txt
+  Salvato: test_literals_strings_containing_escape_sequence.txt
+  Salvato: test_literals_strings_containing_special_characters.txt
+  Salvato: test_literals_strings_with_ansi_c_quoting.txt
+  Salvato: test_literals_arrays_and_array_expansions.txt
+  Salvato: test_literals_escaped_characters_in_strings.txt
+  Salvato: test_literals_words_containing_bare____.txt
+  Salvato: test_literals_words_containing___that_are_not_comments.txt
+  Salvato: test_literals_variable_assignments_immediately_followed_by_a_terminator.txt
+  Salvato: test_literals_multiple_variable_assignments.txt
+  Salvato: test_literals_arithmetic_expansions.txt
+  Salvato: test_literals_concatenation_with_double_backticks.txt
+  Salvato: test_literals_brace_expressions_and_lookalikes.txt
+Processando: references\tree-sitter-bash-master\test\corpus\programs.txt
+  Salvato: test_programs_comments.txt
+  Salvato: test_programs_escaped_newlines.txt
+  Salvato: test_programs_escaped_newline_immediately_after_a_char.txt
+  Salvato: test_programs_escaped_whitespace.txt
+  Salvato: test_programs_files_without_trailing_terminators.txt
+Processando: references\tree-sitter-bash-master\test\corpus\statements.txt
+  Salvato: test_statements_pipelines.txt
+  Salvato: test_statements_lists.txt
+  Salvato: test_statements_while_statements.txt
+  Salvato: test_statements_until_statements.txt
+  Salvato: test_statements_while_statements_with_io_redirects.txt
+  Salvato: test_statements_for_statements.txt
+  Salvato: test_statements_select_statements.txt
+  Salvato: test_statements_c_style_for_statements.txt
+  Salvato: test_statements_if_statements.txt
+  Salvato: test_statements_if_statements_with_conditional_expressions.txt
+  Salvato: test_statements_if_statements_with_negated_command.txt
+  Salvato: test_statements_if_statements_with_command.txt
+  Salvato: test_statements_if_statements_with_variable_assignment_by_command_substitution.txt
+  Salvato: test_statements_if_statements_with_negated_variable_assignment_by_command_substitution.txt
+  Salvato: test_statements_if_statements_with_variable_assignment.txt
+  Salvato: test_statements_if_statements_with_negated_variable_assignment.txt
+  Salvato: test_statements_case_statements.txt
+  Salvato: test_statements_test_commands.txt
+  Salvato: test_statements_test_commands_with_ternary.txt
+  Salvato: test_statements_ternary_expressions.txt
+  Salvato: test_statements_test_commands_with_regexes.txt
+  Salvato: test_statements_test_command_paren_statefulness_with_a_case_glob.txt
+  Salvato: test_statements_subshells.txt
+  Salvato: test_statements_function_definitions.txt
+  Salvato: test_statements_variable_declaration__declare___typeset.txt
+  Salvato: test_statements_variable_declaration__readonly.txt
+  Salvato: test_statements_variable_declaration__local.txt
+  Salvato: test_statements_variable_declaration__export.txt
+  Salvato: test_statements_variable_declaration__command_substitution_with_semi_colon.txt
+  Salvato: test_statements_command_substution_with___and_backticks.txt
+  Salvato: test_statements_expressions_passed_to_declaration_commands.txt
+  Salvato: test_statements_unset_commands.txt
+  Salvato: test_statements_compound_statements.txt
+  Salvato: test_statements_if_condition_with_subshell.txt
+  Salvato: test_statements_while_condition_with_subshell.txt
+Processando: test\corpus\context_states.txt
+  Salvato: test_context_states_op__context_stateful_switching.txt
+Processando: test\corpus\diagnostics.txt
+  Salvato: test_diagnostics_op__ping_diagnostics.txt
+  Salvato: test_diagnostics_op__traceroute_diagnostics.txt
+  Salvato: test_diagnostics_directory_listing.txt
+Processando: test\corpus\operational.txt
+  Salvato: test_operational_op__operational_and_extra_resources.txt
+Processando: test\corpus\operational_expanded.txt
+  Salvato: test_operational_expanded_op__show_version_granular.txt
+  Salvato: test_operational_expanded_op__show_inventory_granular.txt
+  Salvato: test_operational_expanded_show_ip_interface_brief_granular.txt
+  Salvato: test_operational_expanded_show_interface_status_granular.txt
+Processando: test\corpus\operational_interfaces_status.txt
+  Salvato: test_operational_interfaces_status_op__show_interface_status.txt
+Processando: test\corpus\operational_interface_stats.txt
+  Salvato: test_operational_interface_stats_op__show_interface_stats__counters_.txt
+Processando: test\corpus\operational_security.txt
+  Salvato: test_operational_security_op__op_security.txt
+Processando: test\corpus\show_run.txt
+  Salvato: test_show_run_op__show_running_config_grouping.txt

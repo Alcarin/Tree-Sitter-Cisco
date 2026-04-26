@@ -1,0 +1,79 @@
+==============================
+CFG: AAA and Boot System
+==============================
+aaa new-model
+aaa authentication login default local
+boot system flash bootflash:image.bin
+crypto key generate rsa modulus 2048
+!
+
+---
+
+(config_file
+  (system_config
+    (aaa_config
+      (word)))
+  (system_config
+    (aaa_config
+      (word)
+      (word)
+      (word)
+      (word)))
+  (system_config
+    (boot_config
+      (word)
+      (word)
+      (word)))
+  (system_config
+    (crypto_config
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
+  (comment))
+
+==============================
+CFG: NTP, SNMP and SSH Extensions
+==============================
+ntp master 5
+snmp-server location Data Center Room 1
+snmp-server contact admin@example.com
+ip ssh version 2
+ip ssh authentication-retries 3
+ip ssh time-out 60
+!
+
+---
+
+(config_file
+  (system_config
+    (ntp_config
+      (word)
+      (word)))
+  (system_config
+    (snmp_config
+      (word)
+      (word)
+      (word)
+      (word)
+      (word)))
+  (system_config
+    (snmp_config
+      (word)
+      (word)
+      (punctuation)
+      (word)))
+  (system_config
+    (ssh_config
+      (word)
+      (word)))
+  (system_config
+    (ssh_config
+      (word)
+      (word)))
+  (system_config
+    (ssh_config
+      (word)
+      (word)))
+  (comment))

@@ -1,47 +1,43 @@
 ==============================
-Operational and Extra Resources
+OP: Operational and Extra Resources
 ==============================
-snmp-server community public RO
-snmp-server host 192.168.1.10 version 2c public
-vlan 10
-vrf definition MGMT
-!
-show ip route
-Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
-Gateway of last resort is not set
-C 192.168.1.0/24 is directly connected, GigabitEthernet0/1
-S 0.0.0.0/0 [1/0] via 192.168.1.254
-!
-show mac address-table
-Vlan    Mac Address       Type        Ports
-----    -----------       ----        -----
-  10    0011.2233.4455    DYNAMIC     Gi0/1
+R1# configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)# interface GigabitEthernet0/1
+R1(config-if)# description Management Link
+R1(config-if)# end
+R1# show version | include Version
+Cisco IOS Software, Version 15.1
+R1#
 
 ---
 
 (source_file
-  (system_config
-    (snmp_config
-      (word)))
-  (system_config
-    (snmp_config
-      (ipv4_address)
-      (word)
-      (word)))
-  (vlan_block
-    (number))
-  (system_config
-    (vrf_definition
-      (word)))
-  (comment)
-  (show_command
-    (show_ip_route_block
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line))))
+  (ios_exec_segment
+    (configure_terminal_command
+      execution: (kw_configure)
+      execution: (kw_terminal)
+      output: (diagnostic_output)))
+  (ios_config_segment
+    execution: (command
+      trigger: (word)
+      text: (generic_output_line)))
+  (ios_config_segment
+    execution: (command
+      trigger: (word)
+      text: (generic_output_line)))
+  (ios_config_segment
+    execution: (command
+      trigger: (word)))
+  (ios_exec_segment
+    (show_command
+      (kw_show)
+      (show_version_command
+        execution: (kw_version)
+        execution: (generic_output_line)
+        output: (version_output
+          (version_software_line
+            (word)
+            version: (word))))))
+  (ios_exec_segment
+    (generic_exec_command)))

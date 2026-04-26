@@ -1,0 +1,4 @@
+R1# show inventory
+NAME: "Chassis", DESCR: "Cisco ISR 4331 Chassis"
+PID: ISR4331/K9, VID: V01, SN: FOC12345678
+R1#

@@ -1,142 +1,103 @@
-/**
- * @file Cisco configuration grammar - Ultimate Context-Switching Architecture
- */
-
-const common = require('./rules/common');
-const config = require('./rules/config');
-const operational = require('./rules/operational');
+const primitives = require('./rules/common/primitives.js');
+const common = require('./rules/common.js');
+const operational = require('./rules/operational.js');
 
 module.exports = grammar({
   name: 'cisco',
 
-  externals: $ => [
-    $._indent,
-    $._dedent,
-    $._newline,
-    $._field_separator,
-    $._dashed_line,
-    $._console_prompt,
-    $._whitespace,
-    $._line_content,
-    $._prompt_exec,
-    $._prompt_config,
-    $._signal_ios_config,
-    $._signal_ios_exec,
-    $._signal_interface_start,
-    $._signal_router_start,
-    $._signal_vlan_start
-  ],
-
   extras: $ => [
-    $._whitespace,
-    $._field_separator
+    /[ \t]/,
+    $._console_noise
   ],
 
   conflicts: $ => [
-    [$.show_version_block],
-    [$.show_inventory_block],
-    [$.show_ip_int_brief_block],
-    [$.show_ip_interface_block],
-    [$.show_clock_block],
-    [$.show_environment_block],
-    [$.show_cdp_neighbors_block],
-    [$.show_mac_address_table_block],
-    [$.show_ip_arp_block],
-    [$.show_ip_route_block],
-    [$.show_ip_bgp_summary_block],
-    [$.show_ip_ospf_neighbor_block],
-    [$.show_interfaces_block],
-    [$.show_interface_status_block],
-    [$.acl_rule],
-    [$._acl_addr_spec_source],
-    [$._acl_addr_spec_dest],
-    [$.ping_block],
-    [$.traceroute_block],
-    [$.dir_block],
-    [$.show_crypto_ipsec_sa_block],
-    [$.show_crypto_ikev1_sa_block],
-    [$.show_failover_block],
-    [$.show_vpn_sessiondb_block],
-    [$.show_bgp_neighbors_block],
-    [$.show_mpls_ldp_neighbor_block],
-    [$.show_vpc_block],
-    [$.show_fex_block],
-    [$.show_etherchannel_summary_block],
-    [$.show_spanning_tree_block],
-    [$.show_standby_block],
-    [$.crypto_ipsec_sa_entry],
-    [$.interface_standby],
-    [$._exec_statement, $.show_command],
-    [$.ios_config_segment],
-    [$.ios_exec_segment]
+  ],
+
+  externals: $ => [
+    $._indent,             // 0
+    $._dedent,             // 1
+    $._newline_ext,        // 2
+    $.output_content,      // 3
+    $._prompt_exec,        // 4
+    $._prompt_config_ext,  // 5
+    $._error_marker,       // 6
+    $._syslog_msg,         // 7
+    $._console_noise,      // 8
+    $._field_separator,    // 9
+    $._dashed_line,        // 10
+    $._banner_delimiter,   // 11
+    $._banner_body,        // 12
+    $._output_start,       // 13
+    $._output_continue,    // 14
+    $._output_end,         // 15
+    $._output_none,        // 16
+    $.subnet_mask,         // 17
+    $.wildcard_mask,       // 18
+    $.invalid_ip,          // 19
+    $._banner_trigger,     // 20
   ],
 
   rules: {
-    source_file: $ => repeat($._context_block),
-
-    _context_block: $ => choice(
-      $.ios_config_segment,
+    source_file: $ => repeat(choice(
       $.ios_exec_segment,
+      $.ios_config_segment,
+      $._syslog_msg,
+      $.comment,
       $._newline
-    ),
-
-    // Iniziamo il segmento con il segnale e permettiamo transizioni basate su prompt
-    ios_config_segment: $ => prec.left(20, seq(
-      $._signal_ios_config,
-      repeat1($._config_statement)
     )),
 
-    _config_statement: $ => choice(
-      $.comment,
-      $.banner,
-      $.interface_block,
-      $.bgp_block,
-      $.ospf_block,
-      $.vlan_block,
-      $.line_block,
-      $.qos_block,
-      $.acl_block,
-      $.system_config,
-      $._prompt_config, // Prompt nudo (es. fine configurazione)
-      prec.dynamic(-5000, $.command),
-      $._newline
-    ),
-
-    ios_exec_segment: $ => prec.left(20, seq(
-      $._signal_ios_exec,
-      repeat1($._exec_statement)
-    )),
-
-    _exec_statement: $ => choice(
-      $.comment,
+    // Il segmento EXEC è l'unico guardiano dei comandi operativi
+    ios_exec_segment: $ => seq(
       $._prompt_exec,
-      $._prompt_config,
-      $.show_command,
-      $.diagnostic_command,
-      prec.dynamic(-5000, $.command),
-      $._newline
+      $._command_tree // Qui inizia la ramificazione vera
     ),
 
-    comment: $ => token(prec(100, seq('!', /[^\n]*/, /\r?\n/))),
-
-    banner: $ => seq(
-      token(prec(10, /banner\s+\S+/)),
-      field('delimiter', $._banner_delimiter),
-      field('content', repeat($._banner_content)),
-      $._banner_delimiter,
-      $._newline
+    ios_config_segment: $ => seq(
+      $._prompt_config_ext,
+      field('execution', choice($.command, $._newline)),
+      optional(choice(
+        seq($._output_start, field('output', $.output_content), $._output_end),
+        $._output_none
+      ))
     ),
 
-    _banner_content: $ => /[^ \t\n\r\^#%&*]+|[ \t\n\r]|\^[A-BDE-Z0-9]/,
-    _banner_delimiter: $ => /[\^]C|[#%^&*]|\^/,
+    // --- AGGREGATORI DI OUTPUT (Usati dalle foglie dell'albero) ---
 
-    command: $ => seq(
-      repeat1(choice($.word, $.number, $.punctuation, $.ipv4_address, $.interface_name)),
-      $._newline
+    ping_output: $ => repeat1(seq($._output_continue, choice($.ping_stream_line, $.ping_summary), $._newline)),
+
+    ip_int_brief_output: $ => seq(
+        seq($._output_continue, $.ip_int_brief_header, $._newline),
+        repeat1(seq($._output_continue, $.ip_int_brief_entry, $._newline))
     ),
 
+    version_output: $ => repeat1(seq($._output_continue, choice($.version_uptime_line, $.version_software_line, $.version_serial_line), $._newline)),
+
+    inventory_output: $ => repeat1(seq($._output_continue, choice($.inventory_name_line, $.inventory_pid_line), $._newline)),
+
+    interface_status_output: $ => seq(
+        seq($._output_continue, $.interface_status_header, $._newline),
+        repeat1(seq($._output_continue, $.interface_status_entry, $._newline))
+    ),
+
+    dir_output: $ => prec(1000, seq(
+        seq(optional($._output_continue), $.dir_header, $._newline),
+        repeat1(seq(optional($._output_continue), $.dir_entry, $._newline)),
+        seq(optional($._output_continue), $.dir_summary, $._newline)
+    )),
+
+    traceroute_output: $ => repeat1(seq($._output_continue, $.traceroute_hop_line, $._newline)),
+
+    diagnostic_output: $ => repeat1(seq($._output_continue, choice(prec(500, $.configuration_line), prec(1, $.generic_output_line)), $._newline)),
+
+    _output_content: $ => repeat1(seq($._output_continue, $.generic_output_line, $._newline)),
+
+    comment: $ => seq(token(seq('!', /[^\r\n]*/)), $._newline),
+
+    generic_output_line: $ => token(prec(10, /[^\r\n]+/)),
+    _newline: $ => choice('\n', '\r\n', $._newline_ext),
+
+    ...primitives,
     ...common,
-    ...config,
-    ...operational
+    ...operational,
   }
 });

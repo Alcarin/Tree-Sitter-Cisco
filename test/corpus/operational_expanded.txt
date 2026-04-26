@@ -1,185 +1,129 @@
 ==============================
-Show Version
+OP: Show Version Granular
 ==============================
-show version
-Cisco IOS Software, C1900 Software (C1900-UNIVERSALK9-M), Version 15.1(4)M4, RELEASE SOFTWARE (fc1)
-System image file is "flash:c1900-universalk9-mz.SPA.151-4.M4.bin"
-router uptime is 1 year, 2 weeks, 3 days, 4 hours, 5 minutes
-Cisco C1941 (revision 1.0) with 491520K/32768K bytes of memory.
-Processor board ID FTX12345678
-Configuration register is 0x2102
+R1# show version
+Cisco IOS Software, Version 15.1
+uptime is 1 week, 2 days, 3 hours, 45 minutes
+R1#
 
 ---
 
 (source_file
-  (show_command
-    (show_version_block
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line))))
+  (ios_exec_segment
+    (show_command
+      (kw_show)
+      (show_version_command
+        execution: (kw_version)
+        output: (version_output
+          (version_software_line
+            (word)
+            version: (word))
+          (version_uptime_line
+            uptime: (text))))))
+  (ios_exec_segment
+    (generic_exec_command)))
 
 ==============================
-Show Inventory
+OP: Show Inventory Granular
 ==============================
-show inventory
-NAME: "Chassis", DESCR: "Cisco 1941 Chassis"
-PID: C1941-K9, VID: V01, SN: FTX12345678
+R1# show inventory
+NAME: "Chassis", DESCR: "Cisco ISR 4331 Chassis"
+PID: ISR4331/K9, VID: V01, SN: FOC12345678
+R1#
 
 ---
 
 (source_file
-  (show_command
-    (show_inventory_block
-      (unknown_line)
-      (unknown_line))))
+  (ios_exec_segment
+    (show_command
+      (kw_show)
+      (show_inventory_command
+        execution: (kw_inventory)
+        output: (inventory_output
+          (inventory_name_line
+            name: (text)
+            descr: (text))
+          (inventory_pid_line
+            pid: (word)
+            vid: (word)
+            sn: (word))))))
+  (ios_exec_segment
+    (generic_exec_command)))
 
 ==============================
-Show IP Interface Brief
+Show IP Interface Brief Granular
 ==============================
-show ip interface brief
-Interface              IP-Address      OK? Method Status                Protocol
-GigabitEthernet0/0     192.168.1.1     YES NVRAM  up                    up
-GigabitEthernet0/1     unassigned      YES NVRAM  administratively down down
+R1# show ip int brief
+Interface              IP-Address      OK?  Method  Status                Protocol
+GigabitEthernet0/1     192.168.1.1     YES  manual  up                    up
+Loopback0              10.1.1.1        YES  manual  up                    up
+Vlan100                unassigned      YES  unset   administratively down  down
+R1#
 
 ---
 
 (source_file
-  (show_command
-    (show_ip_int_brief_block
-      (unknown_line)
-      (unknown_line)
-      (unknown_line))))
+  (ios_exec_segment
+    (show_command
+      (kw_show)
+      (show_ip_command
+        (kw_ip)
+        (show_ip_interface_command
+          (kw_interface)
+          (show_ip_interface_brief_command
+            execution: (kw_brief)
+            output: (ip_int_brief_output
+              (ip_int_brief_header)
+              (ip_int_brief_entry
+                interface: (interface_name)
+                address: (ipv4_address)
+                ok: (word)
+                method: (word)
+                status: (operational_status)
+                protocol: (operational_status))
+              (ip_int_brief_entry
+                interface: (interface_name)
+                address: (ipv4_address)
+                ok: (word)
+                method: (word)
+                status: (operational_status)
+                protocol: (operational_status))
+              (ip_int_brief_entry
+                interface: (interface_name)
+                address: (word)
+                ok: (word)
+                method: (word)
+                status: (operational_status)
+                protocol: (operational_status))))))))
+  (ios_exec_segment
+    (generic_exec_command)))
 
 ==============================
-Show Clock
+Show Interface Status Granular
 ==============================
-show clock
-*12:34:56.789 UTC Sun Apr 12 2026
+R1# show interfaces status
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/1     connected          10           full       1000    10/100/1000BaseTX
+R1#
 
 ---
 
 (source_file
-  (show_command
-    (show_clock_block
-      (clock_info
-        (word)
-        (word)
-        (word)
-        (word)
-        (number)
-        (number)))))
-
-==============================
-Show Environment
-==============================
-show environment
-Fan 1 is OK
-Temperature is 35C
-Power Supply: OK
-
----
-
-(source_file
-  (show_command
-    (show_environment_block
-      (unknown_line)
-      (unknown_line)
-      (unknown_line))))
-
-==============================
-Show CDP Neighbors
-==============================
-show cdp neighbors
-Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-R1               Gi0/0             125              R S I  2901      Gi0/1
-
----
-
-(source_file
-  (show_command
-    (show_cdp_neighbors_block
-      (unknown_line)
-      (unknown_line))))
-
-==============================
-Show MAC Address Table
-==============================
-show mac address-table
-Vlan    Mac Address       Type        Ports
-----    -----------       ----        -----
-  10    0011.2233.4455    DYNAMIC     Gi0/1
-
----
-
-(source_file
-  (show_command
-    (show_mac_address_table_block
-      (unknown_line)
-      (unknown_line))))
-
-==============================
-Show ARP
-==============================
-show arp
-Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  192.168.1.1             -   0011.2233.4455  ARPA   GigabitEthernet0/0
-
----
-
-(source_file
-  (show_command
-    (show_ip_arp_block
-      (unknown_line)
-      (unknown_line))))
-
-==============================
-Show IP Route
-==============================
-show ip route
-Codes: L - local, C - connected, S - static
-Gateway of last resort is 192.168.1.254 to network 0.0.0.0
-C 192.168.1.0/24 is directly connected, GigabitEthernet0/0
-S 0.0.0.0/0 [1/0] via 192.168.1.254
-
----
-
-(source_file
-  (show_command
-    (show_ip_route_block
-      (unknown_line)
-      (unknown_line)
-      (unknown_line)
-      (unknown_line))))
-
-==============================
-Show IP BGP Summary
-==============================
-show ip bgp summary
-Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
-10.0.0.1        4        65001     100     100       10    0    0 01:23:45 5
-
----
-
-(source_file
-  (show_command
-    (show_ip_bgp_summary_block
-      (unknown_line)
-      (unknown_line))))
-
-==============================
-Show IP OSPF Neighbor
-==============================
-show ip ospf neighbor
-Neighbor ID     Pri   State           Dead Time   Address         Interface
-1.1.1.1           1   FULL/DR         00:00:35    192.168.1.1     GigabitEthernet0/0
-
----
-
-(source_file
-  (show_command
-    (show_ip_ospf_neighbor_block
-      (unknown_line)
-      (unknown_line))))
+  (ios_exec_segment
+    (show_command
+      (kw_show)
+      (show_interface_command
+        (kw_interface)
+        (show_interface_status_command
+          execution: (kw_status)
+          output: (interface_status_output
+            (interface_status_header)
+            (interface_status_entry
+              port: (interface_name)
+              status: (word)
+              vlan: (word)
+              duplex: (word)
+              speed: (word)
+              type: (generic_output_line)))))))
+  (ios_exec_segment
+    (generic_exec_command)))

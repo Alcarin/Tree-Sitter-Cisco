@@ -1,0 +1,27 @@
+{
+  "name": "tree-sitter-cisco-ios-xe-config",
+  "version": "1.0.0",
+  "description": "Cisco IOS-XE Deep Configuration Parser",
+  "main": "bindings/node",
+  "types": "bindings/node",
+  "scripts": {
+    "test": "node ../scripts/safe-run.js tree-sitter test",
+    "build": "node ../scripts/safe-run.js tree-sitter generate"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.cisco_config",
+      "file-types": [
+        "cfg",
+        "config"
+      ],
+      "injection-regex": "cisco_config"
+    }
+  ],
+  "dependencies": {
+    "nan": "^2.18.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.8"
+  }
+}

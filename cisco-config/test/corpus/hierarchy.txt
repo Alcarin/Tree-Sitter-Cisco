@@ -1,0 +1,17 @@
+==============================
+CFG: Banner with delimiters
+==============================
+banner motd ^C
+ This is a multi-line
+ banner content
+^C
+!
+
+---
+
+(config_file
+  (unknown_line)
+  (unknown_line)
+  (unknown_line)
+  (unknown_line)
+  (unknown_line))

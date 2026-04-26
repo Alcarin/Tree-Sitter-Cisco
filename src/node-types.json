@@ -1,840 +1,34 @@
 [
   {
-    "type": "acl_action",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "acl_block",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "acl_rule",
-          "named": true
-        },
-        {
-          "type": "command",
-          "named": true
-        },
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "acl_rule",
-    "named": true,
-    "fields": {
-      "action": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "acl_action",
-            "named": true
-          }
-        ]
-      },
-      "destination_any": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "any",
-            "named": false
-          }
-        ]
-      },
-      "destination_host": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "destination_network": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "destination_wildcard": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "source_any": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "any",
-            "named": false
-          }
-        ]
-      },
-      "source_host": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "source_network": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "source_wildcard": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "word",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "arp_entry",
-    "named": true,
-    "fields": {
-      "age": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "interface": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          }
-        ]
-      },
-      "ip_address": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "mac_address": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "mac_address",
-            "named": true
-          }
-        ]
-      },
-      "protocol": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "arp_header",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "banner",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "bgp_block",
-    "named": true,
-    "fields": {
-      "as_number": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "command",
-          "named": true
-        },
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "bgp_neighbor_summary_line",
-    "named": true,
-    "fields": {
-      "local_as": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "neighbor": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          },
-          {
-            "type": "ipv6_address",
-            "named": true
-          }
-        ]
-      },
-      "remote_as": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "bgp_summary_entry",
-    "named": true,
-    "fields": {
-      "as": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "in_q": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "msg_rcvd": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "msg_sent": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "neighbor": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          },
-          {
-            "type": "ipv6_address",
-            "named": true
-          }
-        ]
-      },
-      "out_q": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "state_prefix": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "tbl_ver": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "up_down": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "version": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "bgp_summary_header",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "broadcast_counters",
-    "named": true,
-    "fields": {
-      "broadcasts": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "extra_type": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "extra_val": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "cdp_header",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "cdp_neighbor_entry",
-    "named": true,
-    "fields": {
-      "capabilities": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "text",
-            "named": true
-          }
-        ]
-      },
-      "holdtime": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "local_interface": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          }
-        ]
-      },
-      "neighbor_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "platform": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "remote_interface": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "clock_info",
-    "named": true,
-    "fields": {
-      "day": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "day_of_month": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "month": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "time": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "timezone": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "year": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "command",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "interface_name",
-          "named": true
-        },
-        {
-          "type": "ipv4_address",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "punctuation",
-          "named": true
-        },
-        {
-          "type": "word",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "config_register",
-    "named": true,
-    "fields": {
-      "register": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "crypto_ident_line",
-    "named": true,
-    "fields": {
-      "address": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "mask": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "port": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "protocol": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "crypto_ipsec_sa_entry",
-    "named": true,
-    "fields": {
-      "interface": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          },
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "crypto_ident_line",
-          "named": true
-        },
-        {
-          "type": "crypto_map_line",
-          "named": true
-        },
-        {
-          "type": "crypto_peer_line",
-          "named": true
-        },
-        {
-          "type": "crypto_pkts_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "crypto_map_line",
-    "named": true,
-    "fields": {
-      "local_addr": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "seq": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "tag": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "crypto_peer_line",
-    "named": true,
-    "fields": {
-      "peer": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "port": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "crypto_pkts_line",
-    "named": true,
-    "fields": {
-      "decaps": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "encaps": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "punctuation",
-          "named": true
-        },
-        {
-          "type": "word",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "description_config",
     "named": true,
     "fields": {
       "text": {
-        "multiple": true,
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "generic_output_line",
+            "named": true
+          }
+        ]
+      },
+      "trigger": {
+        "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "interface_name",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "punctuation",
+            "named": true
+          },
           {
             "type": "word",
             "named": true
@@ -844,7 +38,12 @@
     }
   },
   {
-    "type": "diagnostic_command",
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "configuration_line",
     "named": true,
     "fields": {},
     "children": {
@@ -852,29 +51,86 @@
       "required": true,
       "types": [
         {
-          "type": "dir_block",
-          "named": true
-        },
-        {
-          "type": "ping_block",
-          "named": true
-        },
-        {
-          "type": "terminal_command",
-          "named": true
-        },
-        {
-          "type": "traceroute_block",
+          "type": "generic_output_line",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "dir_block",
+    "type": "configure_terminal_command",
     "named": true,
     "fields": {
-      "filesystem": {
+      "execution": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "kw_configure",
+            "named": true
+          },
+          {
+            "type": "kw_terminal",
+            "named": true
+          }
+        ]
+      },
+      "output": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "diagnostic_output",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "diagnostic_output",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "configuration_line",
+          "named": true
+        },
+        {
+          "type": "generic_output_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dir_command",
+    "named": true,
+    "fields": {
+      "execution": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "kw_dir",
+            "named": true
+          }
+        ]
+      },
+      "output": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dir_output",
+            "named": true
+          }
+        ]
+      },
+      "path": {
         "multiple": false,
         "required": false,
         "types": [
@@ -884,46 +140,18 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "dir_entry",
-          "named": true
-        },
-        {
-          "type": "dir_header",
-          "named": true
-        },
-        {
-          "type": "dir_summary",
-          "named": true
-        }
-      ]
     }
   },
   {
     "type": "dir_entry",
     "named": true,
     "fields": {
-      "date_time": {
+      "file_info": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "text",
-            "named": true
-          }
-        ]
-      },
-      "file_name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
             "named": true
           }
         ]
@@ -969,11 +197,34 @@
         "required": true,
         "types": [
           {
-            "type": "word",
+            "type": "text",
             "named": true
           }
         ]
       }
+    }
+  },
+  {
+    "type": "dir_output",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "dir_entry",
+          "named": true
+        },
+        {
+          "type": "dir_header",
+          "named": true
+        },
+        {
+          "type": "dir_summary",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -982,7 +233,7 @@
     "fields": {
       "total_free": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "number",
@@ -1003,140 +254,59 @@
     }
   },
   {
-    "type": "environment_info",
+    "type": "generic_exec_command",
     "named": true,
     "fields": {
-      "sensor": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "text",
-            "named": true
-          }
-        ]
-      },
-      "state": {
+      "execution": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "text",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "etherchannel_entry",
-    "named": true,
-    "fields": {
-      "bundle_name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
+            "type": "\n",
+            "named": false
           },
           {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "bundle_protocol": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "bundle_status": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "group": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "member_interface": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
+            "type": "\r\n",
+            "named": false
           },
           {
-            "type": "word",
+            "type": "command",
             "named": true
           }
         ]
       },
-      "member_status": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "etherchannel_header",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "failover_line",
-    "named": true,
-    "fields": {
-      "role": {
+      "output": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "word",
+            "type": "diagnostic_output",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "generic_show_command",
+    "named": true,
+    "fields": {
+      "execution": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "generic_output_line",
             "named": true
           }
         ]
       },
-      "status": {
+      "output": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "word",
+            "type": "diagnostic_output",
             "named": true
           }
         ]
@@ -1144,524 +314,25 @@
     }
   },
   {
-    "type": "fex_entry",
+    "type": "generic_show_ip_command",
     "named": true,
     "fields": {
-      "description": {
+      "execution": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "word",
+            "type": "generic_output_line",
             "named": true
           }
         ]
       },
-      "fex_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "model": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "serial": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "state": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "hardware_info",
-    "named": true,
-    "fields": {
-      "hardware": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "text",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "ikev1_sa_entry",
-    "named": true,
-    "fields": {
-      "connection_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "ip_address": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "state": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "ikev1_sa_header",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "input_counters",
-    "named": true,
-    "fields": {
-      "bytes": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "no_buffer": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "packets": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "input_errors",
-    "named": true,
-    "fields": {
-      "errors": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "val": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "input_rate_line",
-    "named": true,
-    "fields": {
-      "interval": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "text",
-            "named": true
-          }
-        ]
-      },
-      "rate_bits": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "rate_pkts": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "interface_arp_info",
-    "named": true,
-    "fields": {
-      "arp_timeout": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "arp_type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "interface_block",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "command",
-          "named": true
-        },
-        {
-          "type": "comment",
-          "named": true
-        },
-        {
-          "type": "description_config",
-          "named": true
-        },
-        {
-          "type": "interface_standby",
-          "named": true
-        },
-        {
-          "type": "ip_address_config",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "interface_encaps_line",
-    "named": true,
-    "fields": {
-      "encapsulation": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "interface_l3_info",
-    "named": true,
-    "fields": {
-      "ip_address": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "subnet_mask": {
+      "output": {
         "multiple": false,
         "required": false,
         "types": [
           {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "interface_metrics_line",
-    "named": true,
-    "fields": {
-      "bw": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "delay": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "mtu": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "reliability": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "txload": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "interface_queues_line",
-    "named": true,
-    "fields": {
-      "in_drops": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "in_queue_max": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "in_queue_size": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "out_drops": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "out_queue_max": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "out_queue_size": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "interface_standby",
-    "named": true,
-    "fields": {
-      "group": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "ip": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "priority": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "interface_status_detail",
-    "named": true,
-    "fields": {
-      "interface": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          }
-        ]
-      },
-      "protocol": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "operational_status",
-            "named": true
-          }
-        ]
-      },
-      "status": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "operational_status",
+            "type": "diagnostic_output",
             "named": true
           }
         ]
@@ -1682,22 +353,22 @@
           }
         ]
       },
-      "interface": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      },
+      "port": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "interface_name",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "interface_name_label",
             "named": true
           }
         ]
@@ -1717,7 +388,7 @@
         "required": true,
         "types": [
           {
-            "type": "interface_status_val",
+            "type": "word",
             "named": true
           }
         ]
@@ -1727,7 +398,7 @@
         "required": true,
         "types": [
           {
-            "type": "text",
+            "type": "generic_output_line",
             "named": true
           }
         ]
@@ -1737,7 +408,7 @@
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "word",
             "named": true
           }
         ]
@@ -1745,20 +416,19 @@
     }
   },
   {
-    "type": "interface_status_header",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "interface_timestamp_line",
+    "type": "interface_status_output",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "text",
+          "type": "interface_status_entry",
+          "named": true
+        },
+        {
+          "type": "interface_status_header",
           "named": true
         }
       ]
@@ -1768,14 +438,10 @@
     "type": "inventory_name_line",
     "named": true,
     "fields": {
-      "description": {
+      "descr": {
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "string",
-            "named": true
-          },
           {
             "type": "text",
             "named": true
@@ -1787,15 +453,30 @@
         "required": true,
         "types": [
           {
-            "type": "string",
-            "named": true
-          },
-          {
             "type": "text",
             "named": true
           }
         ]
       }
+    }
+  },
+  {
+    "type": "inventory_output",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "inventory_name_line",
+          "named": true
+        },
+        {
+          "type": "inventory_pid_line",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1837,56 +518,35 @@
   {
     "type": "ios_config_segment",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "acl_block",
-          "named": true
-        },
-        {
-          "type": "banner",
-          "named": true
-        },
-        {
-          "type": "bgp_block",
-          "named": true
-        },
-        {
-          "type": "command",
-          "named": true
-        },
-        {
-          "type": "comment",
-          "named": true
-        },
-        {
-          "type": "interface_block",
-          "named": true
-        },
-        {
-          "type": "line_block",
-          "named": true
-        },
-        {
-          "type": "ospf_block",
-          "named": true
-        },
-        {
-          "type": "qos_block",
-          "named": true
-        },
-        {
-          "type": "system_config",
-          "named": true
-        },
-        {
-          "type": "vlan_block",
-          "named": true
-        }
-      ]
+    "fields": {
+      "execution": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "\n",
+            "named": false
+          },
+          {
+            "type": "\r\n",
+            "named": false
+          },
+          {
+            "type": "command",
+            "named": true
+          }
+        ]
+      },
+      "output": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "output_content",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1894,30 +554,38 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "command",
+          "type": "configure_terminal_command",
           "named": true
         },
         {
-          "type": "comment",
+          "type": "dir_command",
           "named": true
         },
         {
-          "type": "diagnostic_command",
+          "type": "generic_exec_command",
+          "named": true
+        },
+        {
+          "type": "ping_command",
           "named": true
         },
         {
           "type": "show_command",
+          "named": true
+        },
+        {
+          "type": "traceroute_command",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "ip_address_config",
+    "type": "ip_int_brief_entry",
     "named": true,
     "fields": {
       "address": {
@@ -1927,61 +595,19 @@
           {
             "type": "ipv4_address",
             "named": true
-          }
-        ]
-      },
-      "mask": {
-        "multiple": false,
-        "required": true,
-        "types": [
+          },
           {
-            "type": "ipv4_address",
+            "type": "word",
             "named": true
           }
         ]
       },
-      "secondary": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "secondary",
-            "named": false
-          }
-        ]
-      },
-      "standby": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "ip_int_brief_entry",
-    "named": true,
-    "fields": {
       "interface": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "interface_name",
-            "named": true
-          }
-        ]
-      },
-      "ip_address": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
             "named": true
           }
         ]
@@ -2029,155 +655,22 @@
     }
   },
   {
-    "type": "ip_int_brief_header",
+    "type": "ip_int_brief_output",
     "named": true,
-    "fields": {}
-  },
-  {
-    "type": "line_block",
-    "named": true,
-    "fields": {
-      "end": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "start": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "command",
+          "type": "ip_int_brief_entry",
           "named": true
         },
         {
-          "type": "comment",
+          "type": "ip_int_brief_header",
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "mac_entry",
-    "named": true,
-    "fields": {
-      "mac_address": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "mac_address",
-            "named": true
-          }
-        ]
-      },
-      "port": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "vlan": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "mac_table_header",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "mpls_ldp_neighbor_line",
-    "named": true,
-    "fields": {
-      "label_space": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "local_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "local_label_space": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "peer_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -2185,7 +678,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
@@ -2196,226 +689,7 @@
     }
   },
   {
-    "type": "ospf_block",
-    "named": true,
-    "fields": {
-      "process_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "vrf": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "command",
-          "named": true
-        },
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "ospf_neighbor_entry",
-    "named": true,
-    "fields": {
-      "address": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "dead_time": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "interface": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          }
-        ]
-      },
-      "neighbor_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "priority": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "state": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "ospf_neighbor_header",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "output_counters",
-    "named": true,
-    "fields": {
-      "bytes": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "packets": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "underruns": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "output_errors",
-    "named": true,
-    "fields": {
-      "errors": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "val": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "output_rate_line",
-    "named": true,
-    "fields": {
-      "interval": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "text",
-            "named": true
-          }
-        ]
-      },
-      "rate_bits": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "rate_pkts": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "ping_block",
+    "type": "ping_command",
     "named": true,
     "fields": {
       "destination": {
@@ -2425,97 +699,57 @@
           {
             "type": "ipv4_address",
             "named": true
-          },
+          }
+        ]
+      },
+      "execution": {
+        "multiple": false,
+        "required": true,
+        "types": [
           {
-            "type": "ipv6_address",
-            "named": true
-          },
-          {
-            "type": "word",
+            "type": "kw_ping",
             "named": true
           }
         ]
       },
-      "repeat": {
+      "output": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "size": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "source": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          },
-          {
-            "type": "ipv4_address",
-            "named": true
-          },
-          {
-            "type": "ipv6_address",
-            "named": true
-          },
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "timeout": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "vrf": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "word",
+            "type": "ping_output",
             "named": true
           }
         ]
       }
-    },
+    }
+  },
+  {
+    "type": "ping_output",
+    "named": true,
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "ping_stats_line",
+          "type": "ping_stream_line",
           "named": true
         },
         {
-          "type": "ping_stream_line",
+          "type": "ping_summary",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "ping_stats_line",
+    "type": "ping_stream_line",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "ping_summary",
     "named": true,
     "fields": {
       "rtt_avg": {
@@ -2581,440 +815,119 @@
     }
   },
   {
-    "type": "ping_stream_line",
-    "named": true,
-    "fields": {
-      "response_stream": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "processor_info",
-    "named": true,
-    "fields": {
-      "serial": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "qos_block",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "command",
-          "named": true
-        },
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "routing_entry",
-    "named": true,
-    "fields": {
-      "distance": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "metric": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "network": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "nexthop_if": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          }
-        ]
-      },
-      "nexthop_ip": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "prefix": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "protocol": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "show_bgp_neighbors_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "bgp_neighbor_summary_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_cdp_neighbors_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "cdp_header",
-          "named": true
-        },
-        {
-          "type": "cdp_neighbor_entry",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_clock_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "clock_info",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "show_command",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "show_bgp_neighbors_block",
+          "type": "generic_show_command",
           "named": true
         },
         {
-          "type": "show_cdp_neighbors_block",
+          "type": "kw_show",
           "named": true
         },
         {
-          "type": "show_clock_block",
+          "type": "show_interface_command",
           "named": true
         },
         {
-          "type": "show_crypto_ikev1_sa_block",
+          "type": "show_inventory_command",
           "named": true
         },
         {
-          "type": "show_crypto_ipsec_sa_block",
+          "type": "show_ip_command",
           "named": true
         },
         {
-          "type": "show_environment_block",
+          "type": "show_running_config_command",
           "named": true
         },
         {
-          "type": "show_etherchannel_summary_block",
-          "named": true
-        },
-        {
-          "type": "show_failover_block",
-          "named": true
-        },
-        {
-          "type": "show_fex_block",
-          "named": true
-        },
-        {
-          "type": "show_interface_status_block",
-          "named": true
-        },
-        {
-          "type": "show_interfaces_block",
-          "named": true
-        },
-        {
-          "type": "show_inventory_block",
-          "named": true
-        },
-        {
-          "type": "show_ip_arp_block",
-          "named": true
-        },
-        {
-          "type": "show_ip_bgp_summary_block",
-          "named": true
-        },
-        {
-          "type": "show_ip_int_brief_block",
-          "named": true
-        },
-        {
-          "type": "show_ip_interface_block",
-          "named": true
-        },
-        {
-          "type": "show_ip_ospf_neighbor_block",
-          "named": true
-        },
-        {
-          "type": "show_ip_route_block",
-          "named": true
-        },
-        {
-          "type": "show_mac_address_table_block",
-          "named": true
-        },
-        {
-          "type": "show_mpls_ldp_neighbor_block",
-          "named": true
-        },
-        {
-          "type": "show_spanning_tree_block",
-          "named": true
-        },
-        {
-          "type": "show_standby_block",
-          "named": true
-        },
-        {
-          "type": "show_version_block",
-          "named": true
-        },
-        {
-          "type": "show_vpc_block",
-          "named": true
-        },
-        {
-          "type": "show_vpn_sessiondb_block",
+          "type": "show_version_command",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "show_crypto_ikev1_sa_block",
+    "type": "show_interface_command",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "ikev1_sa_entry",
+          "type": "kw_interface",
           "named": true
         },
         {
-          "type": "ikev1_sa_header",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_crypto_ipsec_sa_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "crypto_ipsec_sa_entry",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_environment_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "environment_info",
+          "type": "show_interface_status_command",
           "named": true
         },
         {
-          "type": "unknown_line",
+          "type": "show_interfaces_stats_command",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "show_etherchannel_summary_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "etherchannel_entry",
-          "named": true
-        },
-        {
-          "type": "etherchannel_header",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_failover_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "failover_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_fex_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "fex_entry",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_interface_status_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "interface_status_entry",
-          "named": true
-        },
-        {
-          "type": "interface_status_header",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_interfaces_block",
+    "type": "show_interface_status_command",
     "named": true,
     "fields": {
+      "execution": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "generic_output_line",
+            "named": true
+          },
+          {
+            "type": "kw_status",
+            "named": true
+          },
+          {
+            "type": "|",
+            "named": false
+          }
+        ]
+      },
+      "output": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "interface_status_output",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "show_interfaces_stats_command",
+    "named": true,
+    "fields": {
+      "execution": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "generic_output_line",
+            "named": true
+          },
+          {
+            "type": "|",
+            "named": false
+          }
+        ]
+      },
       "interface": {
         "multiple": false,
         "required": false,
@@ -3024,422 +937,195 @@
             "named": true
           }
         ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "broadcast_counters",
-          "named": true
-        },
-        {
-          "type": "hardware_info",
-          "named": true
-        },
-        {
-          "type": "input_counters",
-          "named": true
-        },
-        {
-          "type": "input_errors",
-          "named": true
-        },
-        {
-          "type": "input_rate_line",
-          "named": true
-        },
-        {
-          "type": "interface_arp_info",
-          "named": true
-        },
-        {
-          "type": "interface_encaps_line",
-          "named": true
-        },
-        {
-          "type": "interface_l3_info",
-          "named": true
-        },
-        {
-          "type": "interface_metrics_line",
-          "named": true
-        },
-        {
-          "type": "interface_queues_line",
-          "named": true
-        },
-        {
-          "type": "interface_status_detail",
-          "named": true
-        },
-        {
-          "type": "interface_timestamp_line",
-          "named": true
-        },
-        {
-          "type": "output_counters",
-          "named": true
-        },
-        {
-          "type": "output_errors",
-          "named": true
-        },
-        {
-          "type": "output_rate_line",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_inventory_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "inventory_name_line",
-          "named": true
-        },
-        {
-          "type": "inventory_pid_line",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_ip_arp_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "arp_entry",
-          "named": true
-        },
-        {
-          "type": "arp_header",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_ip_bgp_summary_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "bgp_summary_entry",
-          "named": true
-        },
-        {
-          "type": "bgp_summary_header",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_ip_int_brief_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "ip_int_brief_entry",
-          "named": true
-        },
-        {
-          "type": "ip_int_brief_header",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_ip_interface_block",
-    "named": true,
-    "fields": {
-      "interface": {
+      },
+      "output": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "interface_name",
+            "type": "output_content",
             "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "interface_status_entry",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        }
-      ]
     }
   },
   {
-    "type": "show_ip_ospf_neighbor_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "ospf_neighbor_entry",
-          "named": true
-        },
-        {
-          "type": "ospf_neighbor_header",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_ip_route_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "routing_entry",
-          "named": true
-        },
-        {
-          "type": "subnet_header",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        },
-        {
-          "type": "word",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_mac_address_table_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "mac_entry",
-          "named": true
-        },
-        {
-          "type": "mac_table_header",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_mpls_ldp_neighbor_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "mpls_ldp_neighbor_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_spanning_tree_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "spanning_tree_entry",
-          "named": true
-        },
-        {
-          "type": "spanning_tree_vlan_header",
-          "named": true
-        },
-        {
-          "type": "word",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_standby_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "standby_entry",
-          "named": true
-        },
-        {
-          "type": "standby_header",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_version_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "config_register",
-          "named": true
-        },
-        {
-          "type": "hardware_info",
-          "named": true
-        },
-        {
-          "type": "processor_info",
-          "named": true
-        },
-        {
-          "type": "software_info",
-          "named": true
-        },
-        {
-          "type": "system_image",
-          "named": true
-        },
-        {
-          "type": "unknown_line",
-          "named": true
-        },
-        {
-          "type": "uptime_info",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_vpc_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "vpc_entry",
-          "named": true
-        },
-        {
-          "type": "vpc_summary_line",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "show_vpn_sessiondb_block",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "vpn_session_entry",
-          "named": true
-        },
-        {
-          "type": "vpn_session_summary",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "software_info",
+    "type": "show_inventory_command",
     "named": true,
     "fields": {
-      "version": {
+      "execution": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "generic_output_line",
+            "named": true
+          },
+          {
+            "type": "kw_inventory",
+            "named": true
+          },
+          {
+            "type": "|",
+            "named": false
+          }
+        ]
+      },
+      "output": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "text",
+            "type": "inventory_output",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "show_ip_command",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "generic_show_ip_command",
+          "named": true
+        },
+        {
+          "type": "kw_ip",
+          "named": true
+        },
+        {
+          "type": "show_ip_interface_command",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_ip_interface_brief_command",
+    "named": true,
+    "fields": {
+      "execution": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "generic_output_line",
+            "named": true
+          },
+          {
+            "type": "kw_brief",
+            "named": true
+          },
+          {
+            "type": "|",
+            "named": false
+          }
+        ]
+      },
+      "output": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ip_int_brief_output",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "show_ip_interface_command",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "kw_interface",
+          "named": true
+        },
+        {
+          "type": "show_interfaces_stats_command",
+          "named": true
+        },
+        {
+          "type": "show_ip_interface_brief_command",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "show_running_config_command",
+    "named": true,
+    "fields": {
+      "execution": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "generic_output_line",
+            "named": true
+          },
+          {
+            "type": "kw_run",
+            "named": true
+          },
+          {
+            "type": "|",
+            "named": false
+          }
+        ]
+      },
+      "output": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "output_content",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "show_version_command",
+    "named": true,
+    "fields": {
+      "execution": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "generic_output_line",
+            "named": true
+          },
+          {
+            "type": "kw_version",
+            "named": true
+          },
+          {
+            "type": "|",
+            "named": false
+          }
+        ]
+      },
+      "output": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "version_output",
             "named": true
           }
         ]
@@ -3456,6 +1142,10 @@
       "required": false,
       "types": [
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "ios_config_segment",
           "named": true
         },
@@ -3467,393 +1157,12 @@
     }
   },
   {
-    "type": "spanning_tree_entry",
-    "named": true,
-    "fields": {
-      "cost": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "interface": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          },
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "port_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "port_priority": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "role": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "status": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "spanning_tree_vlan_header",
-    "named": true,
-    "fields": {
-      "vlan_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "standby_entry",
-    "named": true,
-    "fields": {
-      "active_router": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          },
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "group": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "interface": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          },
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "preempt": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "priority": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "standby_router": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          },
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "state": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "virtual_ip": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "standby_header",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "static_route",
-    "named": true,
-    "fields": {
-      "destination": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "distance": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "mask": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "next_hop": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          },
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "vrf": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "subnet_header",
-    "named": true,
-    "fields": {
-      "network": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "prefix": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "text",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "system_config",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "static_route",
-          "named": true
-        },
-        {
-          "type": "username_config",
-          "named": true
-        },
-        {
-          "type": "vrf_definition",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "system_image",
-    "named": true,
-    "fields": {
-      "image_file": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "string",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "terminal_command",
-    "named": true,
-    "fields": {
-      "length": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "width": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "text",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "interface_name",
@@ -3887,7 +1196,7 @@
     }
   },
   {
-    "type": "traceroute_block",
+    "type": "traceroute_command",
     "named": true,
     "fields": {
       "destination": {
@@ -3899,25 +1208,31 @@
             "named": true
           },
           {
-            "type": "ipv6_address",
-            "named": true
-          },
-          {
             "type": "word",
             "named": true
           }
         ]
+      },
+      "execution": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "kw_traceroute",
+            "named": true
+          }
+        ]
+      },
+      "output": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "traceroute_output",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "traceroute_hop_line",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -3926,14 +1241,10 @@
     "fields": {
       "hop_address": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "ipv4_address",
-            "named": true
-          },
-          {
-            "type": "ipv6_address",
             "named": true
           },
           {
@@ -3954,10 +1265,20 @@
       },
       "rtt": {
         "multiple": true,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "timeout": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "punctuation",
             "named": true
           }
         ]
@@ -3965,7 +1286,7 @@
     }
   },
   {
-    "type": "uptime",
+    "type": "traceroute_output",
     "named": true,
     "fields": {},
     "children": {
@@ -3973,14 +1294,97 @@
       "required": true,
       "types": [
         {
-          "type": "number",
+          "type": "traceroute_hop_line",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "uptime_info",
+    "type": "version_output",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "version_serial_line",
+          "named": true
+        },
+        {
+          "type": "version_software_line",
+          "named": true
+        },
+        {
+          "type": "version_uptime_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "version_serial_line",
+    "named": true,
+    "fields": {
+      "serial": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "generic_output_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "version_software_line",
+    "named": true,
+    "fields": {
+      "version": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "generic_output_line",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "version_uptime_line",
     "named": true,
     "fields": {
       "hostname": {
@@ -3998,7 +1402,7 @@
         "required": true,
         "types": [
           {
-            "type": "uptime",
+            "type": "text",
             "named": true
           }
         ]
@@ -4006,214 +1410,12 @@
     }
   },
   {
-    "type": "username_config",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "password": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "number",
-          "named": true
-        }
-      ]
-    }
+    "type": "\n",
+    "named": false
   },
   {
-    "type": "vlan_block",
-    "named": true,
-    "fields": {
-      "id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "command",
-          "named": true
-        },
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "vpc_entry",
-    "named": true,
-    "fields": {
-      "consistency": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "port": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interface_name",
-            "named": true
-          },
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "status": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      },
-      "vpc_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "vpc_summary_line",
-    "named": true,
-    "fields": {
-      "domain_id": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "vpn_session_entry",
-    "named": true,
-    "fields": {
-      "index": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "public_ip": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "ipv4_address",
-            "named": true
-          }
-        ]
-      },
-      "username": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "vpn_session_summary",
-    "named": true,
-    "fields": {
-      "total": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "vrf_definition",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "word",
-            "named": true
-          }
-        ]
-      }
-    }
+    "type": "\r\n",
+    "named": false
   },
   {
     "type": "(",
@@ -4224,19 +1426,7 @@
     "named": false
   },
   {
-    "type": "):",
-    "named": false
-  },
-  {
-    "type": "*",
-    "named": false
-  },
-  {
     "type": ",",
-    "named": false
-  },
-  {
-    "type": ".",
     "named": false
   },
   {
@@ -4244,148 +1434,84 @@
     "named": false
   },
   {
-    "type": ":",
-    "named": false
-  },
-  {
-    "type": ";",
-    "named": false
-  },
-  {
     "type": "=",
     "named": false
   },
   {
-    "type": "BGP",
+    "type": "Cisco",
     "named": false
   },
   {
-    "type": "Description",
+    "type": "DESCR:",
     "named": false
   },
   {
-    "type": "Hostname",
+    "type": "Directory",
     "named": false
   },
   {
-    "type": "IP",
+    "type": "ID",
     "named": false
   },
   {
-    "type": "Int",
+    "type": "NAME:",
     "named": false
   },
   {
-    "type": "Interface",
+    "type": "PID:",
     "named": false
   },
   {
-    "type": "Line",
+    "type": "Processor",
     "named": false
   },
   {
-    "type": "OSPF",
+    "type": "SN:",
     "named": false
   },
   {
-    "type": "Router",
+    "type": "VID:",
     "named": false
   },
   {
-    "type": "Username",
+    "type": "Version",
     "named": false
   },
   {
-    "type": "VLAN",
+    "type": "board",
     "named": false
   },
   {
-    "type": "Vlan",
+    "type": "bytes",
     "named": false
   },
   {
-    "type": "access-list",
+    "type": "deleted",
     "named": false
   },
   {
-    "type": "address",
+    "type": "down",
     "named": false
   },
   {
-    "type": "any",
+    "type": "free",
     "named": false
   },
   {
-    "type": "bgp",
-    "named": false
-  },
-  {
-    "type": "class-map",
-    "named": false
-  },
-  {
-    "type": "comment",
+    "type": "generic_output_line",
     "named": true
-  },
-  {
-    "type": "definition",
-    "named": false
-  },
-  {
-    "type": "den",
-    "named": false
-  },
-  {
-    "type": "deny",
-    "named": false
-  },
-  {
-    "type": "desc",
-    "named": false
-  },
-  {
-    "type": "description",
-    "named": false
-  },
-  {
-    "type": "extended",
-    "named": false
-  },
-  {
-    "type": "forwarding",
-    "named": false
-  },
-  {
-    "type": "host",
-    "named": false
-  },
-  {
-    "type": "hostname",
-    "named": false
-  },
-  {
-    "type": "int",
-    "named": false
-  },
-  {
-    "type": "interface",
-    "named": false
   },
   {
     "type": "interface_name",
     "named": true
   },
   {
-    "type": "interface_name_label",
+    "type": "interface_status_header",
     "named": true
   },
   {
-    "type": "interface_status_val",
+    "type": "ip_int_brief_header",
     "named": true
-  },
-  {
-    "type": "ip",
-    "named": false
   },
   {
     "type": "ipv4_address",
@@ -4396,19 +1522,71 @@
     "named": true
   },
   {
-    "type": "line",
+    "type": "is",
     "named": false
+  },
+  {
+    "type": "kw_brief",
+    "named": true
+  },
+  {
+    "type": "kw_configure",
+    "named": true
+  },
+  {
+    "type": "kw_dir",
+    "named": true
+  },
+  {
+    "type": "kw_interface",
+    "named": true
+  },
+  {
+    "type": "kw_inventory",
+    "named": true
+  },
+  {
+    "type": "kw_ip",
+    "named": true
+  },
+  {
+    "type": "kw_ping",
+    "named": true
+  },
+  {
+    "type": "kw_run",
+    "named": true
+  },
+  {
+    "type": "kw_show",
+    "named": true
+  },
+  {
+    "type": "kw_status",
+    "named": true
+  },
+  {
+    "type": "kw_terminal",
+    "named": true
+  },
+  {
+    "type": "kw_traceroute",
+    "named": true
+  },
+  {
+    "type": "kw_version",
+    "named": true
   },
   {
     "type": "mac_address",
     "named": true
   },
   {
-    "type": "match-all",
+    "type": "min/avg/max",
     "named": false
   },
   {
-    "type": "match-any",
+    "type": "ms",
     "named": false
   },
   {
@@ -4416,91 +1594,43 @@
     "named": true
   },
   {
-    "type": "ospf",
+    "type": "of",
     "named": false
   },
   {
-    "type": "password",
-    "named": false
-  },
-  {
-    "type": "perm",
-    "named": false
-  },
-  {
-    "type": "permit",
-    "named": false
-  },
-  {
-    "type": "policy-map",
-    "named": false
-  },
-  {
-    "type": "preempt",
-    "named": false
-  },
-  {
-    "type": "priority",
-    "named": false
-  },
-  {
-    "type": "privilege",
-    "named": false
+    "type": "output_content",
+    "named": true
   },
   {
     "type": "punctuation",
     "named": true
   },
   {
-    "type": "route",
+    "type": "round-trip",
     "named": false
   },
   {
-    "type": "router",
+    "type": "total",
     "named": false
   },
   {
-    "type": "secondary",
+    "type": "unset",
     "named": false
   },
   {
-    "type": "secret",
+    "type": "up",
     "named": false
   },
   {
-    "type": "standard",
-    "named": false
-  },
-  {
-    "type": "standby",
-    "named": false
-  },
-  {
-    "type": "string",
-    "named": true
-  },
-  {
-    "type": "unknown_line",
-    "named": true
-  },
-  {
-    "type": "user",
-    "named": false
-  },
-  {
-    "type": "username",
-    "named": false
-  },
-  {
-    "type": "vlan",
-    "named": false
-  },
-  {
-    "type": "vrf",
+    "type": "uptime",
     "named": false
   },
   {
     "type": "word",
     "named": true
+  },
+  {
+    "type": "|",
+    "named": false
   }
 ]

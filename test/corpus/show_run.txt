@@ -1,0 +1,43 @@
+==============================
+OP: Show Running Config Grouping
+==============================
+Router# show running-config
+hostname Router
+!
+interface GigabitEthernet0/1
+ description Link to LAN
+!
+Router# show ip int brief
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/1     192.168.1.1     YES manual up                    up
+Router#
+
+---
+
+(source_file
+  (ios_exec_segment
+    (show_command
+      (kw_show)
+      (show_running_config_command
+        execution: (kw_run)
+        output: (output_content))))
+  (ios_exec_segment
+    (show_command
+      (kw_show)
+      (show_ip_command
+        (kw_ip)
+        (show_ip_interface_command
+          (kw_interface)
+          (show_ip_interface_brief_command
+            execution: (kw_brief)
+            output: (ip_int_brief_output
+              (ip_int_brief_header)
+              (ip_int_brief_entry
+                interface: (interface_name)
+                address: (ipv4_address)
+                ok: (word)
+                method: (word)
+                status: (operational_status)
+                protocol: (operational_status))))))))
+  (ios_exec_segment
+    (generic_exec_command)))

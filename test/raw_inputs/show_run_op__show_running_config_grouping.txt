@@ -1,0 +1,10 @@
+R1# show running-config
+hostname R1
+!
+interface GigabitEthernet0/1
+ description Link to LAN
+!
+R1# show ip int brief
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/1     192.168.1.1     YES manual up                    up
+R1#

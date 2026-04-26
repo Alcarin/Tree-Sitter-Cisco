@@ -1,0 +1,29 @@
+==============================
+CFG: Advanced Interface Configuration
+==============================
+interface GigabitEthernet0/1
+ description User_Port
+ ip vrf forwarding TRUST
+ ip address 10.1.1.1 255.255.255.0
+ ip helper-address 10.2.2.2
+ no shutdown
+!
+
+---
+
+(config_file
+  (interface_block
+    (interface_name)
+    (description_config
+      (text
+        (word)))
+    (interface_vrf_forwarding
+      (word))
+    (ip_address_config
+      (ipv4_address)
+      (number)
+      (word))
+    (interface_helper_address
+      (ipv4_address))
+    (interface_shutdown)
+    (comment)))

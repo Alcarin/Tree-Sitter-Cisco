@@ -1,0 +1,38 @@
+==============================
+CFG: Basic Configuration
+==============================
+hostname Router
+!
+interface GigabitEthernet0/1
+ description Customer Link
+ ip address 192.168.1.1 255.255.255.0
+!
+router ospf 1
+ network 192.168.1.0 0.0.0.255 area 0
+!
+
+---
+
+(config_file
+  (system_config
+    (hostname_config
+      name: (word)))
+  (comment)
+  (interface_block
+    name: (interface_name)
+    (description_config
+      text: (text
+        (word)
+        (word)))
+    (ip_address_config
+      address: (ipv4_address)
+      mask: (number)
+      option: (word))
+    (comment))
+  (ospf_block
+    process_id: (number)
+    (ospf_network
+      network: (ipv4_address)
+      wildcard: (ipv4_address)
+      area: (number))
+    (comment)))

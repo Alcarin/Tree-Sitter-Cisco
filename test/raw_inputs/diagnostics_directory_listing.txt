@@ -1,0 +1,5 @@
+R1# dir flash:
+Directory of flash:/
+  1  -rw-  12345678  Jan 1 2026 12:00:00  ios.bin
+12345678 bytes total (87654321 bytes free)
+R1#

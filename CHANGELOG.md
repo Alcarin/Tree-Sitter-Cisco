@@ -8,15 +8,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-
-- Structured support for `show interface status` operational command.
-- Structured support for `show interfaces` command with detailed counters (MTU, BW, Rates, Packets, Errors).
+- **Monorepo Architecture**: Created `cisco-config/` package for high-performance static configuration parsing.
+- **Command Tree Architecture (CTA)**: Rebuilt the operational grammar to mirror Cisco CLI's hierarchical structure (Branch & Leaf pattern).
+- **Language Injections**: Automated delegation of `show running-config` blocks to the configuration parser via `queries/injections.scm`.
+- **Structured Operational Support**: Added detailed parsing for `show interface status` and `show interfaces` with full counter mapping.
+- **Tooling**: Introduced `scripts/trace_analyzer.js` and `scripts/safe-run.js` for enhanced debugging and robust testing.
+- **MCP Integration**: Added Model Context Protocol SDK for extended agentic capabilities.
+- Strong keyword tokens with high precedence (100) and common CLI abbreviations.
+- Structured output parsing for `show ip interface brief`.
 - Renamed internal `interface_status_entry` to `interface_status_detail` for better naming consistency.
 - New test suite for operational interface commands and statistics.
 
-### Fixed
+### Changed
+- **Grammar Bifurcation**: Refactored `grammar.js` to focus on interactive executive sessions, offloading backup-style configs to the new package.
+- **External Scanner**: Refactored `scanner.c` to prioritize Output State Machine (Semaforo) at the Beginning of Line (BOL).
+- **Primitive Consolidation**: Moved shared base rules to `rules/common/primitives.js`.
+- **Test Infrastructure**: Standardized test execution with split scripts for operational and configuration modes.
+- **Corpus Migration**: Reorganized 15+ corpus files to align with the new dual-parser structure.
+- Fixed prompt detection in the scanner to ensure reliable output sentinel emission (`OUTPUT_START`, `OUTPUT_END`).
+- Improved `CONTRIBUTING_GRAMMAR.md` with detailed CTA implementation guidelines and examples.
+- Applied negative dynamic precedence to fallback `command` rule to resolve ambiguity with structured tables.
 
+### Fixed
 - **Go Bindings**: Added missing CGO directives to include `parser.c` and `scanner.c`, resolving "undefined reference" errors during link-time.
+- Fixed parser failure at EOF due to missing empty prompt handling.
+- Resolved "Tug-of-War" conflicts between interface names and generic command triggers.
 
 ## [0.1.0] - 2026-04-13
 

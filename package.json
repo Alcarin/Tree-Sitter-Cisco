@@ -7,8 +7,14 @@
   "scripts": {
     "install": "node-gyp-build",
     "prebuildify": "prebuildify --napi --strip",
-    "test": "tree-sitter test",
-    "sync-metadata": "node scripts/sync-metadata.js"
+    "test": "npm run test:operational && npm run test:config",
+    "test:operational": "node scripts/safe-run.js tree-sitter test",
+    "test:config": "cd cisco-config && node ../scripts/safe-run.js tree-sitter test",
+    "test:update": "node scripts/safe-run.js tree-sitter test -u && cd cisco-config && node ../scripts/safe-run.js tree-sitter test -u",
+    "build": "node scripts/safe-run.js tree-sitter generate",
+    "build:config": "cd cisco-config && node ../scripts/safe-run.js tree-sitter generate",
+    "sync-metadata": "node scripts/sync-metadata.js",
+    "debug-server": "node scripts/trace_analyzer.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +43,7 @@
     }
   },
   "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "nan": "^2.20.0",
     "prebuildify": "^6.0.0",
     "tree-sitter-cli": "^0.26.8"

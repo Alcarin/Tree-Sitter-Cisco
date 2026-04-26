@@ -1,0 +1,29 @@
+==============================
+CFG: Layer 2 Switching Details
+==============================
+interface FastEthernet0/24
+ switchport mode access
+ switchport access vlan 10
+!
+interface GigabitEthernet0/1
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+!
+
+---
+
+(config_file
+  (interface_block
+    (interface_name)
+    (switchport_config
+      (word))
+    (switchport_config
+      (number))
+    (comment))
+  (interface_block
+    (interface_name)
+    (switchport_config
+      (word))
+    (switchport_config
+      (vlan_list))
+    (comment)))
