@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Structured Operational Support**: Added detailed parsing for `show interface status` and `show interfaces` with full counter mapping.
 - **Tooling**: Introduced `scripts/trace_analyzer.js` and `scripts/safe-run.js` for enhanced debugging and robust testing.
 - **MCP Integration**: Added Model Context Protocol SDK for extended agentic capabilities.
+- **Modular External Scanner**: Refactored `scanner.c` into a modular architecture (`src/scanner/*.h`) for improved maintainability and logical isolation of networking, prompts, and output states.
+- **Dual-Entry Symbol Management**: Implemented dynamic prefixing for external scanner symbols, resolving linker conflicts in the dual-parser monorepo structure.
 - Strong keyword tokens with high precedence (100) and common CLI abbreviations.
 - Structured output parsing for `show ip interface brief`.
 - Renamed internal `interface_status_entry` to `interface_status_detail` for better naming consistency.
@@ -24,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **External Scanner**: Refactored `scanner.c` to prioritize Output State Machine (Semaforo) at the Beginning of Line (BOL).
 - **Primitive Consolidation**: Moved shared base rules to `rules/common/primitives.js`.
 - **Test Infrastructure**: Standardized test execution with split scripts for operational and configuration modes.
+- **Scanner Architecture**: Migrated from a monolithic `scanner.c` to a header-based modular design.
 - **Corpus Migration**: Reorganized 15+ corpus files to align with the new dual-parser structure.
 - Fixed prompt detection in the scanner to ensure reliable output sentinel emission (`OUTPUT_START`, `OUTPUT_END`).
 - Improved `CONTRIBUTING_GRAMMAR.md` with detailed CTA implementation guidelines and examples.
@@ -33,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Go Bindings**: Added missing CGO directives to include `parser.c` and `scanner.c`, resolving "undefined reference" errors during link-time.
 - Fixed parser failure at EOF due to missing empty prompt handling.
 - Resolved "Tug-of-War" conflicts between interface names and generic command triggers.
+- **MSVC Compatibility**: Suppressed `_CRT_SECURE_NO_WARNINGS` and fixed `getenv` safety warnings in the external scanner.
+- **Token Alignment**: Fixed index mismatch in `cisco-config/grammar.js` that caused erroneous IP/Subnet mask parsing.
 
 ## [0.1.0] - 2026-04-13
 

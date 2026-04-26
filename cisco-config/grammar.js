@@ -33,7 +33,7 @@ module.exports = grammar({
     $._indent,             // 0
     $._dedent,             // 1
     $._newline_ext,        // 2
-    $._output_content_ext, // 3 (OUTPUT_BLOCK_CONTENT) - Non usato qui ma serve per il contratto
+    $._output_content_ext, // 3
     $._prompt_exec,        // 4
     $._prompt_config_ext,  // 5
     $._error_marker,       // 6
@@ -44,11 +44,13 @@ module.exports = grammar({
     $._banner_delimiter,   // 11
     $._banner_body,        // 12
     $._output_start_ext,   // 13
-    $._output_none_ext,    // 14
-    $.subnet_mask,         // 15
-    $.wildcard_mask,       // 16
-    $.invalid_ip,          // 17
-    $._banner_trigger,     // 18
+    $._output_continue_ext,// 14
+    $._output_end_ext,     // 15
+    $._output_none_ext,    // 16
+    $.subnet_mask,         // 17
+    $.wildcard_mask,       // 18
+    $.invalid_ip,          // 19
+    $._banner_trigger,     // 20
   ],
 
   rules: {
